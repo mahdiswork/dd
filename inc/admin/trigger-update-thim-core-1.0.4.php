@@ -26,10 +26,10 @@ function thim_eduma_inject_update_new_thim_core( $value ) {
 
 	$value->response['thim-core/thim-core.php'] = (object) array(
 		'slug'        => 'thim-core',
-		'new_version' => '2.0.8',
-		'url'         => 'https://thimpresswp.github.io/thim-core/',
-		'package'     => 'https://thimpresswp.github.io/thim-core/thim-core.zip',
-		'tested'      => '5.9',
+		'new_version' => '1.0.6',
+		'url'         => 'https://foobla.bitbucket.io/thim-core/',
+		'package'     => 'https://foobla.bitbucket.io/thim-core/dist/thim-core.zip',
+		'tested'      => '4.7.3',
 	);
 
 	return $value;

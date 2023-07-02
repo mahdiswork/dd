@@ -1,8 +1,16 @@
 <?php
-$number_post = isset( $instance['number_post'] ) ? $instance['number_post'] : 4;
-$columns     = isset( $instance['columns'] ) ? $instance['columns'] : 4;
-$pagination  = isset( $instance['show_pagination'] ) && ( ! empty( $instance['show_pagination'] ) && $instance['show_pagination'] == 'yes' ) ? 1 : 0;
-$class_demo  = isset( $instance['layout_demo_elegant'] ) && ( ! empty( $instance['layout_demo_elegant'] ) && $instance['layout_demo_elegant'] == 'yes' ) ? ' icon-image-hover' : '';
+$number_post = $instance['number_post'];
+$columns     = $instance['columns'] ? $instance['columns'] : 4;
+$pagination  = ( ! empty( $instance['show_pagination'] ) && $instance['show_pagination'] == 'no' ) ? 0 : 1;
+
+$css_animation = $instance['css_animation'];
+$css_animation = thim_getCSSAnimation( $css_animation );
+
+$layout_demo_elegant = $instance['layout_demo_elegant'];
+$class_demo = '';
+if ( $layout_demo_elegant != 'no' ) {
+    $class_demo = 'demo-elegant';
+}
 
 $our_team_args = array(
 	'posts_per_page'      => $number_post,
@@ -25,11 +33,11 @@ if ( $instance['cat_id'] && $instance['cat_id'] != 'all' ) {
 $our_team = new WP_Query( $our_team_args );
 $html     = $extral_url = '';
 if ( $our_team->have_posts() ) {
-	$html .= '<div class="wrapper-lists-our-team' . $class_demo . '">';
+	$html .= '<div class="wrapper-lists-our-team '. $class_demo .'' . $css_animation . '">';
 	if ( is_array( $instance['link'] ) ) {
 		$link       = $instance['link']['url'];
-		$extral_url = isset( $instance['link']['rel'] ) ? ' rel="nofollow"' : '';
-		$extral_url .= isset( $instance['link']['target'] ) ? ' target="_blank"' : '';
+		$extral_url = isset($instance['link']['rel']) ? ' rel="nofollow"' : '';
+		$extral_url .= isset($instance['link']['target']) ? ' target="_blank"' : '';
 	} else {
 		$link       = $instance['link'];
 		$extral_url = isset( $instance['nofollow'] ) ? ' rel="nofollow"' : '';
@@ -85,7 +93,48 @@ if ( $our_team->have_posts() ) {
 		$html .= '</div></div>';
 	endwhile;
 	$html .= '</div>';
- 
+
+	$html .= '<script type="text/javascript">';
+	$html .= 'jQuery(document).ready(function(){';
+	$html .= '"use strict";';
+	$html .= 'jQuery(".thim-carousel-wrapper").each(function() {
+				var item_visible = jQuery(this).data("visible") ? parseInt(
+					jQuery(this).data("visible")) : 4,
+					item_desktopsmall = jQuery(this).data("desktopsmall") ? parseInt(
+						jQuery(this).data("desktopsmall")) : item_visible,
+					itemsTablet = jQuery(this).data("itemtablet") ? parseInt(
+						jQuery(this).data("itemtablet")) : 2,
+					itemsMobile = jQuery(this).data("itemmobile") ? parseInt(
+						jQuery(this).data("itemmobile")) : 1,
+					pagination = !!jQuery(this).data("pagination"),
+					navigation = !!jQuery(this).data("navigation"),
+					autoplay = jQuery(this).data("autoplay") ? parseInt(
+						jQuery(this).data("autoplay")) : false,
+					navigation_text = (jQuery(this).data("navigation-text") &&
+						jQuery(this).data("navigation-text") === "2") ? [
+						"<i class=\"fa fa-long-arrow-left \"></i>",
+						"<i class=\"fa fa-long-arrow-right \"></i>",
+					] : [
+						"<i class=\"fa fa-chevron-left \"></i>",
+						"<i class=\"fa fa-chevron-right \"></i>",
+					];
+
+				jQuery(this).owlCarousel({
+					items            : item_visible,
+					itemsDesktop     : [1200, item_visible],
+					itemsDesktopSmall: [1024, item_desktopsmall],
+					itemsTablet      : [768, itemsTablet],
+					itemsMobile      : [480, itemsMobile],
+					navigation       : navigation,
+					pagination       : pagination,
+					lazyLoad         : true,
+					autoPlay         : autoplay,
+					navigationText   : navigation_text
+				});
+			});';
+	$html .= '});';
+	$html .= '</script>';
+
 	$html .= '</div>';
 }
 

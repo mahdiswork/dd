@@ -41,7 +41,7 @@ if (
 
         <ol class="comment-list">
             <div class="comment-list-inner">
-                <h3 class="comments-title">
+                <h2 class="comments-title">
 					<?php
 					printf( _nx( '1 Comment', '%1$s Comments', get_comments_number(), 'comments title', 'eduma' ), number_format_i18n( get_comments_number() ) );
 					?>

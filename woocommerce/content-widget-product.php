@@ -40,7 +40,11 @@ $thim_custom_column = get_term_meta( $cat_id, 'thim_custom_column', true );
 if ( empty( $woocommerce_loop['loop'] ) ) {
 	$woocommerce_loop['loop'] = 0;
 }
- 
+
+// Store column count for displaying the grid
+if ( empty( $woocommerce_loop['columns'] ) ) {
+	$woocommerce_loop['columns'] = apply_filters( 'loop_shop_columns', 4 );
+}
 
 // Ensure visibility
 if ( ! $product || ! $product->is_visible() ) {
@@ -53,11 +57,15 @@ $column_product = 4;
 
 if ( '' != $thim_custom_column ) {
 	$column_product = 12 / $thim_custom_column;
-} elseif ( ! empty( $theme_options_data['thim_woo_product_column'] ) ) {
+} else {
+	if ( isset( $theme_options_data['thim_woo_product_column'] ) && '' != $theme_options_data['thim_woo_product_column'] ) {
 		$thim_custom_column = $theme_options_data['thim_woo_product_column'];
 		$column_product     = 12 / $theme_options_data['thim_woo_product_column'];
+	}
 }
-  
+if ( '2.4' == $column_product ) {
+	$column_product = 'col-5';
+}
 // Extra post classes
 $classes   = array();
 $classes[] = 'product-grid col-md-' . $column_product . ' col-sm-6 col-xs-6';

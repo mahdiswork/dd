@@ -549,12 +549,12 @@ if ( ! function_exists( 'thim_checkout_link_login_register' ) ) {
 		$redirect      = ( ! empty( $_SERVER['HTTPS'] ) ? "https" : "http" ) . '://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 		$link_login    = thim_get_login_page_url() . '?redirect_to=' . esc_attr( $redirect );
 		$link_register = thim_get_register_url() . '&redirect_to=' . esc_attr( $redirect );
-		if ( LearnPress::instance()->checkout()->is_enable_login() || LearnPress::instance()->checkout()->is_enable_register() ) {
+		if ( LP()->checkout()->is_enable_login() || LP()->checkout()->is_enable_register() ) {
 			echo '<div class="message message-notice">';
-			if ( LearnPress::instance()->checkout()->is_enable_login() ) {
+			if ( LP()->checkout()->is_enable_login() ) {
 				printf( __( 'You can <a href="%1$s">login</a> now. ', 'eduma' ), esc_url( $link_login ) );
 			}
-			if ( LearnPress::instance()->checkout()->is_enable_register() ) {
+			if ( LP()->checkout()->is_enable_register() ) {
 				printf( __( 'Don\'t have an account? Click <a href="%1$s">register now</a>', 'eduma' ), esc_url( $link_register ) );
 			}
 			echo '</div>';
@@ -773,13 +773,11 @@ if ( ! function_exists( 'thim_become_teacher_button' ) ) {
 	}
 }
 
-add_action( 'thim-lp-course-button-read-more', 'thim_button_read_more_course' );
-
 if ( ! function_exists( 'thim_courses_loop_item_thumbnail' ) ) {
 	function thim_courses_loop_item_thumbnail( $course = null ) {
 		$course         = LP_Global::course();
-		$archive_course = LP_Settings::instance()->get( 'archive_course_thumbnail' );
-		$size           = LP_Settings::instance()->get( 'course_thumbnail_image_size' );
+		$archive_course = LP()->settings->get( 'archive_course_thumbnail' );
+		$size           = LP()->settings->get( 'course_thumbnail_image_size' );
 		if ( $archive_course == "yes" ) {
 			if ( isset( $size['width'] ) && $size['width'] ) {
 				$with_thumbnail = $size['width'];
@@ -801,8 +799,7 @@ if ( ! function_exists( 'thim_courses_loop_item_thumbnail' ) ) {
 			echo thim_get_feature_image( get_post_thumbnail_id( $course->get_id() ), 'full', $with_thumbnail, $height_thumbnail, $course->get_title() );
 			echo '</a>';
 			do_action( 'thim_inner_thumbnail_course' );
-			// add button read more
-			do_action( 'thim-lp-course-button-read-more' );
+			echo '<a class="course-readmore" href="' . esc_url( get_the_permalink( $course->get_id() ) ) . '" >' . esc_html__( 'Read More', 'eduma' ) . '</a>';
 			echo '</div>';
 		}
 	}

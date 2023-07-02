@@ -33,7 +33,7 @@ $events = new WP_Query( $query_args );
 
 $item_visible = $instance['number_posts_slider'];
 if ( $events->have_posts() ) {
-	echo '<div class="thim-list-event list-event-' . $instance['layout'] . '">';
+	echo '<div class="list-event-' . $instance['layout'] . '">';
 	if ( $instance['title'] || $instance['sub_title'] ) {
 		echo '<div class="event-widget-title">';
 		if ( $instance['title'] ) {
@@ -69,16 +69,16 @@ if ( $events->have_posts() ) {
 					<a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"> <?php echo get_the_title(); ?></a>
 				</h5>
 				<?php
-				echo '<div class="meta">';
+				echo '<div class="event-meta">';
 				if ( $time_from || $time_end ) {
-					echo '<span class="time-from-end"><i class="tk tk-clock"></i>' . $time_from . ' - ' . $time_end . '</span>';
+					echo '<span class="time-from-end"><i class="las la-clock"></i>' . $time_from . ' - ' . $time_end . '</span>';
 				}
 				if ( $location ) {
-					echo '<span class="location"><i class="tk tk-map-marker"></i>' . $location . '</span>';
+					echo '<span class="location"><i class="las la-map"></i>' . $location . '</span>';
 				}
 				echo '</div>';
 				?>
-				<div class="description">
+				<div class="desc">
 					<?php echo thim_excerpt( 15 ); ?>
 				</div>
 				<a class="link-event"
@@ -90,6 +90,10 @@ if ( $events->have_posts() ) {
 	}
 	echo '</div>';
 	echo '</div></div>';
+
+	if ( $instance['text_link'] != '' ) {
+		echo '<a class="view-all" href="' . esc_url( $link ) . '">' . $instance['text_link'] . '</a>';
+	}
 
 	echo '</div>';
 }

@@ -52,10 +52,16 @@ $class .= ' lpr_course';
 			//do_action( 'learn_press_before_the_title' );
 			the_title( sprintf( '<h2 class="course-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' );
 			do_action( 'learn_press_after_the_title' );
-
-			do_action( 'learnpress_loop_item_course_meta' );
 			?>
-		  
+			<div class="course-meta">
+				<?php learn_press_courses_loop_item_instructor(); ?>
+				<?php thim_course_ratings(); ?>
+				<?php learn_press_get_template( 'loop/course/students.php' ); ?>
+				<?php thim_course_ratings_count(); ?>
+				<?php //learn_press_course_tags(); ?>
+				<?php learn_press_courses_loop_item_price(); ?>
+			</div>
+
 			<?php if ( $course_item_excerpt_length ): ?>
 				<div class="course-description">
 					<?php
@@ -66,7 +72,7 @@ $class .= ' lpr_course';
 				</div>
 			<?php endif; ?>
 
-			<?php do_action('learnpress_loop_item_price'); ?>
+			<?php learn_press_courses_loop_item_price(); ?>
 			<div class="course-readmore">
 				<a href="<?php echo esc_url( get_permalink() ); ?>"><?php esc_html_e( 'Read More', 'eduma' ); ?></a>
 			</div>

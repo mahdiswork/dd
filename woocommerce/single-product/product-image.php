@@ -39,7 +39,24 @@ if ( $product->get_image_id() ) {
 	$image            = get_the_post_thumbnail( $post->ID, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ), array(
 		'title' => $image_title
 	) );
-	$product_thumbnail            = apply_filters( 'woocommerce_single_product_image_html', sprintf( '<a href="%s" class="thim-image-popup" title="%s" data-elementor-open-lightbox="no">%s</a>', esc_url( $image_link ), esc_attr( $image_title ), $image ), $post->ID );
+	$attachment_count = count( $product->get_gallery_image_ids() );
+
+	if ( $attachment_count > 0 ) {
+		$gallery = '[product-gallery]';
+	} else {
+		$gallery = '';
+	}
+
+	list( $magnifier_url, $magnifier_width, $magnifier_height ) = wp_get_attachment_image_src( get_post_thumbnail_id(), "shop_single" );
+
+	$product_variations_thumbnail = '';
+	echo '<div class="images product_variations_image hide">';
+
+	$product_thumbnail            = apply_filters( 'woocommerce_single_product_image_html', sprintf( '<a href="%s" itemprop="image" class="thim-image-popup woocommerce-main-image zoom" title="%s" data-rel="prettyPhoto' . $gallery . '">%s</a>', esc_url( $image_link ), esc_attr( $image_title ), $image ), $post->ID );
+	$product_variations_thumbnail = apply_filters( 'woocommerce_single_product_image_html', sprintf( '<a href="%s" itemprop="image" class="thim-image-popup" title="%s" style="">%s</a>', esc_url( $image_link ), esc_attr( $image_title ), $image ), $post->ID );
+
+	echo ent2ncr($product_variations_thumbnail);
+	echo '</div>';
 }
 wp_enqueue_script( 'flexslider' );
 wp_enqueue_script( 'magnific-popup');
@@ -67,7 +84,7 @@ wp_enqueue_script( 'magnific-popup');
 			$image_class = esc_attr( implode( ' ', $classes ) );
 			$image_title = esc_attr( get_the_title( $attachment_id ) );
 			echo '<li class="woocommerce-product-gallery__image">';
-			echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<a href="%s" class="thim-image-popup" title="%s" data-elementor-open-lightbox="no">%s</a>', esc_url( $image_link ), esc_attr( $image_title ), $image ), $post->ID );
+			echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<a href="%s" itemprop="image" class="thim-image-popup woocommerce-main-image zoom" title="%s" data-rel="prettyPhoto' . $gallery . '">%s</a>', esc_url( $image_link ), esc_attr( $image_title ), $image ), $post->ID );
 			echo '</li>';
 			$loop ++;
 		} ?>

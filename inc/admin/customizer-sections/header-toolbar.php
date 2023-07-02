@@ -39,69 +39,13 @@ thim_customizer()->add_field(
 		'priority'  => 20,
 		'default'   => array(
 			'font-size'      => '12px',
-			'line-height'    => '30px',
- 			'text-transform' => 'none',
-		),
- 		'transport' => 'postMessage',
-		'js_vars'   => array(
-			array(
-				'choice'   => 'line-height',
-				'element'  => '#toolbar',
-				'property' => 'line-height',
-			),
-			array(
-				'choice'   => 'text-transform',
-				'element'  => '#toolbar',
-				'property' => 'text-transform',
-			),
-			array(
-				'choice'   => 'font-size',
-				'element'  => '#toolbar',
-				'property' => 'font-size',
-			),
-		),
-		'active_callback' => array(
-			array(
-				'setting'  => 'thim_toolbar_show',
-				'operator' => '===',
-				'value'    => true,
-			),
-		),
-	)
-);
-
-thim_customizer()->add_field(
-	array(
-		'type'      => 'select',
-		'id'        => 'thim_toolbar_font_weight',
-		'section'   => 'header_toolbar',
-		'label'     => esc_html__( 'Fonts Weight', 'eduma' ),
-		'default'   => '600',
-		'priority'  => 20,
-		'choices'   => array(
-			'100' => '100',
-			'200' => '200',
-			'300' => '300',
-			'400' => '400',
-			'500' => '500',
-			'600' => '600',
-			'700' => '700',
-			'800' => '800',
-			'900' => '900',
 		),
 		'transport' => 'postMessage',
 		'js_vars'   => array(
 			array(
+				'choice'   => 'font-size',
 				'element'  => '#toolbar',
-				'function' => 'css',
-				'property' => 'font-weight',
-			),
-		),
-		'active_callback' => array(
-			array(
-				'setting'  => 'thim_toolbar_show',
-				'operator' => '===',
-				'value'    => true,
+				'property' => 'font-size',
 			),
 		),
 	)
@@ -128,14 +72,7 @@ thim_customizer()->add_field(
 							',
 				'property' => 'background-color',
 			)
-		),
-		'active_callback' => array(
-				array(
-					'setting'  => 'thim_toolbar_show',
-					'operator' => '===',
-					'value'    => true,
-				),
-			),
+		)
 	)
 );
 
@@ -159,14 +96,7 @@ thim_customizer()->add_field(
 				'element'  => '#toolbar .widget_form-login .thim-link-login a:first-child:not(:last-child)',
 				'property' => 'border-right-color',
 			)
-			),
-			'active_callback' => array(
-				array(
-					'setting'  => 'thim_toolbar_show',
-					'operator' => '===',
-					'value'    => true,
-				),
-			),
+		)
 	)
 );
 
@@ -186,14 +116,7 @@ thim_customizer()->add_field(
 				'element'  => '#toolbar a, #toolbar span.value',
 				'property' => 'color',
 			)
-			),
-			'active_callback' => array(
-				array(
-					'setting'  => 'thim_toolbar_show',
-					'operator' => '===',
-					'value'    => true,
-				),
-			),
+		)
 	)
 );
 
@@ -213,14 +136,7 @@ thim_customizer()->add_field(
                 'element'  => '#toolbar a:hover, #toolbar .widget_nav_menu .menu > li > a:hover',
                 'property' => 'color',
             )
-			),
-			'active_callback' => array(
-				array(
-					'setting'  => 'thim_toolbar_show',
-					'operator' => '===',
-					'value'    => true,
-				),
-			),
+        )
     )
 );
 
@@ -235,62 +151,6 @@ thim_customizer()->add_field(
 		'choices'  => array(
 			true  => esc_html__( 'On', 'eduma' ),
 			false => esc_html__( 'Off', 'eduma' ),
-		),
-		'active_callback' => array(
-			array(
-				'setting'  => 'thim_toolbar_show',
-				'operator' => '===',
-				'value'    => true,
-			),
-		),
-	)
-);
-
-thim_customizer()->add_field(
-	array(
-		'id'       => 'thim_toolbar_border_type',
-		'type'     => 'select',
-		'label'    => esc_html__( 'Select border type', 'eduma' ),
- 		'section'  => 'header_toolbar',
-		'priority' => 40,
-		'default'  => 'dashed',
-		'choices'  => array(
-			'dotted '   => esc_html__( 'Dotted ', 'eduma' ),
-			'dashed '   => esc_html__( 'Dashed ', 'eduma' ),
-			'solid '    => esc_html__( 'Solid ', 'eduma' ),
-			'double  '  => esc_html__( 'Double  ', 'eduma' ),
- 		),
-		 'transport' => 'postMessage',
-		'active_callback' => array(
-			array(
-				'setting'  => 'thim_toolbar_show_border',
-				'operator' => '===',
-				'value'    => true,
-			),
-		),
-	)
-);
-thim_customizer()->add_field(
-	array(
-		'id'          => 'thim_toolbar_border_size',
-		'type'        => 'dimension',
-		'label'       => esc_html__( 'Border size', 'eduma' ),
-		'tooltip'     => esc_html__( 'Allows you to enter border size. Example: 1px', 'eduma' ),
-		'section'     => 'header_toolbar',
-		'default'     => '1px',
-		'priority'    => 40,
-		'choices'     => array(
-			'min'  => 1,
-			'max'  => 5,
-			'step' => 1,
-		),
-		'transport' => 'postMessage',
-		'active_callback' => array(
-			array(
-				'setting'  => 'thim_toolbar_show_border',
-				'operator' => '===',
-				'value'    => true,
-			),
 		),
 	)
 );

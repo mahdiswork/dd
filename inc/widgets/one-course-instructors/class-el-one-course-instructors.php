@@ -28,7 +28,7 @@ if ( ! class_exists( 'Thim_Builder_El_One_Course_Instructors' ) ) {
 		/**
 		 * Register controls.
 		 */
-		protected function register_controls() {
+		protected function _register_controls() {
 			$this->start_controls_section(
 				'el-one-course-instructors', [ 'label' => esc_html__( 'Thim: One Course Instructors', 'eduma' )]
 			);

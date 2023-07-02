@@ -1,5 +1,5 @@
 <?php
-$limit = isset( $instance['limit']) ? $instance['limit'] : 'all';
+
 $show_count   = isset( $instance['list-options']['show_counts'] ) ? $instance['list-options']['show_counts'] : 0;
 $hierarchical = isset( $instance['list-options']['hierarchical'] ) ? $instance['list-options']['hierarchical'] : true;
 $sub_categories = $instance['sub_categories'] ? '' : 0;
@@ -22,9 +22,7 @@ $cats = get_categories( $args_cat );
 
 ?>
 <ul>
-	<?php 
-	$i = 1;
-	foreach ( $cats as $category ) { ?>
+	<?php foreach ( $cats as $category ) { ?>
 		<li>
 			<a href="<?php echo esc_url( get_term_link( $category->term_id ) ); ?>"><?php echo $category->name; ?></a>
 			<?php
@@ -44,10 +42,6 @@ $cats = get_categories( $args_cat );
 				wp_list_categories( $args_cat_child );
 				echo '</ul>';
 			}
-			if ( $i == $limit && $limit !='all') {
-				break;
-			}
-			$i ++;
 			?>
 		</li>
 	<?php } ?>

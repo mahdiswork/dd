@@ -1,5 +1,4 @@
 <?php
-
 // remove action LP3 in child theme
 remove_action( 'thim-udemy-course-buttons', 'learn_press_course_external_button', 5 );
 remove_action( 'thim-udemy-course-buttons', 'learn_press_course_purchase_button', 10 );
@@ -18,8 +17,8 @@ remove_action( 'learn-press/course-info-right', 'thim_udemy_course_wishlist', 25
 
 if ( ! function_exists( 'thim_remove_learnpress_hooks_udemy_child' ) ) {
 	function thim_remove_learnpress_hooks_udemy_child() {
-		add_action( 'learn-press/course-info-right', LearnPress::instance()->template( 'course' )->func( 'user_progress' ), 19 );
-		remove_action( 'thim_single_course_meta', LearnPress::instance()->template( 'course' )->func( 'user_progress' ), 30 );
+		add_action( 'learn-press/course-info-right', LP()->template( 'course' )->func( 'user_progress' ), 19 );
+		remove_action( 'thim_single_course_meta', LP()->template( 'course' )->func( 'user_progress' ), 30 );
 	}
 }
 add_action( 'after_setup_theme', 'thim_remove_learnpress_hooks_udemy_child', 20 );
@@ -29,8 +28,8 @@ if ( ! function_exists( 'thim_udemy_course_payment_v4' ) ) {
 		?>
 		<div class="course-payment">
 			<?php
-			LearnPress::instance()->template( 'course' )->course_pricing() ;
-			LearnPress::instance()->template( 'course' )->course_buttons(); ?>
+			LP()->template( 'course' )->course_pricing() ;
+			LP()->template( 'course' )->course_buttons(); ?>
 		</div>
 		<?php
 	}

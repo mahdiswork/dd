@@ -74,11 +74,6 @@ thim_customizer()->add_group( array(
 							'operator' => '===',
 							'value'    => 'image',
 						),
-						array(
-							'setting'  => 'thim_bg_upload',
-							'operator' => '!=',
-							'value'    => '',
-						),
 					),
 				),
 				array(
@@ -105,11 +100,6 @@ thim_customizer()->add_group( array(
 							'setting'  => 'thim_bg_boxed_type',
 							'operator' => '===',
 							'value'    => 'image',
-						),
-						array(
-							'setting'  => 'thim_bg_upload',
-							'operator' => '!=',
-							'value'    => '',
 						),
 					),
 				),
@@ -139,11 +129,6 @@ thim_customizer()->add_group( array(
 							'operator' => '===',
 							'value'    => 'image',
 						),
-						array(
-							'setting'  => 'thim_bg_upload',
-							'operator' => '!=',
-							'value'    => '',
-						),
 					),
 				),
 
@@ -172,11 +157,6 @@ thim_customizer()->add_group( array(
 							'setting'  => 'thim_bg_boxed_type',
 							'operator' => '===',
 							'value'    => 'image',
-						),
-						array(
-							'setting'  => 'thim_bg_upload',
-							'operator' => '!=',
-							'value'    => '',
 						),
 					),
 				),

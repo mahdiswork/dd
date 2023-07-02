@@ -22,22 +22,20 @@
 
 <?php do_action( 'thim_before_body' ); ?>
 <!-- Mobile Menu-->
- 
-    <div class="mobile-menu-wrapper">
-        <div class="mobile-menu-inner">
-            <div class="icon-wrapper">
-                <div class="menu-mobile-effect navbar-toggle close-icon" data-effect="mobile-effect">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </div>
+<div class="mobile-menu-wrapper">
+    <div class="mobile-menu-inner">
+        <div class="icon-wrapper">
+            <div class="menu-mobile-effect navbar-toggle close-icon" data-effect="mobile-effect">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </div>
-            <nav class="mobile-menu-container mobile-effect">
-                <?php get_template_part( 'inc/header/menu-mobile' ); ?>
-            </nav>
         </div>
+        <nav class="mobile-menu-container mobile-effect">
+			<?php get_template_part( 'inc/header/menu-mobile' ); ?>
+        </nav>
     </div>
- 
+</div>
 <div id="wrapper-container" class="wrapper-container">
     <div class="content-pusher">
         <header id="masthead" class="site-header affix-top<?php thim_header_class(); ?>">

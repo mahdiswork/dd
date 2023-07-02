@@ -92,7 +92,7 @@ if ( $posts_display->have_posts() ) :
 		$html .= apply_filters( 'thim_before_gallery_popup', '', get_the_ID() );
 		$html .= '<a class="thim-gallery-popup" href="#" data-id="' . get_the_ID() . '">';
         $html .= '<div class="info_post"><span class="inner-info">';
-        $html .= '<i class="fas fa-expand"></i> ' . get_the_title();
+        $html .= '<i class="ion-qr-scanner"></i> ' . get_the_title();
         $html .= '</span></div>';
         $html .= $img;
         $html .= '</a>';

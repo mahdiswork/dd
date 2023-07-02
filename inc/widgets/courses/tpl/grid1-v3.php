@@ -29,8 +29,8 @@ if ( $sort == 'category' && $instance['cat_id'] && $instance['cat_id'] != 'all' 
 }
 
 if ( $sort == 'popular' ) {
-	$post_in               = eduma_lp_get_popular_courses( $limit );
-	$condition['post__in'] = $post_in;
+    $post_in = eduma_lp_get_popular_courses( $limit );
+    $condition['post__in'] = $post_in;
 	$condition['orderby']  = 'post__in';
 }
 
@@ -51,7 +51,7 @@ if ( $the_query->have_posts() ) :
 	}
 	echo '<div class="grid-1">';
 	if ( $view_all_course && 'top' == $view_all_position ) {
-		echo '<a class="view-all-courses position-top" href="' . get_post_type_archive_link( 'lp_course' ) . '">' . esc_attr( $view_all_course ) . ' <i class="tk tk-arrow-right"></i></a>';
+		echo '<a class="view-all-courses position-top" href="' . get_post_type_archive_link( 'lp_course' ) . '">' . esc_attr( $view_all_course ) . ' <i class="lnr icon-arrow-right"></i></a>';
 	}
 	?>
 	<div class="thim-course-grid">
@@ -66,15 +66,11 @@ if ( $the_query->have_posts() ) :
 						<?php if ( class_exists( 'LP_Addon_Course_Review' ) ) { ?>
 							<?php $course_rate = learn_press_get_course_rate( get_the_ID() ); ?>
 							<div class="rate">
-								<i class="tk tk-star"></i>
-								<span
-									class="number_rate"><?php echo ( ! empty( $course_rate ) ) ? esc_html( round( $course_rate, 1 ) ) : 0; ?></span>
+								<i class="lnr icon-star"></i>
+								<span class="number_rate"><?php echo ( ! empty( $course_rate ) ) ? esc_html( round( $course_rate, 1 ) ) : 0; ?></span>
 							</div>
 						<?php } ?>
-						<?php
-						// only button read more
-						do_action( 'thim-lp-course-button-read-more' );
-						?>
+						<a class="course-readmore" href="<?php echo esc_url( get_the_permalink( get_the_ID() ) ); ?>"><?php echo esc_html__( 'Read More', 'eduma' ); ?></a>
 					</div>
 					<div class="thim-course-content">
 						<?php
@@ -86,9 +82,21 @@ if ( $the_query->have_posts() ) :
 							<div class="message message-warning learn-press-message coming-soon-message">
 								<?php esc_html_e( 'Coming soon', 'eduma' ) ?>
 							</div>
-						<?php else: 
-							do_action( 'learnpress_loop_item_course_meta' );
-						endif; ?>
+						<?php else: ?>
+							<div class="course-meta">
+								<?php learn_press_courses_loop_item_instructor(); ?>
+								<?php thim_course_ratings(); ?>
+								<?php learn_press_get_template( 'loop/course/students.php' );?>
+								<?php thim_course_ratings_count(); ?>
+								<?php learn_press_courses_loop_item_price(); ?>
+							</div>
+
+							<?php learn_press_courses_loop_item_price(); ?>
+						<?php endif; ?>
+
+						<div class="course-readmore">
+							<a href="<?php echo esc_url( get_permalink() ); ?>"><?php esc_html_e( 'Read More', 'eduma' ); ?></a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -98,7 +106,7 @@ if ( $the_query->have_posts() ) :
 	</div>
 	<?php
 	if ( $view_all_course && 'bottom' == $view_all_position ) {
-		echo '<div class="wrapper-bottom-view-courses"><a class="view-all-courses position-bottom" href="' . get_post_type_archive_link( 'lp_course' ) . '">' . esc_attr( $view_all_course ) . ' <i class="tk tk-arrow-right"></i></a></div>';
+		echo '<div class="wrapper-bottom-view-courses"><a class="view-all-courses position-bottom" href="' . get_post_type_archive_link( 'lp_course' ) . '">' . esc_attr( $view_all_course ) . ' <i class="lnr icon-arrow-right"></i></a></div>';
 	}
 	echo '</div>';
 

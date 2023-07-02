@@ -14,7 +14,7 @@ if ( $related->have_posts() ) {
 				?>
 				<div <?php post_class(); ?>>
 					<div class="category-posts clear">
-						<a href="<?php echo esc_url( get_the_permalink() ); ?>" title="<?php echo esc_attr( get_the_title() ); ?>"><?php echo thim_get_feature_image( get_post_thumbnail_id(), 'full', '300', '200' ); ?></a>
+						<?php echo thim_get_feature_image( get_post_thumbnail_id(), 'full', '300', '200' ); ?>
 						<div class="rel-post-text">
 							<h5>
 								<a href="<?php echo esc_url( get_the_permalink() ); ?>" title="<?php echo esc_attr( get_the_title() ); ?>"><?php the_title(); ?></a>

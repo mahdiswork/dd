@@ -44,7 +44,7 @@ $profile = LP_Profile::instance();
                 </div>
             </li>
 
-            <?php if ( LP_Settings::instance()->get( 'profile_publicity.courses' ) === 'yes' ) { ?>
+            <?php if ( LP()->settings()->get( 'profile_publicity.courses' ) === 'yes' ) { ?>
                 <li class="form-field">
                     <label for="my-courses"><?php _e( 'My courses', 'eduma' ); ?></label>
                     <div class="form-field-input">
@@ -55,7 +55,7 @@ $profile = LP_Profile::instance();
                 </li>
             <?php } ?>
 
-            <?php if ( LP_Settings::instance()->get( 'profile_publicity.quizzes' ) === 'yes' ) { ?>
+            <?php if ( LP()->settings()->get( 'profile_publicity.quizzes' ) === 'yes' ) { ?>
                 <li class="form-field">
                     <label for="my-quizzes"><?php _e( 'My quizzes', 'eduma' ); ?></label>
                     <div class="form-field-input">
@@ -86,5 +86,7 @@ $profile = LP_Profile::instance();
 
         <button type="submit" name="submit" id="submit"><?php _e( 'Save changes', 'eduma' ); ?></button>
     </div>
- 
+
+
+
 </form>

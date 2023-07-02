@@ -45,7 +45,15 @@ do_action( 'woocommerce_before_main_content' );
 
 <?php if ( have_posts() ) : ?>
 
- 
+	<?php
+	/**
+	 * woocommerce_before_shop_loop hook
+	 *
+	 * @hooked woocommerce_result_count - 20
+	 * @hooked woocommerce_catalog_ordering - 30
+	 */
+	//do_action( 'woocommerce_before_shop_loop' );
+	?>
 	<?php
 	if ( 'grid' != $shop_layout ) {
 
@@ -85,12 +93,7 @@ do_action( 'woocommerce_before_main_content' );
 		$class       = ( ! empty( $_COOKIE[ $cookie_name ] ) && 'grid-layout' == $_COOKIE[ $cookie_name ] ) ? 'thim-product-grid' : 'thim-product-list';
 
 		echo '<div id="thim-product-archive" class="' . $class . '">';
-		/**
-		 * woocommerce_before_shop_loop hook
-		 *
-		 * @hooked woocommerce_result_count - 20
-		 * @hooked woocommerce_catalog_ordering - 30
-		 */
+
 		do_action( 'woocommerce_before_shop_loop' );
 	}
 
@@ -131,13 +134,10 @@ do_action( 'woocommerce_before_main_content' );
 
 	<?php
 else:
-	/**
-	 * Hook: woocommerce_no_products_found.
-	 *
-	 * @hooked wc_no_products_found - 10
-	 */
-	do_action( 'woocommerce_no_products_found' );
-endif; ?>
+	?>
+	<?php wc_get_template( 'loop/no-products-found.php' ); ?>
+
+<?php endif; ?>
 <?php
 if ( 'grid' == $shop_layout ) {
 	//echo '</div>';

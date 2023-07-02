@@ -32,7 +32,7 @@ function thim_widget_group( $tabs ) {
 /**
  * Compile Sass from theme customize.
  */
-// add_filter( 'thim_core_config_sass', 'thim_theme_options_sass' );
+add_filter( 'thim_core_config_sass', 'thim_theme_options_sass' );
 
 function thim_theme_options_sass() {
 	$dir = THIM_DIR . 'assets/sass/';
@@ -150,9 +150,8 @@ if ( ! function_exists( 'thim_add_metabox_settings' ) ) {
 				'name'   => __( 'Background color opacity', 'thim-core' ),
 				'id'     => $prefix . 'bg_opacity',
 				'type'   => 'number',
-				'desc'	=> __( 'input color opacity: Ex: 0.1 ', 'thim-core' ),
 				'std'    => 1,
-				'step'   => '0.1',
+				'step'   => 'any',
 				'min'    => 0,
 				'max'    => 1,
 				'hidden' => array( $prefix . 'using_custom_heading', '!=', true ),
@@ -211,57 +210,102 @@ function thim_eduma_list_child_themes() {
 			'source'     => 'https://github.com/ThimPressWP/demo-data/raw/master/eduma/child-themes/eduma-child/eduma-child.zip',
 			'version'    => '1.0.0'
 		),
-		// 'eduma-child-kindergarten' => array(
-		// 	'name'       => 'Eduma Child Kindergarten',
-		// 	'slug'       => 'eduma-child-kindergarten',
-		// 	'screenshot' => 'https://plugins.thimpress.com/downloads/images/eduma-child-kindergarten.png',
-		// 	'source'     => 'https://github.com/ThimPressWP/demo-data/raw/master/eduma/child-themes/eduma-child-kindergarten/eduma-child-kindergarten.zip',
-		// 	'version'    => '1.1.0'
-		// ),
-		// 'eduma-child-udemy'        => array(
-		// 	'name'       => 'Eduma Child New Education',
-		// 	'slug'       => 'eduma-child-udemy',
-		// 	'screenshot' => 'https://updates.thimpress.com/wp-content/uploads/2019/08/eduma-demo-edume.jpg',
-		// 	'source'     => 'https://github.com/ThimPressWP/demo-data/raw/master/eduma/child-themes/eduma-child-udemy/eduma-child-udemy.zip',
-		// 	'version'    => '1.0.0'
-		// ),
-		// 'eduma-child-instructor'   => array(
-		// 	'name'       => 'Eduma Child New Instructor',
-		// 	'slug'       => 'eduma-child-instructor',
-		// 	'screenshot' => 'https://updates.thimpress.com/wp-content/uploads/2019/08/eduma-demo-instructor.jpg',
-		// 	'source'     => 'https://github.com/ThimPressWP/demo-data/raw/master/eduma/child-themes/eduma-child-instructor/eduma-child-instructor.zip',
-		// 	'version'    => '1.0.0'
-		// ),
+		'eduma-child-kindergarten' => array(
+			'name'       => 'Eduma Child Kindergarten',
+			'slug'       => 'eduma-child-kindergarten',
+			'screenshot' => 'https://plugins.thimpress.com/downloads/images/eduma-child-kindergarten.png',
+			'source'     => 'https://github.com/ThimPressWP/demo-data/raw/master/eduma/child-themes/eduma-child-kindergarten/eduma-child-kindergarten.zip',
+			'version'    => '1.1.0'
+		),
+		'eduma-child-udemy'        => array(
+			'name'       => 'Eduma Child New Education',
+			'slug'       => 'eduma-child-udemy',
+			'screenshot' => 'https://updates.thimpress.com/wp-content/uploads/2019/08/eduma-demo-edume.jpg',
+			'source'     => 'https://github.com/ThimPressWP/demo-data/raw/master/eduma/child-themes/eduma-child-udemy/eduma-child-udemy.zip',
+			'version'    => '1.0.0'
+		),
+		'eduma-child-instructor'   => array(
+			'name'       => 'Eduma Child New Instructor',
+			'slug'       => 'eduma-child-instructor',
+			'screenshot' => 'https://updates.thimpress.com/wp-content/uploads/2019/08/eduma-demo-instructor.jpg',
+			'source'     => 'https://github.com/ThimPressWP/demo-data/raw/master/eduma/child-themes/eduma-child-instructor/eduma-child-instructor.zip',
+			'version'    => '1.0.0'
+		),
 
-		// 'eduma-child-crypto'    => array(
-		// 	'name'       => 'Eduma Child Crypto',
-		// 	'slug'       => 'eduma-child-crypto',
-		// 	'screenshot' => 'https://updates.thimpress.com/wp-content/uploads/2019/10/eduma-demo-crypto.jpg',
-		// 	'source'     => 'https://github.com/ThimPressWP/demo-data/raw/master/eduma/child-themes/eduma-child-crypto/eduma-child-crypto.zip',
-		// 	'version'    => '1.0.0'
-		// ),
-		// 'eduma-child-new-art'   => array(
-		// 	'name'       => 'Eduma Child New Art',
-		// 	'slug'       => 'eduma-child-new-art',
-		// 	'screenshot' => 'https://updates.thimpress.com/wp-content/uploads/2019/10/eduma-demo-new-art.jpg',
-		// 	'source'     => 'https://github.com/ThimPressWP/demo-data/raw/master/eduma/child-themes/eduma-child-new-art/eduma-child-new-art.zip',
-		// 	'version'    => '1.0.0'
-		// ),
-		// 'eduma-child-kid-art'   => array(
-		// 	'name'       => 'Eduma Child Kid Art',
-		// 	'slug'       => 'eduma-child-kid-art',
-		// 	'screenshot' => 'https://updates.thimpress.com/wp-content/uploads/2019/10/eduma-demo-kid-art.jpg',
-		// 	'source'     => 'https://github.com/ThimPressWP/demo-data/raw/master/eduma/child-themes/eduma-child-kid-art/eduma-child-kid-art.zip',
-		// 	'version'    => '1.0.0'
-		// ),
-		// 'eduma-child-tech-camp' => array(
-		// 	'name'       => 'Eduma Child Tech Camp',
-		// 	'slug'       => 'eduma-child-tech-camps',
-		// 	'screenshot' => 'https://updates.thimpress.com/wp-content/uploads/2019/10/eduma-demo-tech-camp.jpg',
-		// 	'source'     => 'https://github.com/ThimPressWP/demo-data/raw/master/eduma/child-themes/eduma-child-tech-camp/eduma-child-tech-camps.zip',
-		// 	'version'    => '1.0.0'
-		// ),
+		'eduma-child-crypto'    => array(
+			'name'       => 'Eduma Child Crypto',
+			'slug'       => 'eduma-child-crypto',
+			'screenshot' => 'https://updates.thimpress.com/wp-content/uploads/2019/10/eduma-demo-crypto.jpg',
+			'source'     => 'https://github.com/ThimPressWP/demo-data/raw/master/eduma/child-themes/eduma-child-crypto/eduma-child-crypto.zip',
+			'version'    => '1.0.0'
+		),
+		'eduma-child-new-art'   => array(
+			'name'       => 'Eduma Child New Art',
+			'slug'       => 'eduma-child-new-art',
+			'screenshot' => 'https://updates.thimpress.com/wp-content/uploads/2019/10/eduma-demo-new-art.jpg',
+			'source'     => 'https://github.com/ThimPressWP/demo-data/raw/master/eduma/child-themes/eduma-child-new-art/eduma-child-new-art.zip',
+			'version'    => '1.0.0'
+		),
+		'eduma-child-kid-art'   => array(
+			'name'       => 'Eduma Child Kid Art',
+			'slug'       => 'eduma-child-kid-art',
+			'screenshot' => 'https://updates.thimpress.com/wp-content/uploads/2019/10/eduma-demo-kid-art.jpg',
+			'source'     => 'https://github.com/ThimPressWP/demo-data/raw/master/eduma/child-themes/eduma-child-kid-art/eduma-child-kid-art.zip',
+			'version'    => '1.0.0'
+		),
+		'eduma-child-tech-camp' => array(
+			'name'       => 'Eduma Child Tech Camp',
+			'slug'       => 'eduma-child-tech-camps',
+			'screenshot' => 'https://updates.thimpress.com/wp-content/uploads/2019/10/eduma-demo-tech-camp.jpg',
+			'source'     => 'https://github.com/ThimPressWP/demo-data/raw/master/eduma/child-themes/eduma-child-tech-camp/eduma-child-tech-camps.zip',
+			'version'    => '1.0.0'
+		),
 	);
 }
 
 add_filter( 'thim_core_list_child_themes', 'thim_eduma_list_child_themes' );
+
+add_action( 'thim_core_activate_plugin', 'thim_eduma_deactivate_tp_event' );
+function thim_eduma_deactivate_tp_event( $plugin ) {
+	if ( $plugin != 'wp-events-manager/wp-events-manager.php' ) {
+		return;
+	}
+
+	if ( ! function_exists( 'get_plugin_data' ) ) {
+		require_once ABSPATH . '/wp-admin/includes/plugin.php';
+	}
+
+	$tp_event_plugins = array(
+		'tp-event-auth/tp-event-auth.php',
+		'tp-event/tp-event.php'
+	);
+
+	foreach ( $tp_event_plugins as $_plugin ) {
+		if ( is_multisite() ) {
+			deactivate_plugins( $_plugin, false, true );
+		} else {
+			deactivate_plugins( $_plugin, false, false );
+		}
+	}
+}
+
+add_action( 'admin_notices', 'thim_eduma_require_latest_thim_core_importer' );
+function thim_eduma_require_latest_thim_core_importer() {
+	if ( defined( 'THIM_CORE_VERSION' ) && version_compare( THIM_CORE_VERSION, '1.10.6', '<' ) ) {
+		$link = network_admin_url( 'update-core.php' );
+		?>
+		<div class="notice notice-error">
+			<p><?php echo __( '<strong>Important!</strong> This Eduma version requires Thim Core plugin 2.0.0 or higher, please go <a href="' . $link . '">here</a> and update the plugin.', 'eduma' ); ?></p>
+		</div>
+		<?php
+		Thim_Notification::add_notification(
+			array(
+				'id'          => '',
+				'type'        => 'error',
+				'content'     => sprintf( __( '<strong>Important!</strong> This Eduma version requires Thim Core plugin 2.0.0 or higher, please go <a href="%s">here</a> and update the plugin.', 'eduma' ), $link ),
+				'dismissible' => false,
+				'global'      => true,
+			)
+		);
+	}
+}

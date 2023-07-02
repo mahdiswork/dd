@@ -157,7 +157,23 @@ if ( ! class_exists( 'Thim_Builder_Config_Gallery_Images' ) ) {
 						esc_html__( 'Same window', 'eduma' ) => '_self',
 						esc_html__( 'New window', 'eduma' )  => '_blank',
 					),
-				)
+				),
+				//Animation
+				array(
+					'type'        => 'dropdown',
+					'heading'     => esc_html__( 'Animation', 'eduma' ),
+					'param_name'  => 'css_animation',
+					'admin_label' => true,
+					'value'       => array(
+						esc_html__( 'No', 'eduma' )                 => '',
+						esc_html__( 'Top to bottom', 'eduma' )      => 'top-to-bottom',
+						esc_html__( 'Bottom to top', 'eduma' )      => 'bottom-to-top',
+						esc_html__( 'Left to right', 'eduma' )      => 'left-to-right',
+						esc_html__( 'Right to left', 'eduma' )      => 'right-to-left',
+						esc_html__( 'Appear from center', 'eduma' ) => 'appear'
+					),
+					'description' => esc_html__( 'Select type of animation if you want this element to be animated when it enters into the browsers viewport. Note: Works only in modern browsers.', 'eduma' )
+				),
 			);
 		}
 

@@ -38,8 +38,6 @@ if ( $featured ) {
 	);
 }
 
-$condition = apply_filters( 'eduma/inc/widgets/courses/list-sidebar-v3/query_args', $condition );
-
 $the_query = new WP_Query( $condition );
 
 if ( $the_query->have_posts() ) :
@@ -69,7 +67,7 @@ if ( $the_query->have_posts() ) :
 							<?php esc_html_e( 'Coming soon', 'eduma' ) ?>
 						</div>
 					<?php else: ?>
-						<?php do_action('learnpress_loop_item_price'); ?>
+						<?php learn_press_courses_loop_item_price(); ?>
 					<?php endif; ?>
 				</div>
 			</div>

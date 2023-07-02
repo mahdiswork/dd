@@ -40,12 +40,12 @@ if ( ! class_exists( 'Thim_Builder_Config_List_Event' ) ) {
 			// options
 			return array(
 				array(
-					'type'                  => 'textfield',
-					'admin_label'           => true,
-					'heading'               => esc_html__( 'Title', 'eduma' ),
-					'param_name'            => 'title',
+					'type'        => 'textfield',
+					'admin_label' => true,
+					'heading'     => esc_html__( 'Title', 'eduma' ),
+					'param_name'  => 'title',
 					'allow_html_formatting' => true,
-					'value'                 => '',
+					'value'       => '',
 				),
 				array(
 					'type'       => 'textfield',
@@ -102,11 +102,11 @@ if ( ! class_exists( 'Thim_Builder_Config_List_Event' ) ) {
 				),
 
 				array(
-					'type'       => 'number',
-					'heading'    => esc_html__( 'Number events slider', 'eduma' ),
-					'param_name' => 'number_posts_slider',
-					'std'        => '2',
-					'dependency' => array(
+					'type'        => 'number',
+ 					'heading'     => esc_html__( 'Number events slider', 'eduma' ),
+					'param_name'  => 'number_posts_slider',
+					'std'         => '2',
+					'dependency'  => array(
 						'element' => 'layout',
 						'value'   => array( 'layout-5', 'layout-6' ),
 					),
@@ -125,16 +125,12 @@ if ( ! class_exists( 'Thim_Builder_Config_List_Event' ) ) {
 				),
 
 				array(
-					'type'                  => 'textfield',
-					'admin_label'           => true,
-					'heading'               => esc_html__( 'Text View All', 'eduma' ),
-					'param_name'            => 'text_link',
+					'type'        => 'textfield',
+					'admin_label' => true,
+					'heading'     => esc_html__( 'Text View All', 'eduma' ),
+					'param_name'  => 'text_link',
 					'allow_html_formatting' => true,
-					'std'                   => esc_html__( 'View All', 'eduma' ),
-					'dependency'            => array(
-						'element' => 'layout',
-						'value'   => array( 'base', 'layout-2', 'layout-3', 'layout-4' ),
-					),
+					'std'         => esc_html__( 'View All', 'eduma' ),
 				),
 			);
 		}

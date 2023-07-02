@@ -30,36 +30,40 @@ if ( post_password_required() ) {
  */
 
 do_action( 'learn-press/before-single-course' );
- 
-if ( thim_lp_style_single_course() == 'new-1'){
-	$width_sidebar = '9';
-}else{
-	$width_sidebar = '8';
+
+$thim_show_metadata = true;
+if ( class_exists( 'LP_Addon_Coming_Soon_Courses' ) ) {
+	$instance_addon = LP_Addon_Coming_Soon_Courses::instance();
+	if ( $instance_addon->is_coming_soon( get_the_ID() ) && 'no' == get_post_meta( get_the_ID(), '_lp_coming_soon_metadata', true ) ) {
+		$thim_show_metadata = false;
+	}
 }
 ?>
 
-<?php if (thim_lp_style_single_course() =='new-1' || thim_lp_style_single_course() =='layout_style_3') { ?>
+<?php if ( get_theme_mod( 'thim_layout_content_page', 'normal' ) == 'new-1' ) { ?>
 
 	<div class="content_course_2">
 
 		<div class="row">
 
-			<div class="col-md-<?php echo esc_attr($width_sidebar); ?> content-single">
-					<?php if (thim_lp_style_single_course() == 'new-1'){?>
+			<div class="col-md-9 content-single">
+
 					<div class="learnpress-content learn-press">
 
 						<div class="header_single_content">
-							<?php 
- 								do_action( 'thim_single_course_before_meta' );
-								if (thim_show_meta_course_coming_soon() ) { ?>
-									<div class="course-meta course-meta-single">
-										<?php do_action( 'thim_single_course_meta' ); ?>
-									</div>
-								<?php }
- 							?>
+
+							<span class="bg_header"></span>
+
+							<?php do_action( 'thim_single_course_before_meta' ); ?>
+							<?php if ( $thim_show_metadata ) { ?>
+							<div class="course-meta">
+								<?php do_action( 'thim_single_course_meta' ); ?>
+							</div>
+							<?php } ?>
 						</div>
+
 					</div>
-					<?php } ?>
+
 				<div class="course-summary">
 					<?php
 					/**
@@ -67,36 +71,21 @@ if ( thim_lp_style_single_course() == 'new-1'){
 					 *
 					 * @see   learn_press_single_course_summary()
 					 */
-					do_action( 'thim_lp_before_single_course_summary' );
-
 					learn_press_get_template( 'single-course/tabs/tabs-2.php' );
 
 					thim_landing_tabs();
 
 					?>
 				</div>
-
-				<?php
-					/**
-					 * @since 4.0.0
-					 *
-					 * @see   thim_learn_press_related_courses()
-					 */
-					do_action( 'thim_lp_after_single_course_summary' );
-				?>
+				<?php thim_related_courses(); ?>
 
 			</div>
 
-			<div id="sidebar" class="col-md-<?php echo esc_attr(12 - $width_sidebar); ?> sticky-sidebar">
+			<div id="sidebar" class="col-md-3 sticky-sidebar">
 
 				<div class="course_right">
 
-					<?php 
-					if ( thim_lp_style_single_course() == 'layout_style_3'){
-						do_action( 'thim_single_course_before_meta' );
-					}
-
-					LearnPress::instance()->template( 'course' )->func( 'user_progress' ); ?>
+					<?php LP()->template( 'course' )->func( 'user_progress' ); ?>
 
 					<div class="course-payment">
 
@@ -109,8 +98,25 @@ if ( thim_lp_style_single_course() == 'new-1'){
 
 					<?php do_action( 'thim_begin_curriculum_button' ); ?>
 
-					<?php do_action( 'thim_sidebar_menu_info_course' ); ?>
-					
+					<div class="menu_course">
+						<?php
+						$tabs = learn_press_get_course_tabs();
+						?>
+						<ul>
+							<?php foreach ( $tabs as $key => $tab ) { ?>
+								<li role="presentation">
+									<a href="#<?php echo esc_attr( $tab['id'] ); ?>" data-toggle="tab">
+										<?php
+										if ( $tab['icon'] ) {
+											echo '<i class="fa ' . $tab['icon'] . '"></i>';
+										}
+										?>
+										<span><?php echo $tab['title']; ?></span>
+									</a>
+								</li>
+							<?php } ?>
+						</ul>
+					</div>
 
 					<?php thim_course_forum_link(); ?>
 
@@ -133,8 +139,8 @@ if ( thim_lp_style_single_course() == 'new-1'){
 		<div class="course-info">
 			<?php the_title( '<h1 class="entry-title" itemprop="name">', '</h1>' ); ?>
 
-			<?php if ( thim_show_meta_course_coming_soon() ) { ?>
-				<div class="course-meta course-meta-single">
+			<?php if ( $thim_show_metadata ) { ?>
+				<div class="course-meta">
 					<?php do_action( 'thim_single_course_meta' ); ?>
 				</div>
 				<div class="course-payment">
@@ -160,16 +166,7 @@ if ( thim_lp_style_single_course() == 'new-1'){
 				</div>
 			</div>
 		</div>
-		<?php
-
-		/**
-		 * @since 4.0.0
-		 *
-		 * @see   thim_learn_press_related_courses()
-		 */
-		do_action( 'thim_lp_after_single_course_summary' );
-
-		?>
+		<?php thim_related_courses(); ?>
 	</div>
 
 <?php } ?>

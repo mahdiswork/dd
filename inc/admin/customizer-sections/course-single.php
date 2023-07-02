@@ -13,91 +13,6 @@ thim_customizer()->add_section(
 		'priority' => 15,
 	)
 );
-$callback_single ='';
-if(class_exists( 'Thim_EL_Kit' )){
-	$callback_single = array(
-		'setting'  => 'thim_ekits_single_course_tpl',
-		'operator' => '!=',
-		'value'    => 'ekits_tpl',
-	);
-
-	thim_customizer()->add_field(
-		array(
-			'id'       => 'thim_ekits_single_course_tpl',
-			'type'     => 'select',
-			'label'    => esc_html__( 'Template', 'eduma' ),
-  			'priority' => 11,
-			'default'  => '',
- 			'multiple' => 0,
-			'section'  => 'course_single',
-			'choices'  => array(
-				'' 			=> esc_html__( 'Theme Template', 'eduma' ),
-				'ekits_tpl' => esc_html__( 'ElementorKits Template', 'eduma' ),
-			),
-		)
-	);
-
-	thim_customizer()->add_field(
-		array(
-			'id'       => 'thim_desc_single_course_tpl',
-			'type'     => 'tp_notice',
- 			'description'=>  __('You can config and builder in <a href="'.admin_url('edit.php?post_type=thim_elementor_kit&thim_elementor_type=single-course').'" target="_blank"> Thim Elementor</a>','eduma'),
-			'section'  => 'course_single',
-			'priority' => 11,
-			'active_callback' => array(array(
-					'setting'  => 'thim_ekits_single_course_tpl',
-					'operator' => '===',
-					'value'    => 'ekits_tpl',
-				)
-			),
-		)
-	);
-}
-
-// Select All Content Page Layout
-thim_customizer()->add_field(
-	array(
-		'type'     => 'select',
-		'id'       => 'thim_layout_content_page',
-		'label'    => esc_html__( 'Single Course Layout', 'eduma' ),
-		'default'  => 'normal',
-		'section'  => 'course_single',
-		'priority' => 11,
-		'choices'  => array(
-			'normal'         => esc_html__( 'Default', 'eduma' ),
-			'new-1'          => esc_html__( 'Layout 1 - New Demo', 'eduma' ),
-			'layout_style_2' => esc_html__( 'Layout 2', 'eduma' ),
-			'layout_style_3' => esc_html__( 'Layout 3', 'eduma' ),
-		),
-		'active_callback' => array($callback_single),
-	)
-);
-
-thim_customizer()->add_field(
-	array(
-		'type'      => 'multicolor',
-		'id'        => 'top_info_course',
-		'label'     => esc_html__( 'Top infor Course Colors', 'thim-startertheme' ),
-		'section'   => 'course_single',
-		'priority'  => 11,
-		'choices'   => array(
-			'background_color' => esc_html__( 'Background Color', 'thim-startertheme' ),
-			'text_color'       => esc_html__( 'Text Color', 'thim-startertheme' ),
-		),
-		'default'   => array(
-			'background_color' => '#273044',
-			'text_color'       => '#fff',
- 		),
-		'transport' => 'postMessage',
-		'active_callback' => array(
-			array(
-				'setting'  => 'thim_layout_content_page',
-				'operator' => '==',
-				'value'    =>  'layout_style_3',
-			),
-			$callback_single),
-	)
-);
 
 thim_customizer()->add_field(
 	array(
@@ -113,15 +28,25 @@ thim_customizer()->add_field(
 			'full-content'  => THIM_URI . 'images/layout/body-full.jpg',
 			'sidebar-right' => THIM_URI . 'images/layout/sidebar-right.jpg',
 		),
-		'active_callback' => array(
-			array(
-				'setting'  => 'thim_layout_content_page',
-				'operator' => 'in',
-				'value'    => array('normal','layout_style_2'),
-			),
-			$callback_single),
 	)
 );
+
+//thim_customizer()->add_field(
+//	array(
+//		'type'     => 'select',
+//		'id'       => 'thim_learnpress_single_style_heading_title',
+//		'label'    => esc_html__( 'Style Heading title', 'eduma' ),
+//		'tooltip'  => esc_html__( 'Select style for Heading title.', 'eduma' ),
+//		'default'  => '',
+//		'priority' => 13,
+//		'multiple' => 0,
+//		'section'  => 'course_single',
+//		'choices'  => array(
+//			'style_heading_1' => esc_html__( 'Style Heading 1', 'eduma' ),
+//			'style_heading_2' => esc_html__( 'Style Heading 2', 'eduma' ),
+// 		),
+//	)
+//);
 
 // Enable or disable breadcrumbs
 thim_customizer()->add_field(
@@ -133,7 +58,6 @@ thim_customizer()->add_field(
 		'section'  => 'course_single',
 		'default'  => false,
 		'priority' => 15,
-		'active_callback' => array($callback_single),
 		'choices'  => array(
 			true  => esc_html__( 'On', 'eduma' ),
 			false => esc_html__( 'Off', 'eduma' ),
@@ -155,7 +79,6 @@ thim_customizer()->add_field(
 			true  => esc_html__( 'On', 'eduma' ),
 			false => esc_html__( 'Off', 'eduma' ),
 		),
-		'active_callback' => array($callback_single),
 	)
 );
 
@@ -167,7 +90,6 @@ thim_customizer()->add_field(
 		'tooltip'  => esc_html__( 'Allows you can setup sub heading.', 'eduma' ),
 		'section'  => 'course_single',
 		'priority' => 20,
-		'active_callback' => array($callback_single),
 	)
 );
 
@@ -180,7 +102,6 @@ thim_customizer()->add_field(
 		'transport' => 'postMessage',
 		'section'   => 'course_single',
 		'default'   => THIM_URI . "images/bg-page.jpg",
-		'active_callback' => array($callback_single),
 	)
 );
 
@@ -196,7 +117,6 @@ thim_customizer()->add_field(
 		'priority'  => 35,
 		'choices'   => array( 'alpha' => true ),
 		'transport' => 'postMessage',
-		'active_callback' => array($callback_single),
 		'js_vars'   => array(
 			array(
 				'choice'   => 'color',
@@ -218,7 +138,6 @@ thim_customizer()->add_field(
 		'priority'  => 40,
 		'choices'   => array( 'alpha' => true ),
 		'transport' => 'postMessage',
-		'active_callback' => array($callback_single),
 		'js_vars'   => array(
 			array(
 				'choice'   => 'color',
@@ -240,7 +159,6 @@ thim_customizer()->add_field(
 		'priority'  => 45,
 		'choices'   => array( 'alpha' => true ),
 		'transport' => 'postMessage',
-		'active_callback' => array($callback_single),
 		'js_vars'   => array(
 			array(
 				'choice'   => 'color',
@@ -250,6 +168,7 @@ thim_customizer()->add_field(
 		)
 	)
 );
+
 
 if ( class_exists( 'LP_Addon_Announcements_Preload' ) ) {
 	$course_tabs = apply_filters( 'thim_customize_course_tabs', array(
@@ -277,7 +196,6 @@ thim_customizer()->add_field(
 		'label'    => esc_html__( 'Sortable Tab Course', 'eduma' ),
 		'tooltip'  => esc_html__( 'Click on eye icons to show or hide buttons. Use drag and drop to change the position of tabs...', 'eduma' ),
 		'section'  => 'course_single',
-		'active_callback' => array($callback_single),
 		'priority' => 50,
 		'choices'  => $course_tabs,
 	)
@@ -291,7 +209,6 @@ thim_customizer()->add_field(
 		'tooltip'  => esc_html__( 'Select tab you want set to default', 'eduma' ),
 		'section'  => 'course_single',
 		'priority' => 50,
-		'active_callback' => array($callback_single),
 		'choices'  => $course_tabs,
 		'default'  => 'description',
 	)

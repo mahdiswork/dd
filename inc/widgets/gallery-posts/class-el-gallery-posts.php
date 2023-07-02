@@ -24,14 +24,11 @@ if ( ! class_exists( 'Thim_Builder_El_Gallery_Posts' ) ) {
 		 * @var string
 		 */
 		protected $config_class = 'Thim_Builder_Config_Gallery_Posts';
-		
-		protected function get_html_wrapper_class() {
-			return 'thim-widget-gallery-posts';
-		}
+
 		/**
 		 * Register controls.
 		 */
-		protected function register_controls() {
+		protected function _register_controls() {
 			$this->start_controls_section(
 				'el-gallery-posts', [ 'label' => esc_html__( 'Thim: Gallery Posts', 'eduma' )]
 			);

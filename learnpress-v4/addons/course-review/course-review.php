@@ -25,6 +25,10 @@ if ( $course_review['total'] ) {
 					<?php learn_press_course_review_template( 'loop-review.php', array( 'review' => $review ) ); ?>
 				<?php } ?>
 
+				<?php if ( empty( $course_review['finish'] ) ) { ?>
+					<li class="loading"><?php _e( 'Loading...', 'learnpress-course-review' ); ?></li>
+				<?php } ?>
+
 				<?php //_e( 'No review to load', 'learnpress-course-review' ); ?>
 			</ul>
 			<?php if ( empty( $course_review['finish'] ) ) { ?>

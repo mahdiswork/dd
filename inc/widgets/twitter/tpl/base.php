@@ -94,7 +94,7 @@ if ( $twitter_id && $number && $consumer_key && $consumer_secret && $access_toke
                             $latestTweet    = preg_replace( '/@([a-z0-9_]+)/i', '<a href="https://twitter.com/$1" target="_blank">@$1</a>', $latestTweet );
                             $latestTweet    = preg_replace( '/#([a-z0-9_]+)/i', '<a href="https://twitter.com/hashtag/$1" target="_blank">#$1</a>', $latestTweet );
                             ?>
-                            <div class="tweet-item col-sm-12">
+                            <div class="tweet-item">
                                 <div class="content">
                                     <?php echo ent2ncr( $latestTweet ); ?>
                                 </div>

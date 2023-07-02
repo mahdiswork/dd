@@ -790,32 +790,3 @@ thim_customizer()->add_field(
 		),
 	)
 );
-
-thim_customizer()->add_field(
-	array(
-		'id'        => 'thim_border_color',
-		'type'      => 'color',
-		'label'     => esc_html__( 'Border Color', 'eduma' ),
- 		'section'   => 'general_styling',
-		'priority'  => 10,
-		'choices' => array ('alpha'     => true),
-		'default'   => '#eee',
-		'transport' => 'postMessage',
- 	)
-); 
-// Enable or disable title
-thim_customizer()->add_field(
-	array(
-		'id'       => 'thim_content_course_border',
-		'type'     => 'switch',
-		'label'    => esc_html__( 'Border Radius', 'eduma' ),
- 		'section'  => 'general_styling',
-		'default'  => false,
-		'priority' => 13,
-		'choices'  => array(
-			true  => esc_html__( 'On', 'eduma' ),
-			false => esc_html__( 'Off', 'eduma' ),
-		),
-		 'tooltip'   => esc_html__( 'Enable border radius in some places (List Course, Button, Shop, Blog .....)', 'eduma' ),
-	)
-);

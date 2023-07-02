@@ -43,7 +43,12 @@ $thim_custom_column = get_term_meta( $cat_id, 'thim_custom_column', true );
 // Store loop count we're currently on
 if ( empty( $woocommerce_loop['loop'] ) ) {
 	$woocommerce_loop['loop'] = 0;
-} 
+}
+
+// Store column count for displaying the grid
+if ( empty( $woocommerce_loop['columns'] ) ) {
+	$woocommerce_loop['columns'] = apply_filters( 'loop_shop_columns', 4 );
+}
 
 // Increase loop count
 $woocommerce_loop['loop'] ++;
@@ -51,11 +56,19 @@ $column_product = 4;
 
 if ( '' != $thim_custom_column ) {
 	$column_product = 12 / $thim_custom_column;
-} elseif ( ! empty( $theme_options_data['thim_woo_product_column'] ) ) {
-	$thim_custom_column = $theme_options_data['thim_woo_product_column'];
-	$column_product     = 12 / $theme_options_data['thim_woo_product_column'];
+} else {
+	if ( ! empty( $woocommerce_loop['columns'] ) && ! is_post_type_archive( 'product' ) && ! defined( 'DOING_AJAX' ) ) {
+		$column_product = 12 / $woocommerce_loop['columns'];
+	} else {
+		if ( ! empty( $theme_options_data['thim_woo_product_column'] ) ) {
+			$thim_custom_column = $theme_options_data['thim_woo_product_column'];
+			$column_product     = 12 / $theme_options_data['thim_woo_product_column'];
+		}
+	}
 }
-
+if ( '2.4' == $column_product ) {
+	$column_product = 'col-5';
+}
 // Extra post classes
 $classes   = array();
 $classes[] = 'col-md-' . $column_product . ' col-sm-6 col-xs-6';
@@ -78,7 +91,7 @@ $classes[] = 'col-md-' . $column_product . ' col-sm-6 col-xs-6';
 				wp_enqueue_script( 'magnific-popup');
 				wp_enqueue_script( 'flexslider' );
 				wp_enqueue_script( 'wc-add-to-cart-variation' );
-				echo '<div class="quick-view" data-prod="' . esc_attr( get_the_ID() ) . '"><a href="javascript:;"><i class="tk tk-eye fa-fw"></i></a></div>';
+				echo '<div class="quick-view" data-prod="' . esc_attr( get_the_ID() ) . '"><a href="javascript:;"><i class="fa fa-search fa-fw"></i></a></div>';
 			}
 			?>
             <a href="<?php echo get_the_permalink(); ?>" class="link-images-product"></a>
@@ -87,8 +100,9 @@ $classes[] = 'col-md-' . $column_product . ' col-sm-6 col-xs-6';
 
         <div class="product__title">
             <a href="<?php echo get_the_permalink(); ?>" class="title"><?php the_title(); ?></a>
-
-			<div class="block-after-title">
+            <div class="description">
+				<?php echo apply_filters( 'woocommerce_short_description', thim_excerpt( 30 ) ); ?>
+            </div>
 			<?php
 			/**
 			 * woocommerce_after_shop_loop_item_title hook
@@ -98,10 +112,6 @@ $classes[] = 'col-md-' . $column_product . ' col-sm-6 col-xs-6';
 			 */
 			do_action( 'woocommerce_after_shop_loop_item_title' );
 			?>
-			</div>
-			  <div class="description">
-				<?php echo apply_filters( 'woocommerce_short_description', thim_excerpt( 30 ) ); ?>
-            </div>
 			<?php
 
 			/**

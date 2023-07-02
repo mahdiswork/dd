@@ -8,7 +8,7 @@
 thim_customizer()->add_section(
 	array(
 		'id'       => 'product_archive',
-		'panel'    => 'woocommerce',
+		'panel'    => 'product',
 		'title'    => esc_html__( 'Archive Pages', 'eduma' ),
 		'priority' => 10,
 	)

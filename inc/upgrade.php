@@ -230,13 +230,13 @@ if ( ! function_exists( 'thim_auto_updated_theme_mods_30' ) ) {
 		update_option( 'theme_mods_' . $theme_name, $theme_mods_option );
 
 		//Update menu meta
-		// thim_upgrade_post_meta_menu();
+		thim_upgrade_post_meta_menu();
 
 		//Update post meta thim_gallery
 		thim_upgrade_post_meta_gallery();
 
 		//upgrade data for megamenu
-		// thim_upgrade_megamenu_sidebar();
+		thim_upgrade_megamenu_sidebar();
 
 		//Auto compile sass
 		if ( function_exists( 'thim_compile_custom_css_theme' ) ) {

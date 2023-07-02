@@ -28,7 +28,7 @@ if ( ! class_exists( 'Thim_Builder_El_Timetable' ) ) {
 		/**
 		 * Register controls.
 		 */
-		protected function register_controls() {
+		protected function _register_controls() {
 			$this->start_controls_section(
 				'el-timetable', [ 'label' => esc_html__( 'Thim: Timetable', 'eduma' )]
 			);

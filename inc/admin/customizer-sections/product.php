@@ -7,9 +7,9 @@
 
 thim_customizer()->add_panel(
     array(
-        'id'       => 'woocommerce',
+        'id'       => 'product',
         'priority' => 44,
-        'title'    => esc_html__( 'WooCommerce', 'eduma' ),
+        'title'    => esc_html__( 'Products', 'eduma' ),
         'icon'     => 'dashicons-cart',
     )
 );

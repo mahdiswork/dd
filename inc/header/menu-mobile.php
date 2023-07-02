@@ -15,7 +15,7 @@
 	}
 	//sidebar menu_right
 
-	if ( is_active_sidebar( 'menu_right' ) && get_theme_mod( 'thim_header_style', 'header_v1' ) == 'header_v4'  ) {
+	if ( is_active_sidebar( 'menu_right' ) ) {
 		echo '<li class="menu-right ' . get_theme_mod( 'thim_header_style', 'header_v4' ) . '"><ul>';
 		dynamic_sidebar( 'menu_right' );
 		echo '</ul></li>';

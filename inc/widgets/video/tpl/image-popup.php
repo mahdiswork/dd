@@ -24,7 +24,7 @@ if ( $poster && ( isset( $instance['youtube_id'] ) || isset( $instance['external
 	<div class="thim-video-popup image-layout">
 		<img src="<?php echo $poster[0]; ?>" alt="<?php echo esc_attr( $alt ) ?>">
 		<div class="video-info">
-			<a class="button-popup" href="#<?php echo esc_attr( $popup_id ); ?>"><i class="tk tk-play"></i></a>
+			<a class="button-popup" href="#<?php echo esc_attr( $popup_id ); ?>"><i class="ion-ios-play"></i></a>
 		</div>
 		<div class="video-content mfp-hide" id="<?php echo esc_attr( $popup_id ); ?>">
 			<?php

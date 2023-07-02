@@ -28,7 +28,7 @@ if ( ! class_exists( 'Thim_Builder_El_Link' ) ) {
 		/**
 		 * Register controls.
 		 */
-		protected function register_controls() {
+		protected function _register_controls() {
 			$this->start_controls_section(
 				'el-link', [ 'label' => esc_html__( 'Thim: Link', 'eduma' )]
 			);

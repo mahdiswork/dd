@@ -65,7 +65,6 @@ if ( ! class_exists( 'Thim_Builder_Config_Image_Box' ) ) {
 					'value'       => '',
 					'description' => esc_html__( 'Provide the description for this box.', 'eduma' ),
 					'dependency' => array(
-						'element_el' => 'style',
 						'element' => 'layout',
 						'value'   => 'layout-2',
 					),
@@ -83,7 +82,6 @@ if ( ! class_exists( 'Thim_Builder_Config_Image_Box' ) ) {
 					'heading'     => esc_html__( 'Title Background Color', 'eduma' ),
 					'param_name'  => 'title_bg_color',
 					'dependency' => array(
-						'element_el' => 'style',
 						'element' => 'layout',
 						'value'   => 'layout-2',
 					),

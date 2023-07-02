@@ -15,14 +15,13 @@
 defined( 'ABSPATH' ) || exit;
 
 $template_path        = 'carousel-post/tpl/';
-$layout               = ( isset( $instance['layout'] ) && $instance['layout'] != '' ) ? $instance['layout'] : 'base';
+$layout = (isset( $instance['layout'] ) && $instance['layout'] !='') ? $instance['layout'] : 'base';
 $args                 = array();
 $args['before_title'] = '<h3 class="widget-title">';
 $args['after_title']  = '</h3>';
 
-?>
+ ?>
 <?php thim_builder_get_template( $layout, array(
-	'instance' => $instance,
-	'args'     => $args
-), $template_path );
-?>
+		'instance' => $instance,
+		'args'     => $args
+	), $template_path ); ?>

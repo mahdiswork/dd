@@ -48,8 +48,7 @@ if ( $posts_display->have_posts() ) {
 	}
 	?>
 	<div class="thim-owl-carousel-post thim-carousel-wrapper" data-visible="<?php echo esc_attr( $visible_post ); ?>"
-		 data-pagination="<?php echo esc_attr( $pagination ); ?>"
-		 data-navigation="<?php echo esc_attr( $navigation ); ?>" data-autoplay="<?php echo esc_attr( $autoplay ); ?>">
+	     data-pagination="<?php echo esc_attr( $pagination ); ?>" data-navigation="<?php echo esc_attr( $navigation ); ?>" data-autoplay="<?php echo esc_attr( $autoplay ); ?>">
 		<?php
 		//$index = 1;
 		while ( $posts_display->have_posts() ) :
@@ -78,7 +77,7 @@ if ( $posts_display->have_posts() ) {
 					</h4>
 				</div>
 			</div>
-		<?php
+			<?php
 			//$index ++;
 		endwhile;
 		?>

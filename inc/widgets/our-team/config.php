@@ -69,13 +69,17 @@ if ( ! class_exists( 'Thim_Builder_Config_Our_Team' ) ) {
 
                 array(
                     'type'        => 'checkbox',
-                    'heading'     => esc_html__( 'Icon Hover', 'eduma' ),
+                    'heading'     => esc_html__( 'Layout Demo Elegant', 'eduma' ),
                     'param_name'  => 'layout_demo_elegant',
                     'value'       => array(
                         esc_html__( 'Yes', 'eduma' ) => true,
                     ),
                     'std'         => true,
-                    'save_always' => true
+                    'save_always' => true,
+                    'dependency'  => array(
+                        'element' => 'layout',
+                        'value'   => 'slider',
+                    ),
                 ),
 
 				array(
@@ -151,6 +155,23 @@ if ( ! class_exists( 'Thim_Builder_Config_Our_Team' ) ) {
 					'heading'     => esc_html__( 'Enable Link To Member', 'eduma' ),
 					'param_name'  => 'link_member',
  					'std'         => false,
+				),
+
+				//Animation
+				array(
+					'type'        => 'dropdown',
+					'heading'     => esc_html__( 'Animation', 'eduma' ),
+					'param_name'  => 'css_animation',
+					'admin_label' => true,
+					'value'       => array(
+						esc_html__( 'No', 'eduma' )                 => '',
+						esc_html__( 'Top to bottom', 'eduma' )      => 'top-to-bottom',
+						esc_html__( 'Bottom to top', 'eduma' )      => 'bottom-to-top',
+						esc_html__( 'Left to right', 'eduma' )      => 'left-to-right',
+						esc_html__( 'Right to left', 'eduma' )      => 'right-to-left',
+						esc_html__( 'Appear from center', 'eduma' ) => 'appear'
+					),
+					'description' => esc_html__( 'Select type of animation if you want this element to be animated when it enters into the browsers viewport. Note: Works only in modern browsers.', 'eduma' )
 				),
 
 			);

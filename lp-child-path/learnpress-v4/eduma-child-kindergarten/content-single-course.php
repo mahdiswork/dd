@@ -30,7 +30,7 @@ do_action( 'learn_press_before_single_course' ); ?>
 	the_title( '<h1 class="entry-title" itemprop="name">', '</h1>' );
 	?>
 
-	<div class="course-meta course-meta-single">
+	<div class="course-meta">
 		<?php learn_press_course_instructor(); ?>
 		<?php learn_press_course_categories(); ?>
 	</div>

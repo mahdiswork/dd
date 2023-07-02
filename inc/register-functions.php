@@ -218,7 +218,7 @@ class ThimEdumaRegisterFunction {
 		if ( function_exists( 'LP' ) ) {
 			$newuserdata = get_userdata( $new_user_id );
 			//Check become an teacher option in register form
-			if ( LP_Settings::instance()->get( 'instructor_registration' ) == 'yes' && isset( $_POST['become_teacher'] ) ) {
+			if ( LP()->settings->get( 'instructor_registration' ) == 'yes' && isset( $_POST['become_teacher'] ) ) {
 				update_user_meta( $new_user_id, '_requested_become_teacher', 'yes' );
 				// Send email require become to teacher of user to Admin mail.
 				do_action(
@@ -522,7 +522,7 @@ class ThimEdumaRegisterFunction {
 	 */
 	private function buyCourse() {
 		if ( is_plugin_active( 'learnpress-woo-payment/learnpress-woo-payment.php' )
-			 && LP_Settings::instance()->get( 'woo-payment' )['enable'] == 'yes' && isset( $_POST['add-to-cart'] )
+			 && LP()->settings()->get( 'woo-payment' )['enable'] == 'yes' && isset( $_POST['add-to-cart'] )
 			 && isset( $_POST['purchase-course'] ) ) {
 
 			$curl = curl_init();

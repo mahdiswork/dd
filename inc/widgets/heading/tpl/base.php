@@ -2,7 +2,8 @@
 
 $title_uppercase = isset( $instance['title_uppercase'] ) ? $instance['title_uppercase'] : '';
 $title_main      = ( isset( $instance['main_title'] ) && $instance['main_title'] != '' ) ? ' <span class="thim-color">' . $instance['main_title'] . '</span>' : '';
-  $sub_heading = $sub_heading_css = $html = $css = $color_clone = $line = $clone_title = $line_css = '';
+$thim_animation  = $sub_heading = $sub_heading_css = $html = $css = $color_clone = $line = $clone_title = $line_css = '';
+$thim_animation  .= isset( $instance['css_animation']) ? thim_getCSSAnimation( $instance['css_animation'] ) :'';
 
 if ( $title_uppercase ) {
 	$css .= 'text-transform: uppercase;';
@@ -58,7 +59,7 @@ if(isset($instance['size'] )){
 }else{
 	$instance['size']  = 'h2';
 }
-$html .= '<div class="sc_heading ' . $clone_title . ' ' . $text_align . '">';
+$html .= '<div class="sc_heading ' . $clone_title . ' ' . $thim_animation . ' ' . $text_align . '">';
 
 if(isset( $instance['title'])){
 	$html .= '<' . $instance['size'] . $css . ' class="title">' . $instance['title'] . $title_main . '</' . $instance['size'] . '>';

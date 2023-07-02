@@ -71,7 +71,7 @@ if ( $cat_course ) {
 		$content = htmlspecialchars_decode( $content );
 		$content = wpautop( $content );
 		if ( isset( $thumb["url"] ) ) {
-			$link_cat = '<a class="view_all_courses" href="' . esc_url( get_term_link( (int) $value->term_id, $taxonomy ) ) . '">' . esc_html__( 'View all courses', 'eduma' ) . ' <i class="tk tk-arrow-right"></i></a>';
+			$link_cat = '<a class="view_all_courses" href="' . esc_url( get_term_link( (int) $value->term_id, $taxonomy ) ) . '">' . esc_html__( 'View all courses', 'eduma' ) . ' <i class="lnr icon-arrow-right"></i></a>';
 		}
 		$html .= '<div class="item_content ' . $active . '" id="' . $value->slug . '">';
 		if ( isset( $thumb["url"] ) ) {
@@ -84,6 +84,39 @@ if ( $cat_course ) {
 	$html .= '</div>';
 	$html .= '</div>';
 
+	$html .= '<script type="text/javascript">';
+	$html .= 'jQuery(document).ready(function(){';
+	$html .= '"use strict";';
+	$html .= 'jQuery(".thim-carousel-course-categories-tabs .thim-course-slider").each(function() {
+					var item_visible = jQuery(this).data("visible") ? parseInt(jQuery(this).data("visible")) : 7,
+                    item_desktop = jQuery(this).data("desktop") ? parseInt(jQuery(this).data("desktop")) : item_visible,
+                    item_desktopsmall = jQuery(this).data("desktopsmall")
+                        ? parseInt(jQuery(this).data("desktopsmall"))
+                        : 6,
+                    item_tablet = jQuery(this).data("tablet") ? parseInt(jQuery(this).data("tablet")) : 4,
+                    item_mobile = jQuery(this).data("mobile") ? parseInt(jQuery(this).data("mobile")) : 2,
+                    pagination = !!jQuery(this).data("pagination"),
+                    navigation = !!jQuery(this).data("navigation"),
+                    autoplay = jQuery(this).data("autoplay") ? parseInt(jQuery(this).data("autoplay")) : false,
+                    is_rtl = jQuery("body").hasClass("rtl");
+
+                    jQuery(this).owlCarousel({
+                        items            : item_visible,
+                        itemsDesktop     : [1800, item_desktop],
+                        itemsDesktopSmall: [1024, item_desktopsmall],
+                        itemsTablet      : [768, item_tablet],
+                        itemsMobile      : [480, item_mobile],
+                        navigation       : navigation,
+                        pagination       : pagination,
+                        autoPlay         : autoplay,
+                        navigationText   : [
+							"<i class=\"fa fa-chevron-left \"></i>",
+							"<i class=\"fa fa-chevron-right \"></i>",
+						],
+                    });
+            });';
+	$html .= '});';
+	$html .= '</script>';
 }
 
 if ( $instance['title'] ) {

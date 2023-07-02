@@ -34,7 +34,7 @@ if ( $attachment_ids ) {
                 controlNav: false,
                 animationLoop: false,
                 slideshow: false,
-                itemWidth: 128,
+                itemWidth: 190,
                 itemMargin: 15,
                 asNavFor: '#slider'
             });

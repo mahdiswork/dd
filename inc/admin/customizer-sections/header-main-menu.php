@@ -24,21 +24,15 @@ thim_customizer()->add_field(
 		'section'   => 'header_main_menu',
 		'priority'  => 10,
 		'default'   => array(
+//			'variant'   => '600',
 			'font-size' => '14px',
-			'line-height'    => '1.3em',
-			'text-transform' => 'uppercase',
  		),
 		'transport' => 'postMessage',
 		'js_vars'   => array(
 			array(
-				'choice'   => 'text-transform',
+				'choice'   => 'variant',
 				'element'  => '.navigation .width-navigation .navbar-nav > li > a, .navigation .width-navigation .navbar-nav > li > span',
-				'property' => 'text-transform',
-			),
-			array(
-				'choice'   => 'line-height',
-				'element'  => '.navigation .width-navigation .navbar-nav > li > a, .navigation .width-navigation .navbar-nav > li > span',
-				'property' => 'line-height',
+				'property' => 'font-weight',
 			),
 			array(
 				'choice'   => 'font-size',
@@ -161,4 +155,18 @@ thim_customizer()->add_field(
 	)
 );
 
-
+thim_customizer()->add_field(
+	array(
+		'type'     => 'select',
+		'id'       => 'thim_line_active_item_menu',
+		'label'    => esc_html__( 'Line Active Item', 'eduma' ),
+		'default'  => 'bottom',
+		'priority' => 13,
+		'multiple' => 0,
+		'section'  => 'header_main_menu',
+		'choices'  => array(
+			'top'    => esc_html__( 'Top', 'eduma' ),
+			'bottom' => esc_html__( 'Bottom', 'eduma' ),
+		),
+	)
+);

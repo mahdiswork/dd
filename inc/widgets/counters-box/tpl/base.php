@@ -2,6 +2,7 @@
 wp_enqueue_script( 'waypoints' );
 wp_enqueue_script( 'thim-CountTo' );
 $border_elegant = $border_not_elegant = $counter_description_color = $counters_icon_value = $counters_value = $counter_value_color = $counters_label = $jugas_animation = $icon = $label = $box_style = $text_number = $border_color = $counter_style = $view_more_button = $view_more_text = $view_more_link = '';
+$jugas_animation           .= thim_getCSSAnimation( $instance['css_animation'] );
 
 if ( ! empty( $instance['text_number'] ) ) {
 	$text_number = $instance['text_number'];
@@ -57,7 +58,6 @@ if ( $instance['icon_type'] == 'font-awesome' ) {
 	}
 } else {
 	if ( $instance['icon_type'] == 'font-7-stroke' ) {
-		wp_enqueue_style('font-pe-icon-7');
 		if ( $instance['icon_stroke'] == '' ) {
 			$instance['icon_stroke'] = 'none';
 		}
@@ -71,7 +71,6 @@ if ( $instance['icon_type'] == 'font-awesome' ) {
 			$icon = '<i class="' . $class . '"></i>';
 		}
 	} else if ( $instance['icon_type'] == 'font-flaticon' ) {
-		wp_enqueue_style('flaticon');
 		if ( $instance['icon_flat'] == '' ) {
 			$instance['icon_flat'] = 'none';
 		}
@@ -98,7 +97,7 @@ if( $counter_style != 'demo-elegant' ) {
 } else {
     $border_elegant = $border_color;
 }
-echo '<div class="counter-box ' . $counter_style . '" style="'. $border_elegant . $box_style . '">';
+echo '<div class="counter-box ' . $jugas_animation . ' ' . $counter_style . '" style="'. $border_elegant . $box_style . '">';
 if ( $icon ) {
 	echo '<div class="icon-counter-box" style="' . $border_not_elegant . $counters_icon_value . '">' . $icon . '</div>';
 }

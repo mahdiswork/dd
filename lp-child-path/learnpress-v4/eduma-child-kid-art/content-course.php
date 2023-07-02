@@ -73,7 +73,7 @@ $class .= ' lpr_course';
                 </div>
             <?php endif; ?>
 
-            <?php do_action('learnpress_loop_item_price'); ?>
+            <?php learn_press_courses_loop_item_price(); ?>
             <div class="course-readmore">
                 <a href="<?php echo esc_url( get_permalink() ); ?>"><?php esc_html_e( 'Read More', 'eduma' ); ?></a>
             </div>

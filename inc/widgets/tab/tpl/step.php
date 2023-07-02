@@ -52,9 +52,9 @@ if ( $instance['tab'] ) {
 		} else {
 			$content_active = '';
 		}
-		$text_button = ( isset( $tab['text_button'] ) && $tab['text_button'] ) ? $tab['text_button'] : esc_html__( 'Learn More', 'eduma' );
-		$rel         = 'nofollow';
-		$target      = '_self';
+
+		$rel    = 'nofollow';
+		$target = '_self';
 
 		if ( array_key_exists( "link", $tab ) ) {
 			if ( is_array( $tab['link'] ) ) {
@@ -71,7 +71,7 @@ if ( $instance['tab'] ) {
 		echo ' <div role="tabpanel" class="tab-pane' . $content_active . '" id="thim-widget-tab-' . $k . $rand . '">';
 		echo $tab['content'];
 		if ( array_key_exists( "link", $tab ) ) {
-			echo '<p><a href="' . $link . '" class="readmore" target="' . $rel . '" rel="' . $target . '">' . $text_button . ' <i class="lnr icon-arrow-right"></i></a></p>';
+			echo '<a href="' . $link . '" class="readmore" target="' . $rel . '" rel="' . $target . '">' . esc_html__( 'Learn More', 'eduma' ) . ' <i class="lnr icon-arrow-right"></i></a>';
 		}
 		echo '</div>';
 		$k ++;

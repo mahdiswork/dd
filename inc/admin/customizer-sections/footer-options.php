@@ -235,13 +235,6 @@ thim_customizer()->add_group(
 								'property' => 'background-repeat',
 							),
 						),
-						'active_callback' => array(
-							array(
-							   'setting'  => 'thim_footer_background_img',
-							   'operator' => '!=',
-							   'value'    => '',
-						   ),
-					   ),
 					),
 
 					array(
@@ -263,13 +256,6 @@ thim_customizer()->add_group(
 								'element'  => 'footer#colophon',
 								'function' => 'css',
 								'property' => 'background-position',
-							),
-						),
-						'active_callback' => array(
- 							array(
-								'setting'  => 'thim_footer_background_img',
-								'operator' => '!=',
-								'value'    => '',
 							),
 						),
 					),
@@ -294,13 +280,6 @@ thim_customizer()->add_group(
 								'property' => 'background-attachment',
 							),
 						),
-						'active_callback' => array(
-							array(
-							   'setting'  => 'thim_footer_background_img',
-							   'operator' => '!=',
-							   'value'    => '',
-						   ),
-					   ),
 					),
 
 					array(
@@ -321,13 +300,6 @@ thim_customizer()->add_group(
 								'element'  => 'footer#colophon',
 								'function' => 'css',
 								'property' => 'background-size',
-							),
-						),
-						'active_callback' => array(
- 							array(
-								'setting'  => 'thim_footer_background_img',
-								'operator' => '!=',
-								'value'    => '',
 							),
 						),
 					),

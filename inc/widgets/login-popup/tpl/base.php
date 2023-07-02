@@ -1,5 +1,4 @@
-<?php $class_sub_info = isset($instance['sub_info']) && $instance['sub_info'] ? ' has_sub_info' : '';?>
-<div class="thim-link-login thim-login-popup<?php echo esc_attr($class_sub_info);?>">
+<div class="thim-link-login thim-login-popup">
 	<?php
 	$layout               = isset( $instance['layout'] ) ? $instance['layout'] : 'base';
 	$profile_text         = $logout_text = $login_text = $register_text = '';
@@ -11,30 +10,25 @@
 		$login_text    = isset( $instance['text_login'] ) ? $instance['text_login'] : '';
 		$register_text = isset( $instance['text_register'] ) ? $instance['text_register'] : '';
 	} else {
-		$profile_text = '<i class="tk tk-users"></i>';
-		$logout_text  = '<i class="tk tk-file-export"></i>';
-		$login_text   = '<i class="tk tk-users"></i>';
+		$profile_text = '<i class="ion-android-person"></i>';
+		$logout_text  = '<i class="ion-ios-redo"></i>';
+		$login_text   = '<i class="ion-android-person"></i>';
 	}
 
 	// Login popup link output
 	if ( is_user_logged_in() ) {
-		if(isset($instance['sub_info']) && $instance['sub_info']){
-			echo thim_sub_info_login_popup($profile_text, $logout_text);
-		}else{
-			if ( class_exists( 'LearnPress' ) && $profile_text ) {
-				if ( thim_is_new_learnpress( '1.0' ) ) {
-					echo '<a class="profile" href="' . esc_url( learn_press_user_profile_link() ) . '">' . ( $profile_text ) . '</a>';
-				} else {
-					echo '<a class="profile" href="' . esc_url( apply_filters( 'learn_press_instructor_profile_link', '#', get_current_user_id(), '' ) ) . '">' . ( $profile_text ) . '</a>';
-				}
+		if ( class_exists( 'LearnPress' ) && $profile_text ) {
+			if ( thim_is_new_learnpress( '1.0' ) ) {
+				echo '<a class="profile" href="' . esc_url( learn_press_user_profile_link() ) . '">' . ( $profile_text ) . '</a>';
+			} else {
+				echo '<a class="profile" href="' . esc_url( apply_filters( 'learn_press_instructor_profile_link', '#', get_current_user_id(), '' ) ) . '">' . ( $profile_text ) . '</a>';
 			}
+		}
 
-			if ( $logout_text ) {
-				?>
-				<a class="logout"
-				   href="<?php echo esc_url( wp_logout_url( apply_filters( 'thim_default_logout_redirect', thim_eduma_get_current_url() ) ) ); ?>"><?php echo( $logout_text ); ?></a>
-				<?php
-			}
+		if ( $login_text ) {
+			?>
+			<a class="logout" href="<?php echo esc_url( wp_logout_url( apply_filters( 'thim_default_logout_redirect', thim_eduma_get_current_url() ) ) ); ?>"><?php echo( $logout_text ); ?></a>
+			<?php
 		}
 	} else {
 		if ( $registration_enabled && 'base' == $layout ) {
@@ -50,3 +44,5 @@
 	// End login popup link output
 	?>
 </div>
+<?php
+

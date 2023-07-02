@@ -14,23 +14,6 @@ thim_customizer()->add_section(
 	)
 );
 
-thim_customizer()->add_field(
-	array(
-		'id'       => 'thim_tab_event_style',
-		'type'     => 'select',
-		'label'    => esc_html__( 'Tab Style', 'eduma' ),
-		'priority' => 10,
-		'default'  => '',
-		'multiple' => 0,
-		'section'  => 'event_setting',
-		'choices'  => array(
-			'' 			=> esc_html__( 'Default', 'eduma' ),
-			'style_1' => esc_html__( 'Style 1', 'eduma' ),
-		),
-	)
-);
- 
-
 // Enable or disable quick view
 thim_customizer()->add_field(
 	array(

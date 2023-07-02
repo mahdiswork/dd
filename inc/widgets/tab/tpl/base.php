@@ -49,28 +49,7 @@ if ( $instance['tab'] ) {
 		} else {
 			$content_active = '';
 		}
-
-		$text_button = ( isset( $tab['text_button'] ) && $tab['text_button'] ) ? $tab['text_button'] : '';
-		$rel         = 'nofollow';
-		$target      = '_self';
-
-		if ( array_key_exists( "link", $tab ) ) {
-			if ( is_array( $tab['link'] ) ) {
-				$link   = $tab['link']['url'];
-				$rel    = isset( $tab['link']['rel'] ) ? 'nofollow' : 'dofollow';
-				$target = isset( $tab['link']['target'] ) ? '_blank' : '_self';
-			} else {
-				$link   = $tab['link'];
-				$rel    = isset( $tab['nofollow'] ) ? 'nofollow' : 'dofollow';
-				$target = isset( $tab['is_external'] ) ? '_blank' : '_self';
-			}
-		}
-
-		echo ' <div role="tabpanel" class="tab-pane' . $content_active . '" id="thim-widget-tab-' . $k . $rand . '">' . $tab['content'];
-		if ( array_key_exists( "link", $tab ) && $text_button ) {
-			echo '<p><a href="' . $link . '" class="readmore" target="' . $rel . '" rel="' . $target . '">' . $text_button . ' <i class="lnr icon-arrow-right"></i></a></p>';
-		}
-		echo '</div>';
+		echo ' <div role="tabpanel" class="tab-pane' . $content_active . '" id="thim-widget-tab-' . $k . $rand . '">' . $tab['content'] . '</div>';
 		$k ++;
 	}
 }

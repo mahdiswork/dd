@@ -8,9 +8,9 @@
 thim_customizer()->add_section(
 	array(
 		'id'       => 'product_single',
-		'panel'    => 'woocommerce',
+		'panel'    => 'product',
 		'title'    => esc_html__( 'Single Pages', 'eduma' ),
-		'priority' => 10,
+		'priority' => 12,
 	)
 );
 
@@ -166,22 +166,5 @@ thim_customizer()->add_field(
 				'property' => 'color',
 			)
 		)
-	)
-);
-
-thim_customizer()->add_field(
-	array(
-		'type'     => 'select',
-		'id'       => 'thim_woo_related_column',
-		'label'    => esc_html__( 'Related & Upsell Columns', 'eduma' ),
- 		'default'  => '3',
-		'priority' => 50,
-		'multiple' => 0,
-		'section'     => 'product_single',
-		'choices'  => array(
-			'2' => esc_html__( '2', 'eduma' ),
-			'3' => esc_html__( '3', 'eduma' ),
-			'4' => esc_html__( '4', 'eduma' ),
-		),
 	)
 );

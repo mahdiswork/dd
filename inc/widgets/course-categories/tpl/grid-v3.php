@@ -49,9 +49,7 @@ $cats = get_categories( $args_cat );
 						}
  					}
 					?>
-					<span class="category-title">
-						<?php echo $category->name; ?>
-					</span>
+					<?php echo $category->name; ?>
 				</a>
 			</li>
 			<?php

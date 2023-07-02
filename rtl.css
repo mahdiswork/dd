@@ -4,7 +4,7 @@ Theme URI: https://eduma.thimpress.com/
 Author: ThimPress
 Author URI: http://thimpress.com
 Description: Theme Descriptions
-Version: 5.0.5
+Version: 3.0.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: two-columns, three-columns, left-sidebar, right-sidebar, fixed-layout, responsive-layout, custom-background, custom-header, custom-menu, editor-style, post-formats, rtl-language-support, sticky-post, theme-options, translation-ready, accessibility-ready
@@ -1225,12 +1225,12 @@ caption, th, td {
 	text-align: right;
 }
 
-.top_site_main .page-title-wrapper .page-title{
+.top_site_main .page-title-wrapper h1, .top_site_main .page-title-wrapper h2 {
 	padding-right: 25px;
 	padding-left: 0;
 }
 
-.top_site_main .page-title-wrapper .page-title:before{
+.top_site_main .page-title-wrapper h1:before, .top_site_main .page-title-wrapper h2:before {
 	right: 0;
 	margin-left: 22px;
 	left: auto;
@@ -1241,9 +1241,7 @@ caption, th, td {
 	margin-left: 5px;
 	margin-right: auto;
 }
-.woocommerce-product-search .search-field{
-	padding: 5px 60px 5px 20px;
-}
+
 .breadcrumbs-wrapper .woocommerce-breadcrumb li:last-child span, .breadcrumbs-wrapper .thim-breadcrumbs li:last-child span, .breadcrumbs-wrapper #breadcrumbs li:last-child span {
 	margin-left: 0;
 	margin-right: auto;
@@ -1293,17 +1291,17 @@ input[type=checkbox]:checked:before {
 	background-position: top right;
 }
 
-/* .quiz-result, body .learn-press-4 .quiz-result{
+.quiz-result {
 	float: right;
 	margin-left: -300px;
 	margin-right: auto;
-} */
+}
 
-.quiz-result .quiz-result-mark,  body .learn-press-4 .quiz-result .quiz-result-mark {
+.quiz-result .quiz-result-mark {
 	float: right;
 }
 
-.quiz-result .quiz-result-summary,body .learn-press-4 .quiz-result .quiz-result-summary  {
+.quiz-result .quiz-result-summary {
 	float: right;
 	margin-right: 30px;
 	margin-left: auto;
@@ -1914,16 +1912,6 @@ article .entry-header .entry-meta li:last-child {
 	left: 10px;
 	right: auto;
 }
-.thim-widget-accordion.accordion-new-style .panel-title a:after{
-	left: 15px;
-	right: auto;
-}
-.thim-widget-accordion.accordion-new-style .panel-title a.collapsed:after{
-	content: "\f104";
-}
-.thim-widget-accordion.accordion-new-style .widget-title{
-	text-align: right;
-}
 .counter-box.about-us {
 	border-left: 1px solid #eee;
 	border-right: none;
@@ -1997,7 +1985,7 @@ article .entry-header .entry-meta li:last-child {
 	float: right;
 	text-align: center;
 	margin-right: 0;
-	/* margin-left: 80px; */
+	margin-left: 80px;
 }
 
 .thim-list-event .item-event .event-wrapper {
@@ -2092,9 +2080,6 @@ body.single #main-content .thim-ralated-course .thim-course-grid .owl-controls{
 	margin-right: 5px;
 	margin-left: auto;
 }
-.smicon-read i.fa-chevron-right{
-	content: "\f053";
-}
 
 .iconbox-left .boxes-icon {
 	float: right;
@@ -2144,7 +2129,7 @@ body.single #main-content .thim-ralated-course .thim-course-grid .owl-controls{
 	margin-right: auto;
 }
 
-/* .thim-widget-gallery-images .owl-prev {
+.thim-widget-gallery-images .owl-prev {
 	right: -100px;
 	left: auto;
 }
@@ -2162,10 +2147,6 @@ body.single #main-content .thim-ralated-course .thim-course-grid .owl-controls{
 .thim-widget-gallery-images:hover .owl-next {
 	left: 10px;
 	right: auto;
-} */
-
-.rtl .owl-carousel{
-	direction: rtl;
 }
 
 .owl-carousel .owl-item {
@@ -2250,7 +2231,10 @@ body.single #main-content .thim-ralated-course .thim-course-grid .owl-controls{
 	left: auto !important;
 }
 
-
+.product-grid .product__title {
+	padding-left: 60px;
+	padding-right: 0;
+}
 
 .product-grid .product__title .price del {
 	padding-left: 5px;
@@ -2615,14 +2599,7 @@ body.single #main-content .thim-ralated-course .thim-course-grid .owl-controls{
 	right: 17px;
 	left: auto;
 }
-.widget_shopping_cart .widget_shopping_cart_content::after{
-	right: auto;
-	left: 27px;
-}
-.widget_shopping_cart .widget_shopping_cart_content{
-	left: 0;
-	right: auto;
-}
+
 .widget_shopping_cart .widget_shopping_cart_content .cart_list.product_list_widget li {
 	margin-right: 0 !important;
 	margin-left: auto;
@@ -2792,18 +2769,50 @@ form#lostpasswordform p input[type=submit] {
 	margin-right: auto;
 }
 
-.thim-course-list .course-item .thim-course-content .course-meta>div{
-	margin-right: 0;
-	margin-left: 30px;
+.thim-course-list .course-item .course-thumbnail {
+	float: right;
+	margin-left: calc(30px);
+	margin-left: -webkit-calc(30px);
+	margin-left: -moz-calc(30px);
+	margin-right: auto;
+}
+
+.thim-course-list .course-item .thim-course-content {
+	float: left;
+}
+
+.thim-course-list .course-item .thim-course-content .course-meta > div {
+	margin-left: 20px;
+	padding-left: 20px;
+	border-left: 1px solid #eee;
+	padding-right: 0;
+	margin-right: auto;
+	border-right: none;
+}
+
+.thim-course-list .course-item .thim-course-content .course-meta > div.course-author img {
+	float: right;
+	margin-left: 10px;
+	margin-right: auto;
+}
+
+.thim-course-list .course-item .thim-course-content .course-meta > div.course-students {
+	padding-left: 0;
+	margin-left: 0;
+	border-left: 0;
+	padding-right: 0;
+	margin-right: auto;
+	border-right: none;
+}
+
+.thim-course-list .course-item .thim-course-content .course-price {
 	float: right;
 }
-.thim-course-list .course-item .thim-course-content .course-meta .course-author .author-contain .value{
-	padding-right: 10px;
+
+.thim-course-list .course-item .thim-course-content .course-readmore {
+	float: left;
 }
-.thim-border-radius .thim-course-list .course-item .course-thumbnail .course-readmore::before,
-.thim-border-radius .thim-course-grid .course-item .course-thumbnail .course-readmore::before{
-	content: '\f060';
-}
+
 .thim-course-top {
 	padding: 10px 20px 10px 10px;
 }
@@ -2840,7 +2849,7 @@ form#lostpasswordform p input[type=submit] {
 	right: auto;
 }
 
-.learn-press .course-meta-single > div {
+.learn-press .course-meta > div {
 	margin-left: 20px;
 	padding-left: 20px;
 	border-left: 1px solid #eee;
@@ -2849,13 +2858,13 @@ form#lostpasswordform p input[type=submit] {
 	border-right: none;
 }
 
-.learn-press .course-meta-single > div.course-author img {
+.learn-press .course-meta > div.course-author img {
 	float: right;
 	margin-left: 10px;
 	margin-right: auto;
 }
 
-.learn-press .course-meta-single > div.course-review {
+.learn-press .course-meta > div.course-review {
 	border-right: none;
 }
 
@@ -2922,10 +2931,7 @@ form#lostpasswordform p input[type=submit] {
 	margin-right: 0;
 	margin-left: auto;
 }
-#learn-press-course-curriculum ul.curriculum-sections .section-content .course-item .lesson-preview{
-	margin-left: 0;
-	margin-right: 10px;
-}
+
 .learn-press .curriculum-sections .section-content .course-lesson span.meta, .learn-press .curriculum-sections .section-content .course-quiz span.meta {
 	float: left;
 }
@@ -3505,11 +3511,6 @@ form#lostpasswordform p input[type=submit] {
 	.thim-list-event .item-event .event-wrapper {
 		padding: 0 0 0 50px;
 	}
-	.thim-list-event:not(.layout-2):not(.layout-3):not(.layout-5) .item-event.has-post-thumbnail .time-from{
-		right: 10px;
-		left: auto;
-		margin-left: 0;
-	}
 }
 
 @media screen and (max-width: 600px) {
@@ -3554,7 +3555,7 @@ form#lostpasswordform p input[type=submit] {
 		padding-left: 0;
 	}
 
-	.learn-press .course-meta-single > div {
+	.learn-press .course-meta > div {
 		border-left: 0;
 		border-right: none;
 	}
@@ -3582,15 +3583,8 @@ form#lostpasswordform p input[type=submit] {
 	article .entry-header .date-meta {
 		border-left: 0;
 		border-right: none;
-		width: 100%;
-		text-align: right;
 	}
-	article .entry-header .entry-contain{
-		padding-right: 0;
-	}
-	body.rtl #blog-archive .readmore{
-		text-align: revert;
-	}
+
 	.thim-list-event .item-event .event-wrapper {
 		padding-right: 0;
 		padding-left: 0;
@@ -3751,13 +3745,13 @@ form#lostpasswordform p input[type=submit] {
 	float: left;
 }
 
-/*.owl-carousel .owl-item {*/
-/*	float: left;*/
-/*}*/
+.owl-carousel .owl-item {
+	float: left;
+}
 
-/*.owl-carousel .owl-controls .owl-prev, .owl-carousel .owl-controls .owl-next {*/
-/*	float: left;*/
-/*}*/
+.owl-carousel .owl-controls .owl-prev, .owl-carousel .owl-controls .owl-next {
+	float: left;
+}
 
 .search-form label .search-field {
 	padding: 0 15px 0 60px;
@@ -4040,11 +4034,11 @@ table.learn-press-cart-table .subtotal-price, table.learn-press-cart-table .tota
 	padding-right: 30px !important;
 }
 
-.learn-press .course-meta-single > div {
+.learn-press .course-meta > div {
 	float: right;
 }
 
-.learn-press .course-meta-single > div:last-child {
+.learn-press .course-meta > div:last-child {
 	border-left: 0;
 }
 
@@ -4108,15 +4102,15 @@ html[dir=rtl] #tp_style_selector .style-toggle:before {
 	left: 0;
 }
 
-/*.thim-product-list ul.product-grid li.product .product_thumb {*/
-/*	float: right;*/
-/*	margin: 0;*/
-/*	margin-left: 30px;*/
-/*}*/
+.thim-product-list ul.product-grid li.product .product_thumb {
+	float: right;
+	margin: 0;
+	margin-left: 30px;
+}
 
-/*.thim-product-list ul.product-grid li.product .product__title {*/
-/*	padding: 0;*/
-/*}*/
+.thim-product-list ul.product-grid li.product .product__title {
+	padding: 0;
+}
 
 .thim-product-list ul.product-grid li.product .product__title .added_to_cart,
 .thim-product-list ul.product-grid li.product .product__title .ajax_add_to_cart,
@@ -4243,12 +4237,12 @@ body #course-curriculum-popup #popup-main #popup-header .popup-title .index {
 }
 
 body.rtl .tp-preview-images {
-	left: 350px;
-    right: auto!important;
+	left: 300px;
+	right: auto;
 }
 
 body.rtl #tp_style_selector {
-	left: -350px;
+	left: -313px;
 	right: auto !important;
 	webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
@@ -4261,9 +4255,9 @@ body.rtl #tp_style_selector.show {
 	left: 0;
 }
 
-body #tp_style_selector .style-toggle, #tp_style_selector .style-toggle-buynow {
-	right: -56px;
-    left: auto!important;
+body.rtl #tp_style_selector .style-toggle {
+	right: -44px;
+	left: auto;
 	border-radius: 0 5px 5px 0;
 	box-shadow: 3px 0 5px -2px rgba(0, 0, 0, .14);
 }
@@ -4493,7 +4487,7 @@ body #learn-press-block-content {
 }
 
 #popup-sidebar #learn-press-course-curriculum ul.curriculum-sections .section-header .collapse {
-	right: 10px;
+	right: 18px;
 	left: auto;
 }
 
@@ -4642,6 +4636,11 @@ body.woocommerce .widget_shopping_cart .widget_shopping_cart_content {
 	padding-right: 30px;
 	padding-left: 0;
 }
+
+#masthead.header_v4 .navigation .width-logo, #masthead.header_v4 .navigation .width-navigation {
+	float: right;
+}
+
 #masthead.header_v4 .navigation .menu-right {
 	float: left;
 }
@@ -4887,16 +4886,8 @@ body.course-item-popup #learn-press-content-item #course-item-content-header .co
 .thim-carousel-list-instructors .instructor-item .info_ins .students,
 .thim-instructors-new .instructor-item .instructor-image {
 	text-align: left;
-	padding-right: 60px;
 }
-.thim-instructors-new .instructor-item .instructor-info{
-	left: auto;
-    right: 30px;
-}
-.thim-instructors-new .owl-controls{
-	left: 75px;
-	right: auto;
-}
+
 .vc_row[data-vc-full-width] {
 	right: auto !important;
 }
@@ -5165,13 +5156,10 @@ body.rtl .thim_tabs_slider .thim_content_tabs .thim_content_item {
 }
 
 #masthead.header_v4 .navigation .menu-right .thim-link-login .login:before, #masthead.header_v4 .navigation .menu-right .thim-link-login .logout:before, #masthead.header_v4 .navigation .menu-right .thim-link-login .profile:before {
-	margin-left: 0;
-	margin-right: 10px;
-}
-.thim-course-content .course-meta>div i{
+	margin-left: 10px;
 	margin-right: 0;
-	margin-left: 4px;
 }
+
 @media (max-width: 1400px) and (min-width: 1025px) {
 	#masthead.header_v4 .navigation .width-navigation .navbar-nav > li > a:after, #masthead.header_v4 .navigation .width-navigation .navbar-nav > li > span:after {
 		left: -4px;
@@ -5258,14 +5246,12 @@ body.wpb-js-composer .vc_tta.vc_tta-accordion .vc_tta-controls-icon-position-rig
 }
 
 .mobile-menu-wrapper {
-	right: auto;
-    left: 0;
-    padding: 0;
+	padding-right: 15%;
+	padding-left: 0;
 	-webkit-transform: translate(-100%,0);
 	-moz-transform: translate(-100%,0);
 	-ms-transform: translate(-100%,0);
 	-o-transform: translate(-100%,0);
-	max-width: 300px;
 }
 
 .tc-megamenu-wrapper>.vc_row>.vc_column_container:after {
@@ -5282,33 +5268,14 @@ body.wpb-js-composer .vc_tta.vc_tta-accordion .vc_tta-controls-icon-position-rig
 	left: 0;
 }
 
-@media (max-width: 480px){
-	.learnpress-v4 .lp-single-course #learn-press-course-curriculum .curriculum-scrollable .curriculum-sections .section .section-content .course-item .course-item-meta .course-item-status, 
-	.learnpress-v4 .lp-single-course #learn-press-course-curriculum .curriculum-scrollable .curriculum-sections .section .section-content .course-item .course-item-meta .lesson-preview{
-		left: 0;
-		right: auto;
-	}
-}
-@media (max-width: 375px){
-	#tab-course-review .course-rating .average-rating, #tab-reviews .course-rating .average-rating{
-		margin: 0;
-	}
+body .lp-single-course.learn-press-4 #learn-press-course-curriculum .curriculum-scrollable .curriculum-sections .section .section-content .course-item .course-item-meta,
+body .lp-single-course.learn-press-4 #popup-course #popup-header .thim-course-item-popup-right{
+	float: left;
 }
 body .lp-single-course.learn-press-4 #popup-course #popup-header,
 body .lp-single-course.learn-press-4 #popup-course #popup-footer{
 	left: 0;
 	right: 475px;
-}
-@media(max-width:1280px){
-	body .lp-single-course.learn-press-4 #popup-course #popup-header,
-	body .lp-single-course.learn-press-4 #popup-course #popup-footer{
-	left: 0;
-	right: 300px;
-	}
-}
-.learnpress-v4 .lp-single-course #popup-course #popup-header .popup-header__inner{
-	padding-right: 20px;
-	padding-left: 0;
 }
 #popup-course #popup-footer .course-item-nav .course-item-nav__name{
 	left: -30px;
@@ -5325,14 +5292,14 @@ body .lp-single-course.learn-press-4 #popup-course #popup-footer{
 }
 #popup-course #popup-content #learn-press-quiz-app .quiz-buttons.align-center .button-left.fixed{
 	left: 15px;
-	/* transform: none; */
+	transform: none;
 }
-/* #popup-course #popup-content #learn-press-quiz-app .questions-pagination .nav-links .page-numbers.prev::before{
+#popup-course #popup-content #learn-press-quiz-app .questions-pagination .nav-links .page-numbers.prev::before{
 	content: "\f105";
 }
 #popup-course #popup-content #learn-press-quiz-app .questions-pagination .nav-links .page-numbers.next::after{
 	content: "\f104";
-} */
+}
 #popup-course #popup-footer .course-item-nav .prev .course-item-nav__name{
 	left: auto;
 	right: -30px;
@@ -5376,78 +5343,4 @@ body.course-item-popup #learn-press-course-curriculum ul.curriculum-sections .se
 	.elementor-row {
 		flex-direction: row;
 	}
-}
-.learnpress-v4 .lp-single-course #popup-course #popup-sidebar .search-course input[name="s"]{
-	padding-left: 0;
-	padding-right: 45px;
-}
-.learnpress-v4 .lp-single-course #popup-course #popup-sidebar .search-course button{
-	left: unset;
-	right: 10px;
-}
-#learn-press-course-curriculum ul.curriculum-sections .section-content .course-item .course-format-icon{
-	margin-left: 5px;
-	margin-right: 0;
-}
-@media(max-width:1280px){
-	.learnpress-v4 .lp-single-course #popup-course #popup-sidebar #learn-press-course-curriculum .curriculum-scrollable .curriculum-sections .section .section-content .course-item-meta .course-item-status, .learnpress-v4 .lp-single-course #popup-course #popup-sidebar #learn-press-course-curriculum .curriculum-scrollable .curriculum-sections .section .section-content .course-item-meta .lesson-preview{
-		left: 15px;
-		right: unset;
-	}
-}
-@media(max-width:782px){
-	body .lp-single-course.learn-press-4 #popup-course #popup-header, body .lp-single-course.learn-press-4 #popup-course #popup-footer{
-		right: 250px;
-	}
-}
-#learn-press-course-curriculum ul.curriculum-sections .section-content .course-item.current:after, #learn-press-course-curriculum ul.curriculum-sections .section-content .course-item.item-current:after{
-	right: 0;
-	left: unset;
-}
-.learnpress-v4 .lp-single-course #popup-course #popup-sidebar #learn-press-course-curriculum .curriculum-scrollable .curriculum-sections .section .section-content .course-item {
-	padding: 11px 20px 11px 13px !important;
-}
-
-.rtl .thim-ekits-sliders:not(.thim-ekits-testimonial__avatars) .swiper-slide{
-	margin-left: var(--thim-ekits-slider-space, 20px);
-	margin-right: 0;
-}
-.mc4wp-form-inline .mc4wp-form.mc4wp-form-basic .mc4wp-form-fields input[type=submit]{
-    border-radius: 6px 0 0 6px;
-}
-.mc4wp-form-inline .mc4wp-form.mc4wp-form-basic .mc4wp-form-fields input[type=email]{
-	border-radius: 0 6px 6px 0;
-	background-position: center left 20px;
-}
-#tab-course-description .thim-course-info ul li,
-#tab-overview .thim-course-info ul li,
-#learn-press-course-description .thim-course-info ul li{
-	padding-right: 15px;
-}
-.thim-ralated-course .related-title:after, .thim-related-course .related-title:after,
-#respond.comment-respond .comment-reply-title:before{
-	left: auto;
-	right: 0;
-}
-
-@media (min-width: 1025px){
-	.navigation .navbar-nav>li.thim-ekits-menu__has-dropdown>a {
-		padding-left: 10px !important;
-   	 	padding-right: 20px!important;
-	}
-}
-@media (max-width: 1024px){
-	.thim-ekits-menu__icon {
- 		right: auto;
-		left:0
-	}
-	.thim-ekits-menu__mega-menu .thim-ekits-menu__content .elementor-section{
-		right: 0 !important;
-		left: auto !important;
-	}
-}
-
-.navigation .thim-ekits-menu__nav .thim-ekits-menu__has-dropdown .thim-ekits-menu__icon{
-	right: auto;
-    left: 0.5rem;
 }

@@ -32,11 +32,11 @@ if ( ! function_exists( 'thim_logo' ) ) :
 		} else {
 			// Default image
 			// Case: The first install
-			$src   = get_template_directory_uri() . '/images/logo.png';
+			$src   = get_template_directory_uri() . '/images/logo-sticky.png';
 			$style = 'width="153" height="40"';
 		}
 		$src = thim_ssl_secure_url( $src );
-		// restina logo
+		// sticky logo
 		if ( ! empty( $thim_logo_retina ) ) {
 			if ( is_numeric( $thim_logo_retina ) ) {
 				$thim_logo_retina_attachment = wp_get_attachment_image_src( $thim_logo_retina, 'full' );
@@ -85,11 +85,11 @@ if ( ! function_exists( 'thim_logo' ) ) :
 			} else {
 				$src_sticky_mobile_logo = $sticky_mobile_logo;
 			}
-			$data_logo .= ' data-sticky_mobile="' . thim_ssl_secure_url( $src_sticky_mobile_logo) . '"';
+			$data_logo .= ' data-sticky_mobile="' . thim_ssl_secure_url( $src_sticky_mobile_logo ) . '"';
 		}
 
 		echo '<a href="' . esc_url( home_url( '/' ) ) . '" title="' . esc_attr( get_bloginfo( 'name' ) ) . ' - ' . esc_attr( get_bloginfo( 'description' ) ) . '" rel="home" class="thim-logo">';
-		echo '<img src="' .   $src . '" alt="' . esc_attr( $logo_alt ) . '" ' . $style . $data_logo . '>';
+		echo '<img src="' . $src . '" alt="' . esc_attr( $logo_alt ) . '" ' . $style . $data_logo . '>';
 		echo '</a>';
 	}
 endif;

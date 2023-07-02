@@ -2,7 +2,42 @@
 
 function thim_get_all_plugins_require( $plugins ) {
 	$plugins = array(
-
+		array(
+			'name'        => 'WPBakery',
+			'slug'        => 'js_composer',
+			'premium'     => true,
+			'required'    => false,
+			'icon'        => 'https://s3.envato.com/files/260579516/wpb-logo.png',
+			//'version'     => '6.1',
+			'description' => 'Drag and drop page builder for WordPress. Take full control over your WordPress site, build any layout you can imagine – no programming knowledge required. By Michael M - WPBakery.com.'
+		),
+		array(
+			'name'        => 'WPBakery',
+			'slug'        => 'js_composer',
+			'premium'     => true,
+			'required'    => false,
+			'icon'        => 'https://s3.envato.com/files/260579516/wpb-logo.png',
+			//'version'     => '6.1',
+			'description' => 'Drag and drop page builder for WordPress. Take full control over your WordPress site, build any layout you can imagine – no programming knowledge required. By Michael M - WPBakery.com.'
+		),
+		array(
+			'name'        => 'Thim Our Team',
+			'slug'        => 'thim-our-team',
+			'premium'     => true,
+			'required'    => false,
+			'icon'        => 'https://plugins.thimpress.com/downloads/images/thim-our-team.png',
+			//'version'     => '1.3.1',
+			'description' => 'A plugin that allows you to show off your team members. By ThimPress.',
+		),
+		array(
+			'name'        => 'Thim Testimonials',
+			'slug'        => 'thim-testimonials',
+			'premium'     => true,
+			'icon'        => 'https://plugins.thimpress.com/downloads/images/thim-testimonials.png',
+			'required'    => false,
+			//'version'     => '1.3.1',
+			'description' => 'A plugin that allows you to show off your testimonials. By ThimPress.',
+		),
 		array(
 			'name'        => 'Revolution Slider',
 			'slug'        => 'revslider',
@@ -12,7 +47,40 @@ function thim_get_all_plugins_require( $plugins ) {
 			//'version'     => '6.1.3',
 			'description' => 'Slider Revolution – Premium responsive slider By ThemePunch.',
 		),
-  		array(
+
+//		array(
+//			'name'        => 'SiteOrigin Page Builder',
+//			'slug'        => 'siteorigin-panels',
+//			'required'    => false,
+//			//'version'     => '2.4.25',
+//			'description' => 'A drag and drop, responsive page builder that simplifies building your website. By SiteOrigin.',
+//		),
+
+		array(
+			'name'        => 'Elementor Page Builder',
+			'slug'        => 'elementor',
+			'required'    => false,
+			//'version'     => '2.4.5',
+			'description' => 'The most advanced frontend drag & drop page builder. Create high-end, pixel perfect websites at record speeds. Any theme, any page, any design.',
+		),
+
+		array(
+			'name'        => 'Anywhere Elementor',
+			'slug'        => 'anywhere-elementor',
+			'required'    => false,
+			//'version'     => '1.1',
+			'description' => 'Allows you to insert elementor pages and library templates anywhere using shortcodes.',
+			'add-on'      => true,
+		),
+
+//		array(
+//			'name'        => 'Black Studio TinyMCE Widget',
+//			'slug'        => 'black-studio-tinymce-widget',
+//			'required'    => false,
+//			//'version'     => '2.3.1',
+//			'description' => 'Adds a new “Visual Editor” widget type based on the native WordPress TinyMCE editor. By Black Studio.',
+//		),
+		array(
 			'name'        => 'Widget Logic',
 			'slug'        => 'widget-logic',
 			'required'    => false,
@@ -48,13 +116,13 @@ function thim_get_all_plugins_require( $plugins ) {
 			//'version'     => '2.5.12',
 			'description' => 'bbPress is forum software with a twist from the creators of WordPress. By The bbPress Community.',
 		),
-		//		array(
-		//			'name'        => 'Social Login',
-		//			'slug'        => 'miniorange-login-openid',
-		//			'required'    => false,
-		//			//'version'     => '5.1',
-		//			'description' => 'Allow your users to login, comment and share with Facebook, Google, Twitter, LinkedIn etc using customizable buttons. By miniOrange.',
-		//		),
+//		array(
+//			'name'        => 'Social Login',
+//			'slug'        => 'miniorange-login-openid',
+//			'required'    => false,
+//			//'version'     => '5.1',
+//			'description' => 'Allow your users to login, comment and share with Facebook, Google, Twitter, LinkedIn etc using customizable buttons. By miniOrange.',
+//		),
 
 		array(
 			'name'        => 'Loco Translate',
@@ -207,6 +275,7 @@ function thim_get_all_plugins_require( $plugins ) {
 			'slug'     => 'learnpress-h5p',
 			'premium'  => true,
 			'required' => false,
+			'version'  => '3.0.1',
 			'add-on'   => true,
 		),
 
@@ -301,7 +370,7 @@ function thim_get_all_plugins_require( $plugins ) {
 		),
 
 		array(
-			'name'        => 'LearnPress - Students List',
+			'name'        => 'LearnPress - Students List	',
 			'slug'        => 'learnpress-students-list',
 			'premium'     => true,
 			'required'    => false,
@@ -327,15 +396,7 @@ function thim_get_all_plugins_require( $plugins ) {
 			'description' => 'Using the forum for courses provided by bbPress By ThimPress.',
 			'add-on'      => true,
 		),
-		array(
-			'name'        => 'LearnPress - WPML',
-			'slug'        => 'learnpress-wpml',
-			'required'    => false,
-			'premium'     => true,
-			//'version'     => '3.0',
-			'description' => 'Support multi languages with WPML for Learnpress LMS system',
-			'add-on'      => true,
-		),
+
 		array(
 			'name'        => 'WP Events Manager',
 			'slug'        => 'wp-events-manager',
@@ -392,65 +453,19 @@ function thim_get_all_plugins_require( $plugins ) {
 			'description' => '2Checkout payment method for LearnPress',
 			'add-on'      => true,
 		),
-
+//		array(
+//			'name'     => 'Classic Editor',
+//			'slug'     => 'classic-editor',
+//			'required' => false,
+//		),
 		array(
 			'name'     => 'HubSpot – CRM, Email Marketing, Live Chat, Forms & Analytics',
 			'slug'     => 'leadin',
 			'required' => false,
 		),
 	);
-	if ( apply_filters( 'thim-importer-demo-vc', false ) || get_theme_mod( 'thim_page_builder_chosen' ) == 'visual_composer' ) {
-		$extra_plugin = array(
-			array(
-				'name'        => 'WPBakery',
-				'slug'        => 'js_composer',
-				'premium'     => true,
-				'required'    => false,
-				'icon'        => 'https://s3.envato.com/files/260579516/wpb-logo.png',
- 				'description' => 'Drag and drop page builder for WordPress. Take full control over your WordPress site, build any layout you can imagine – no programming knowledge required. By Michael M - WPBakery.com.'
-			),
-		);
-	} elseif ( apply_filters( 'thim-importer-demo-so', false ) || get_theme_mod( 'thim_page_builder_chosen' ) == 'site_origin' ) {
-		// support importer with
-		$extra_plugin = array(
-			array(
-				'name'        => 'SiteOrigin Page Builder',
-				'slug'        => 'siteorigin-panels',
-				'required'    => false,
- 				'description' => 'A drag and drop, responsive page builder that simplifies building your website. By SiteOrigin.',
-			),
-			array(
-				'name'     => 'Classic Editor',
-				'slug'     => 'classic-editor',
-				'required' => false,
-			),
-		);
-	} else {
-		$extra_plugin = array(
 
-			array(
-				'name'        => 'Elementor Page Builder',
-				'slug'        => 'elementor',
-				'required'    => false,
-				//'version'     => '2.4.5',
-				'description' => 'The most advanced frontend drag & drop page builder. Create high-end, pixel perfect websites at record speeds. Any theme, any page, any design.',
-			),
- 			array(
-				'name'        => 'Thim Elementor Kit',
-				'slug'        => 'thim-elementor-kit',
-				// 'premium'     => true,
-				'required'    => false,
-			),
-			array(
-				'name'        => 'Thim Elementor Kit Pro',
-				'slug'        => 'thim-elementor-kit-pro',
-				'premium'     => true,
-				'required'    => false,
-			),
-		);
-	}
-
-	return array_merge( $plugins, $extra_plugin );
+	return $plugins;
 }
 
 add_filter( 'thim_core_get_all_plugins_require', 'thim_get_all_plugins_require' );

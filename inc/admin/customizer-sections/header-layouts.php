@@ -69,27 +69,3 @@ thim_customizer()->add_field(
 		),
 	)
 );
-
-thim_customizer()->add_field(
-	array(
-		'type'     => 'select',
-		'id'       => 'thim_line_active_item_menu',
-		'label'    => esc_html__( 'Line Active Item', 'eduma' ),
-		'default'  => 'bottom',
-		'priority' => 13,
-		'multiple' => 0,
-		'section'  => 'header_main_menu',
-		'choices'  => array(
-			'noline'    => esc_html__( 'No line', 'eduma' ),
-			'top'    => esc_html__( 'Top', 'eduma' ),
-			'bottom' => esc_html__( 'Bottom', 'eduma' ),
-		),
-		'active_callback' => array(
-			array(
-				'setting'  => 'thim_header_style',
-				'operator' => '!=',
-				'value'    => 'header_v4',
-			),
-		),
-	)
-);

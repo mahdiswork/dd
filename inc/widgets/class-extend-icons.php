@@ -7,8 +7,7 @@ class Thim_Elementor_Extend_Icons {
 	private static $instance = null;
 
 	public function __construct() {
-		add_action( 'elementor/frontend/before_enqueue_styles', array( $this, 'font_setup' ) );
-		add_action( 'elementor/editor/after_enqueue_styles', array( $this, 'font_setup' ) );
+		add_action( 'elementor/editor/before_enqueue_styles', array( $this, 'font_setup' ) );
 	}
 
 	public function font_setup() {
@@ -18,48 +17,6 @@ class Thim_Elementor_Extend_Icons {
 		wp_enqueue_style( 'ionicons', THIM_URI . 'assets/css/ionicons.min.css' );
 	}
 
-
-	public static function get_font_flaticon() {
-		$arr              = apply_filters( 'vc_iconpicker-type-flat_icon', array() );
-		$list_new_icon_el = array();
-		if ( ! empty( $arr ) ) {
-			foreach ( $arr as $group => $icons ) {
-				foreach ( $icons as $key => $label ) {
-					$list_new_icon_el[$key] = $key;
-				}
-			}
-		}
-
-		return apply_filters( 'thim_list_ionicons', $list_new_icon_el );
-	}
-
-	public static function get_font_7_stroke() {
-		$arr              = apply_filters( 'vc_iconpicker-type-stroke_icon', array() );
-		$list_new_icon_el = array();
-		if ( ! empty( $arr ) ) {
-			foreach ( $arr as $group => $icons ) {
-				foreach ( $icons as $key => $label ) {
-					$list_new_icon_el[$key] = $key;
-				}
-			}
-		}
-
-		return apply_filters( 'thim_list_stroke_icon', $list_new_icon_el );
-	}
-
-	public static function get_font_ionicons() {
-		$arr              = apply_filters( 'vc_iconpicker-type-ionicons', array() );
-		$list_new_icon_el = array();
-		if ( ! empty( $arr ) ) {
-			foreach ( $arr as $group => $icons ) {
-				foreach ( $icons as $key => $label ) {
-					$list_new_icon_el[$key] = $key;
-				}
-			}
-		}
-
-		return apply_filters( 'thim_list_ionicons', $list_new_icon_el );
-	}
 
 	public static function get_instance() {
 		if ( self::$instance == null ) {
@@ -1188,6 +1145,6 @@ function thim_el_iconpicker_type_stroke_icon() {
 		}
 	}
 
-	return apply_filters( 'thim_list_stroke_icon', $list_new_icon_el );
+	return apply_filters( 'thim_list_ionicons', $list_new_icon_el );
 
 }

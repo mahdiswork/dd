@@ -39,7 +39,7 @@ class Thim_Custom_WC_Widget_Cart extends WC_Widget_Cart {
 		$hide_if_empty = empty( $instance['hide_if_empty'] ) ? 0 : 1;
 		if ( ! $hide_if_empty || $cart_items ) {
 			echo '<a class="minicart_hover" id="header-mini-cart" href="' . get_permalink( wc_get_page_id( 'cart' ) ) . '">';
-			echo '<span class="cart-items-number"><i class="fa-fw tk tk-shoping-check"></i><span class="wrapper-items-number"><span class="items-number">' . $cart_items . '</span></span></span>';
+			echo '<span class="cart-items-number"><i class="fa fa-fw fa-shopping-cart"></i><span class="wrapper-items-number"><span class="items-number">' . $cart_items . '</span></span></span>';
 
 			echo '<div class="clear"></div>';
 			echo '</a>';

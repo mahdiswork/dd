@@ -16,7 +16,6 @@ defined( 'ABSPATH' ) || exit;
 
 $template_path = 'our-team/tpl/';
 $layout        = ( isset( $instance['layout'] ) ) ? $instance['layout'] : 'base';
-$instance['css_animation'] = ''; // fix Undefined for child theme
 ?>
 
 <?php thim_builder_get_template(

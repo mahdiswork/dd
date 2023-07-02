@@ -40,13 +40,13 @@ if ( ! class_exists( 'Thim_Builder_Config_Heading' ) ) {
 			// options
 			return array(
 				array(
-					'type'                  => 'textarea',
-					'admin_label'           => true,
-					'heading'               => esc_html__( 'Title', 'eduma' ),
-					'param_name'            => 'title',
-					'value'                 => '',
+					'type'        => 'textarea',
+					'admin_label' => true,
+					'heading'     => esc_html__( 'Title', 'eduma' ),
+					'param_name'  => 'title',
+					'value'       => '',
 					'allow_html_formatting' => true,
-					'description'           => esc_html__( 'Write the title for the heading.', 'eduma' )
+					'description' => esc_html__( 'Write the title for the heading.', 'eduma' )
 				),
 				array(
 					'type'        => 'textarea',
@@ -95,12 +95,12 @@ if ( ! class_exists( 'Thim_Builder_Config_Heading' ) ) {
 
 				// Description
 				array(
-					'type'                  => 'textarea',
-					'heading'               => esc_html__( 'Sub heading', 'eduma' ),
-					'param_name'            => 'sub_heading',
-					'value'                 => '',
+					'type'        => 'textarea',
+					'heading'     => esc_html__( 'Sub heading', 'eduma' ),
+					'param_name'  => 'sub_heading',
+					'value'       => '',
 					'allow_html_formatting' => true,
-					'description'           => esc_html__( 'Enter sub heading.', 'eduma' )
+					'description' => esc_html__( 'Enter sub heading.', 'eduma' )
 				),
 				//Description color
 				array(
@@ -150,6 +150,22 @@ if ( ! class_exists( 'Thim_Builder_Config_Heading' ) ) {
 						__( 'Text at center', 'eduma' ) => 'text-center',
 						__( 'Text at right', 'eduma' )  => 'text-right',
 					),
+				),
+				//Animation
+				array(
+					'type'        => 'dropdown',
+					'heading'     => esc_html__( 'Animation', 'eduma' ),
+					'param_name'  => 'css_animation',
+					'admin_label' => false,
+					'value'       => array(
+						__( 'No', 'eduma' )                 => '',
+						__( 'Top to bottom', 'eduma' )      => 'top-to-bottom',
+						__( 'Bottom to top', 'eduma' )      => 'bottom-to-top',
+						__( 'Left to right', 'eduma' )      => 'left-to-right',
+						__( 'Right to left', 'eduma' )      => 'right-to-left',
+						__( 'Appear from center', 'eduma' ) => 'appear'
+					),
+					'description' => esc_html__( 'Select type of animation if you want this element to be animated when it enters into the browsers viewport. Note: Works only in modern browsers.', 'eduma' )
 				),
 
 				//Use custom or default title?

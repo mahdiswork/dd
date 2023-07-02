@@ -16,7 +16,7 @@ var can_escape = true;
   $.avia_utilities.supported = {}
   $.avia_utilities.supports = (function () {
     var div = document.createElement('div'),
-        vendors = ['Khtml', 'Ms', 'Moz', 'Webkit', 'O']
+      vendors = ['Khtml', 'Ms', 'Moz', 'Webkit', 'O']
     return function (prop, vendor_overwrite) {
       if (div.style.prop !== undefined) {
         return ''
@@ -42,10 +42,10 @@ var can_escape = true;
   (function ($, sr) {
     var debounce = function (func, threshold, execAsap) {
       var timeout
-      return function debounced() {
+      return function debounced () {
         var obj = this, args = arguments
 
-        function delayed() {
+        function delayed () {
           if (!execAsap)
             func.apply(obj, args)
           timeout = null
@@ -74,7 +74,7 @@ var can_escape = true;
       }
     })
     jQuery('#back-to-top').on('click', function () {
-      jQuery('html, body').animate({scrollTop: '0px'}, 800)
+      jQuery('html, body').animate({ scrollTop: '0px' }, 800)
       return false
     })
   }
@@ -98,23 +98,23 @@ var can_escape = true;
     var $content_pusher = $('#wrapper-container .content-pusher')
     $header.imagesLoaded(function () {
       var height_sticky_header = $header.outerHeight(true)
-      $content_pusher.css({'padding-top': height_sticky_header + 'px'})
+      $content_pusher.css({ 'padding-top': height_sticky_header + 'px' })
       $(window).resize(function () {
         var height_sticky_header = $header.outerHeight(true)
         $content_pusher.css(
-            {'padding-top': height_sticky_header + 'px'})
+          { 'padding-top': height_sticky_header + 'px' })
       })
     })
   })
 
   var thim_SwitchLayout = function () {
     var cookie_name = 'course_switch',
-        archive = $('#thim-course-archive')
+      archive = $('#thim-course-archive')
     if (archive.length > 0) {
 
       $(document).on('click', '.thim-course-switch-layout > a', function (event) {
         var elem = $(this),
-            archive = $('#thim-course-archive')
+          archive = $('#thim-course-archive')
         event.preventDefault()
         if (!elem.hasClass('switch-active')) {
           $('.thim-course-switch-layout > a').removeClass('switch-active')
@@ -123,13 +123,13 @@ var can_escape = true;
             archive.fadeOut(300, function () {
               archive.removeClass('thim-course-list').addClass(' thim-course-grid').fadeIn(300)
               jQuery.cookie(cookie_name, 'grid-layout',
-                  {expires: 3, path: '/'})
+                { expires: 3, path: '/' })
             })
           } else {
             archive.fadeOut(300, function () {
               archive.removeClass('thim-course-grid').addClass('thim-course-list').fadeIn(300)
               jQuery.cookie(cookie_name, 'list-layout',
-                  {expires: 3, path: '/'})
+                { expires: 3, path: '/' })
             })
           }
         }
@@ -140,7 +140,7 @@ var can_escape = true;
 
   var thim_Shop_SwitchLayout = function () {
     var cookie_name = 'product_list',
-        archive = $('#thim-product-archive')
+      archive = $('#thim-product-archive')
     if (archive.length > 0) {
       //Check grid-layout
       if (!jQuery.cookie(cookie_name) || jQuery.cookie(cookie_name) == 'grid-layout') {
@@ -159,7 +159,7 @@ var can_escape = true;
 
       $(document).on('click', '.thim-product-switch-layout > a', function (event) {
         var elem = $(this),
-            archive = $('#thim-product-archive')
+          archive = $('#thim-product-archive')
 
         event.preventDefault()
         if (!elem.hasClass('switch-active')) {
@@ -169,13 +169,13 @@ var can_escape = true;
             archive.fadeOut(300, function () {
               archive.removeClass('thim-product-list').addClass(' thim-product-grid').fadeIn(300)
               jQuery.cookie(cookie_name, 'grid-layout',
-                  {expires: 3, path: '/'})
+                { expires: 3, path: '/' })
             })
           } else {
             archive.fadeOut(300, function () {
               archive.removeClass('thim-product-grid').addClass('thim-product-list').fadeIn(300)
               jQuery.cookie(cookie_name, 'list-layout',
-                  {expires: 3, path: '/'})
+                { expires: 3, path: '/' })
             })
           }
         }
@@ -186,8 +186,8 @@ var can_escape = true;
 
   var thim_Blog_SwitchLayout = function () {
     var cookie_name = 'blog_layout',
-        archive = $('#blog-archive'),
-        switch_layout = archive.find('.switch-layout')
+      archive = $('#blog-archive'),
+      switch_layout = archive.find('.switch-layout')
     if (archive.length > 0) {
       //Check grid-layout
       if (!jQuery.cookie(cookie_name) || jQuery.cookie(cookie_name) == 'grid-layout') {
@@ -205,29 +205,29 @@ var can_escape = true;
       }
 
       $(document).on('click', '#blog-archive .switch-layout > a',
-          function (event) {
-            var elem = $(this),
-                archive = $('#blog-archive')
+        function (event) {
+          var elem = $(this),
+            archive = $('#blog-archive')
 
-            event.preventDefault()
-            if (!elem.hasClass('switch-active')) {
-              switch_layout.find('>a').removeClass('switch-active')
-              elem.addClass('switch-active')
-              if (elem.hasClass('switchToGrid')) {
-                archive.fadeOut(300, function () {
-                  archive.removeClass('blog-list').addClass('blog-grid').fadeIn(300)
-                  jQuery.cookie(cookie_name, 'grid-layout',
-                      {expires: 3, path: '/'})
-                })
-              } else {
-                archive.fadeOut(300, function () {
-                  archive.removeClass('blog-grid').addClass('blog-list').fadeIn(300)
-                  jQuery.cookie(cookie_name, 'list-layout',
-                      {expires: 3, path: '/'})
-                })
-              }
+          event.preventDefault()
+          if (!elem.hasClass('switch-active')) {
+            switch_layout.find('>a').removeClass('switch-active')
+            elem.addClass('switch-active')
+            if (elem.hasClass('switchToGrid')) {
+              archive.fadeOut(300, function () {
+                archive.removeClass('blog-list').addClass('blog-grid').fadeIn(300)
+                jQuery.cookie(cookie_name, 'grid-layout',
+                  { expires: 3, path: '/' })
+              })
+            } else {
+              archive.fadeOut(300, function () {
+                archive.removeClass('blog-grid').addClass('blog-list').fadeIn(300)
+                jQuery.cookie(cookie_name, 'list-layout',
+                  { expires: 3, path: '/' })
+              })
             }
-          })
+          }
+        })
     }
 
   }
@@ -236,16 +236,16 @@ var can_escape = true;
   var thim_post_audio = function () {
     $('.jp-jplayer').each(function () {
       var $this = $(this),
-          url = $this.data('audio'),
-          type = url.substr(url.lastIndexOf('.') + 1),
-          player = '#' + $this.data('player'),
-          audio = {}
+        url = $this.data('audio'),
+        type = url.substr(url.lastIndexOf('.') + 1),
+        player = '#' + $this.data('player'),
+        audio = {}
       audio[type] = url
       $this.jPlayer({
-        ready              : function () {
+        ready: function () {
           $this.jPlayer('setMedia', audio)
         },
-        swfPath            : 'jplayer/',
+        swfPath: 'jplayer/',
         cssSelectorAncestor: player,
       })
     })
@@ -255,18 +255,16 @@ var can_escape = true;
     $('article.format-gallery .flexslider').imagesLoaded(function () {
       if (jQuery().flexslider) {
         $('.flexslider').flexslider({
-          slideshow     : true,
-          animation     : 'fade',
-          pauseOnHover  : true,
+          slideshow: true,
+          animation: 'fade',
+          pauseOnHover: true,
           animationSpeed: 400,
-          smoothHeight  : true,
-          directionNav  : true,
-          controlNav    : false,
+          smoothHeight: true,
+          directionNav: true,
+          controlNav: false,
         })
-          
       }
-    });
-     
+    })
   }
 
   /* ****** PRODUCT QUICK VIEW  ******/
@@ -276,12 +274,12 @@ var can_escape = true;
       $('.quick-view a').css('display', 'none')
       $(this).append('<a href="javascript:;" class="loading dark"></a>')
       var product_id = $(this).attr('data-prod')
-      var data = {action: 'jck_quickview', product: product_id}
+      var data = { action: 'jck_quickview', product: product_id }
       $.post(ajaxurl, data, function (response) {
         $.magnificPopup.open({
           mainClass: 'my-mfp-zoom-in',
-          items    : {
-            src : response,
+          items: {
+            src: response,
             type: 'inline',
           },
           callbacks: {
@@ -299,7 +297,7 @@ var can_escape = true;
         $('.product-card .wrapper').removeClass('animate')
         setTimeout(function () {
           if (typeof wc_add_to_cart_variation_params !==
-              'undefined') {
+            'undefined') {
             $('.product-info .variations_form').each(function () {
               $(this).wc_variation_form().find('.variations select:eq(0)').change()
             })
@@ -311,34 +309,36 @@ var can_escape = true;
   }
 
   var thim_miniCartHover = function () {
-    $(document).on('mouseenter', '.site-header .minicart_hover', function () {
-      $(this).next('.widget_shopping_cart_content').slideDown()
+    jQuery(document).on('mouseenter', '.site-header .minicart_hover', function () {
+      jQuery(this).next('.widget_shopping_cart_content').slideDown()
     }).on('mouseleave', '.site-header .minicart_hover', function () {
-      $(this).next('.widget_shopping_cart_content').stop(true, false).slideUp()
+      jQuery(this).next('.widget_shopping_cart_content').delay(100).stop(true, false).slideUp()
     })
-    $(document).on('mouseenter', '.site-header .widget_shopping_cart_content', function () {
-      $(this).stop(true, false)
-    }).on('mouseleave', '.site-header .widget_shopping_cart_content', function () {
-      $(this).stop(true, false).slideUp()
-    })
+    jQuery(document).on('mouseenter', '.site-header .widget_shopping_cart_content',
+      function () {
+        jQuery(this).stop(true, false).show()
+      }).on('mouseleave', '.site-header .widget_shopping_cart_content',
+      function () {
+        jQuery(this).delay(100).stop(true, false).slideUp()
+      })
   }
 
   var thim_course_menu_landing = function () {
     if ($('.thim-course-menu-landing').length > 0) {
       var menu_landing = $('.thim-course-menu-landing'),
-          tab_course = $('#learn-press-course-tabs .nav-tabs')
+        tab_course = $('#learn-press-course-tabs .nav-tabs')
 
       var tab_active = tab_course.find('>li.active'),
-          tab_item = tab_course.find('>li>a'),
-          tab_landing = menu_landing.find('.thim-course-landing-tab'),
-          tab_landing_item = tab_landing.find('>li>a'),
-          landing_Top = ($('#course-landing').length) > 0 ? $('#course-landing').offset().top : 0,
-          checkTop = ($(window).height() > landing_Top) ? $(window).height() : landing_Top
+        tab_item = tab_course.find('>li>a'),
+        tab_landing = menu_landing.find('.thim-course-landing-tab'),
+        tab_landing_item = tab_landing.find('>li>a'),
+        landing_Top = ($('#course-landing').length) > 0 ? $('#course-landing').offset().top : 0,
+        checkTop = ($(window).height() > landing_Top) ? $(window).height() : landing_Top
 
       $('footer#colophon').addClass('has-thim-course-menu')
       if (tab_active.length > 0) {
         var active_href = tab_active.find('>a').attr('href'),
-            landing_active = tab_landing.find('>li>a[href="' + active_href + '"]')
+          landing_active = tab_landing.find('>li>a[href="' + active_href + '"]')
 
         if (landing_active.length > 0) {
           landing_active.parent().addClass('active')
@@ -349,7 +349,7 @@ var can_escape = true;
         event.preventDefault()
 
         var href = $(this).attr('href'),
-            parent = $(this).parent()
+          parent = $(this).parent()
 
         if (!parent.hasClass('active')) {
           tab_landing.find('li.active').removeClass('active')
@@ -371,8 +371,8 @@ var can_escape = true;
 
       tab_item.on('click', function () {
         var href = $(this).attr('href'),
-            parent_landing = tab_landing.find('>li>a[href="' + href +
-                '"]').parent()
+          parent_landing = tab_landing.find('>li>a[href="' + href +
+            '"]').parent()
 
         if (!parent_landing.hasClass('active')) {
           tab_landing.find('li.active').removeClass('active')
@@ -393,7 +393,7 @@ var can_escape = true;
   var thimImagepopup = function () {
     if (jQuery().magnificPopup) {
       $('.thim-image-popup').magnificPopup({
-        type               : 'image',
+        type: 'image',
         closeOnContentClick: true,
       })
     }
@@ -408,16 +408,16 @@ var can_escape = true;
     back_to_top()
 
     /* Waypoints magic
-	 ---------------------------------------------------------- */
+     ---------------------------------------------------------- */
     if (typeof jQuery.fn.waypoint !== 'undefined') {
       jQuery(
-          '.wpb_animate_when_almost_visible:not(.wpb_start_animation)').waypoint(function () {
+        '.wpb_animate_when_almost_visible:not(.wpb_start_animation)').waypoint(function () {
         jQuery(this).addClass('wpb_start_animation')
-      }, {offset: '85%'})
+      }, { offset: '85%' })
     }
   })
 
-  function empty(data) {
+  function empty (data) {
     if (typeof (data) == 'number' || typeof (data) == 'boolean') {
       return false
     }
@@ -437,16 +437,16 @@ var can_escape = true;
   }
 
   var windowWidth = window.innerWidth,
-      windowHeight = window.innerHeight,
-      $document = $(document),
-      orientation = windowWidth > windowHeight ? 'landscape' : 'portrait'
+    windowHeight = window.innerHeight,
+    $document = $(document),
+    orientation = windowWidth > windowHeight ? 'landscape' : 'portrait'
   var TitleAnimation = {
-    selector   : '.article__parallax',
+    selector: '.article__parallax',
     initialized: false,
-    animated   : false,
-    initialize : function () {
+    animated: false,
+    initialize: function () {
     },
-    update     : function () {
+    update: function () {
     },
   }
 
@@ -463,14 +463,14 @@ var can_escape = true;
   })
 
   var latestScrollY = $('html').scrollTop() || $('body').scrollTop(),
-      ticking = false
+    ticking = false
 
-  function updateAnimation() {
+  function updateAnimation () {
     ticking = false
     TitleAnimation.update()
   }
 
-  function requestScroll() {
+  function requestScroll () {
     if (!ticking) {
       requestAnimationFrame(updateAnimation)
     }
@@ -491,23 +491,23 @@ var can_escape = true;
       var sticky_height = jQuery('#masthead').outerHeight()
       var menu_anchor = jQuery(this).attr('href')
       if (menu_anchor && menu_anchor.indexOf('#') == 0 &&
-          menu_anchor.length > 1) {
+        menu_anchor.length > 1) {
         e.preventDefault()
         $('html,body').animate({
           scrollTop: jQuery(menu_anchor).offset().top -
-              adminbar_height - sticky_height + height,
+            adminbar_height - sticky_height + height,
         }, 850)
       }
     })
   })
 
-  function mobilecheck() {
+  function mobilecheck () {
     var check = false;
     (function (a) {
       if (/(android|ipad|playbook|silk|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(
-              a) ||
-          /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(
-              a.substr(0, 4))) check = true
+        a) ||
+        /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(
+          a.substr(0, 4))) check = true
     })(navigator.userAgent || navigator.vendor || window.opera)
     return check
   }
@@ -524,40 +524,36 @@ var can_escape = true;
   }
 
   /* mobile menu */
-  if(jQuery('.navbar-nav>li.menu-item-has-children').hasClass("thim-ekits-menu__has-dropdown")){
-       
-  }else{
-      if (jQuery(window).width() > 768) {
-        jQuery('.navbar-nav>li.menu-item-has-children >a,.navbar-nav>li.menu-item-has-children >span,.navbar-nav>li.tc-menu-layout-builder >a,.navbar-nav>li.tc-menu-layout-builder >span').after(
-            '<span class="icon-toggle"><i class="fa fa-angle-down"></i></span>')
-      } else {
-        jQuery(
-            '.navbar-nav>li.menu-item-has-children:not(.current-menu-parent) >a,.navbar-nav>li.menu-item-has-children:not(.current-menu-parent) >span,.navbar-nav>li.tc-menu-layout-builder:not(.current-menu-parent) >a,.navbar-nav>li.tc-menu-layout-builder:not(.current-menu-parent) >span').after(
-            '<span class="icon-toggle"><i class="fa fa-angle-down"></i></span>')
-        jQuery(
-            '.navbar-nav>li.menu-item-has-children.current-menu-parent >a,.navbar-nav>li.menu-item-has-children.current-menu-parent >span,.navbar-nav>li.tc-menu-layout-builder.current-menu-parent >a,.navbar-nav>li.tc-menu-layout-builder.current-menu-parent >span').after(
-            '<span class="icon-toggle"><i class="fa fa-angle-up"></i></span>')
-      }
+  if (jQuery(window).width() > 768) {
+    jQuery(
+      '.navbar-nav>li.menu-item-has-children >a,.navbar-nav>li.menu-item-has-children >span,.navbar-nav>li.tc-menu-layout-builder >a,.navbar-nav>li.tc-menu-layout-builder >span').after(
+      '<span class="icon-toggle"><i class="fa fa-angle-down"></i></span>')
+  } else {
+    jQuery(
+      '.navbar-nav>li.menu-item-has-children:not(.current-menu-parent) >a,.navbar-nav>li.menu-item-has-children:not(.current-menu-parent) >span,.navbar-nav>li.tc-menu-layout-builder:not(.current-menu-parent) >a,.navbar-nav>li.tc-menu-layout-builder:not(.current-menu-parent) >span').after(
+      '<span class="icon-toggle"><i class="fa fa-angle-down"></i></span>')
+    jQuery(
+      '.navbar-nav>li.menu-item-has-children.current-menu-parent >a,.navbar-nav>li.menu-item-has-children.current-menu-parent >span,.navbar-nav>li.tc-menu-layout-builder.current-menu-parent >a,.navbar-nav>li.tc-menu-layout-builder.current-menu-parent >span').after(
+      '<span class="icon-toggle"><i class="fa fa-angle-up"></i></span>')
   }
-
   jQuery(
-      '.navbar-nav>li.menu-item-has-children .icon-toggle, .navbar-nav>li.tc-menu-layout-builder .icon-toggle').on(
-      'click', function () {
-        if (jQuery(this).next('.sub-menu').is(':hidden')) {
-          jQuery(this).next('.sub-menu').slideDown(500, 'linear')
-          jQuery(this).html('<i class="fa fa-angle-up"></i>')
-        } else {
-          jQuery(this).next('.sub-menu').slideUp(500, 'linear')
-          jQuery(this).html('<i class="fa fa-angle-down"></i>')
-        }
-      })
+    '.navbar-nav>li.menu-item-has-children .icon-toggle, .navbar-nav>li.tc-menu-layout-builder .icon-toggle').on(
+        'click', function () {
+    if (jQuery(this).next('.sub-menu').is(':hidden')) {
+      jQuery(this).next('.sub-menu').slideDown(500, 'linear')
+      jQuery(this).html('<i class="fa fa-angle-up"></i>')
+    } else {
+      jQuery(this).next('.sub-menu').slideUp(500, 'linear')
+      jQuery(this).html('<i class="fa fa-angle-down"></i>')
+    }
+  })
 
   /* ====== ON RESIZE ====== */
   $(window).on('load', function () {
     thim_post_audio()
     thim_post_gallery()
     thim_quick_view()
-    // thim_miniCartHover()
+    thim_miniCartHover()
     thim_SwitchLayout()
     thim_Shop_SwitchLayout()
     thim_Blog_SwitchLayout()
@@ -574,7 +570,7 @@ var can_escape = true;
 (function ($) {
   var thim_quiz_index = function () {
     var question_index = $('.single-quiz .index-question'),
-        quiz_total_text = $('.single-quiz .quiz-total .quiz-text')
+      quiz_total_text = $('.single-quiz .quiz-total .quiz-text')
     if (question_index.length > 0) {
       quiz_total_text.html(question_index.html())
     }
@@ -619,38 +615,38 @@ var can_escape = true;
       $class = $this.attr('class')
       if ($this.hasClass('course-wishlisted')) {
         $.ajax({
-          type    : 'POST',
-          url     : window.location.href,
+          type: 'POST',
+          url: window.location.href,
           dataType: 'html',
-          data    : {
+          data: {
             //action   : 'learn_press_toggle_course_wishlist',
             'lp-ajax': 'toggle_course_wishlist',
             course_id: $this.data('id'),
-            nonce    : $this.data('nonce'),
+            nonce: $this.data('nonce'),
           },
-          success : function () {
+          success: function () {
             $this.removeClass('loading')
           },
-          error   : function () {
+          error: function () {
             $this.removeClass('loading')
           },
         })
       }
       if ($this.hasClass('course-wishlist')) {
         $.ajax({
-          type    : 'POST',
-          url     : window.location.href,
+          type: 'POST',
+          url: window.location.href,
           dataType: 'html',
-          data    : {
+          data: {
             //action   : 'learn_press_toggle_course_wishlist',
             'lp-ajax': 'toggle_course_wishlist',
             course_id: $this.data('id'),
-            nonce    : $this.data('nonce'),
+            nonce: $this.data('nonce'),
           },
-          success : function () {
+          success: function () {
             $this.removeClass('loading')
           },
-          error   : function () {
+          error: function () {
             $this.removeClass('loading')
           },
         })
@@ -659,7 +655,7 @@ var can_escape = true;
 
     $('.video-container').on('click', '.beauty-intro .btns', function () {
       var iframe = '<iframe src="' + $(this).closest('.video-container').find('.yt-player').attr('data-video') + '" height= "' +
-          $('.parallaxslider').height() + '"></iframe>'
+        $('.parallaxslider').height() + '"></iframe>'
       $(this).closest('.video-container').find('.yt-player').replaceWith(iframe)
       //debug >HP
       $(this).closest('.video-container').find('.hideClick:first').css('display', 'none')
@@ -688,59 +684,58 @@ var can_escape = true;
     })
   })
 
-//   $(document).on('click', '#course-review-load-more', function () {
-//     var $button = $(this)
-//     if (!$button.is(':visible')) return
-//     $button.addClass('loading')
-//     var paged = parseInt($(this).attr('data-paged')) + 1
-//     $.ajax({
-//       type    : 'POST',
-//       dataType: 'html',
-//       url     : window.location.href,
-//       data    : {
-//         action: 'learn_press_load_course_review',
-//         paged : paged,
-//       },
-//       success : function (response) {
-
-//         var $content = $(response),
-//             $new_review = $content.find('.course-reviews-list>li')
-//         $('#course-reviews .course-reviews-list').append($new_review)
-//         if ($content.find('#course-review-load-more').length) {
-//           $button.removeClass('loading').attr('data-paged', paged)
-//         } else {
-//           $button.remove()
-//         }
-//       },
-//     })
-//   })
+  $(document).on('click', '#course-review-load-more', function () {
+    var $button = $(this)
+    if (!$button.is(':visible')) return
+    $button.addClass('loading')
+    var paged = parseInt($(this).attr('data-paged')) + 1
+    $.ajax({
+      type: 'POST',
+      dataType: 'html',
+      url: window.location.href,
+      data: {
+        action: 'learn_press_load_course_review',
+        paged: paged,
+      },
+      success: function (response) {
+        var $content = $(response),
+          $new_review = $content.find('.course-reviews-list>li')
+        $('#course-reviews .course-reviews-list').append($new_review)
+        if ($content.find('#course-review-load-more').length) {
+          $button.removeClass('loading').attr('data-paged', paged)
+        } else {
+          $button.remove()
+        }
+      },
+    })
+  })
 
   $(document).on('click', '.single-lp_course .course-meta .course-review .value',
-      function () {
-        var review_tab = $('.course-tabs a[href="#tab-course-review"]')
-        if (review_tab.length > 0) {
-          review_tab.trigger('click')
-          $('body, html').animate({
-            scrollTop: review_tab.offset().top - 50,
-          }, 800)
-        }
-        var review_tab_v3 = $('.course-tabs a[href="#tab-reviews"]')
-        if (review_tab_v3.length > 0) {
-          review_tab_v3.trigger('click')
-          $('body, html').animate({
-            scrollTop: review_tab_v3.offset().top - 50,
-          }, 800)
-        }
-      })
+    function () {
+      var review_tab = $('.course-tabs a[href="#tab-course-review"]')
+      if (review_tab.length > 0) {
+        review_tab.trigger('click')
+        $('body, html').animate({
+          scrollTop: review_tab.offset().top - 50,
+        }, 800)
+      }
+      var review_tab_v3 = $('.course-tabs a[href="#tab-reviews"]')
+      if (review_tab_v3.length > 0) {
+        review_tab_v3.trigger('click')
+        $('body, html').animate({
+          scrollTop: review_tab_v3.offset().top - 50,
+        }, 800)
+      }
+    })
 
   //Widget live search course
   var search_timer = false
 
-  function thimlivesearch(contain) {
+  function thimlivesearch (contain) {
     var input_search = contain.find('.courses-search-input'),
-        list_search = contain.find('.courses-list-search'),
-        keyword = input_search.val(),
-        loading = contain.find('.fa-search,.fa-times')
+      list_search = contain.find('.courses-list-search'),
+      keyword = input_search.val(),
+      loading = contain.find('.fa-search,.fa-times')
 
     if (keyword) {
       if (keyword.length < 1) {
@@ -748,9 +743,9 @@ var can_escape = true;
       }
       loading.addClass('fa-spinner fa-spin')
       $.ajax({
-        type   : 'POST',
-        data   : 'action=courses_searching&keyword=' + keyword + '&from=search',
-        url    : ajaxurl,
+        type: 'POST',
+        data: 'action=courses_searching&keyword=' + keyword + '&from=search',
+        url: ajaxurl,
         success: function (html) {
           var data_li = ''
           var items = jQuery.parseJSON(html)
@@ -759,22 +754,22 @@ var can_escape = true;
               if (index == 0) {
                 if (this['guid'] != '#') {
                   data_li += '<li class="ui-menu-item' +
-                      this['id'] +
-                      ' ob-selected"><a class="ui-corner-all" href="' +
-                      this['guid'] + '">' + this['title'] +
-                      '</a></li>'
+                    this['id'] +
+                    ' ob-selected"><a class="ui-corner-all" href="' +
+                    this['guid'] + '">' + this['title'] +
+                    '</a></li>'
                 } else {
                   data_li += '<li class="ui-menu-item' +
-                      this['id'] + ' ob-selected">' +
-                      this['title'] + '</li>'
+                    this['id'] + ' ob-selected">' +
+                    this['title'] + '</li>'
                 }
 
               } else {
                 data_li += '<li class="ui-menu-item' +
-                    this['id'] +
-                    '"><a class="ui-corner-all" href="' +
-                    this['guid'] + '">' + this['title'] +
-                    '</a></li>'
+                  this['id'] +
+                  '"><a class="ui-corner-all" href="' +
+                  this['guid'] + '">' + this['title'] +
+                  '</a></li>'
               }
             })
             list_search.addClass('search-visible').html('').append(data_li)
@@ -782,14 +777,14 @@ var can_escape = true;
           thimsearchHover()
           loading.removeClass('fa-spinner fa-spin')
         },
-        error  : function (html) {
+        error: function (html) {
         },
       })
     }
     list_search.html('')
   }
 
-  function thimsearchHover() {
+  function thimsearchHover () {
     $('.courses-list-search li').on('mouseenter', function () {
       $('.courses-list-search li').removeClass('ob-selected')
       $(this).addClass('ob-selected')
@@ -799,15 +794,15 @@ var can_escape = true;
   $(document).ready(function () {
 
     $(document).on('click', '.thim-course-search-overlay .search-toggle',
-        function (e) {
-          e.stopPropagation()
-          var parent = $(this).parent()
-          $('body').addClass('thim-search-active')
-          setTimeout(function () {
-            parent.find('.thim-s').focus()
-          }, 500)
+      function (e) {
+        e.stopPropagation()
+        var parent = $(this).parent()
+        $('body').addClass('thim-search-active')
+        setTimeout(function () {
+          parent.find('.thim-s').focus()
+        }, 500)
 
-        })
+      })
     $(document).on('click', '.search-popup-bg', function () {
       var parent = $(this).parent()
       window.clearTimeout(search_timer)
@@ -819,15 +814,15 @@ var can_escape = true;
     $(document).on('keyup', '.courses-search-input', function (event) {
       clearTimeout($.data(this, 'search_timer'))
       var contain = $(this).parents('.courses-searching'),
-          list_search = contain.find('.courses-list-search'),
-          item_search = list_search.find('>li')
+        list_search = contain.find('.courses-list-search'),
+        item_search = list_search.find('>li')
       if (event.which == 13) {
         event.preventDefault()
         $(this).stop()
       } else if (event.which == 38) {
         if (navigator.userAgent.indexOf('Chrome') != -1 && parseFloat(
-            navigator.userAgent.substring(navigator.userAgent.indexOf(
-                'Chrome') + 7).split(' ')[0]) >= 15) {
+          navigator.userAgent.substring(navigator.userAgent.indexOf(
+            'Chrome') + 7).split(' ')[0]) >= 15) {
           var selected = item_search.filter('.ob-selected')
           if (item_search.length > 1) {
             item_search.removeClass('ob-selected')
@@ -841,8 +836,8 @@ var can_escape = true;
         }
       } else if (event.which == 40) {
         if (navigator.userAgent.indexOf('Chrome') != -1 && parseFloat(
-            navigator.userAgent.substring(navigator.userAgent.indexOf(
-                'Chrome') + 7).split(' ')[0]) >= 15) {
+          navigator.userAgent.substring(navigator.userAgent.indexOf(
+            'Chrome') + 7).split(' ')[0]) >= 15) {
           var selected = item_search.filter('.ob-selected')
           if (item_search.length > 1) {
             item_search.removeClass('ob-selected')
@@ -915,9 +910,9 @@ var can_escape = true;
     })
 
     $(document).on('click', '.courses-list-search, .courses-search-input',
-        function (event) {
-          event.stopPropagation()
-        })
+      function (event) {
+        event.stopPropagation()
+      })
 
     $(document).on('click', 'body', function () {
       if (!$('body').hasClass('course-scroll-remove')) {
@@ -928,7 +923,7 @@ var can_escape = true;
 
     $(window).scroll(function () {
       if ($('body').hasClass('course-scroll-remove') &&
-          $('.courses-list-search li').length > 0) {
+        $('.courses-list-search li').length > 0) {
         $('.courses-searching .courses-list-search').empty()
         $('.courses-searching .thim-s').val('')
       }
@@ -987,7 +982,7 @@ var can_escape = true;
         var $color_btn_bg_change = $this.attr('data-btn-bg')
         if ($this.attr('data-text-readmore')) {
           var $color_btn_bg_text_color_change = $this.attr(
-              'data-text-readmore')
+            'data-text-readmore')
         } else {
           $color_btn_bg_text_color_change = $color_btn_bg_text_color
         }
@@ -1000,15 +995,15 @@ var can_escape = true;
             }
             $('.smicon-read', $this).css({
               'background-color': $color_btn_bg_change,
-              'border-color'    : $color_btn_bg_change,
-              'color'           : $color_btn_bg_text_color_change,
+              'border-color': $color_btn_bg_change,
+              'color': $color_btn_bg_text_color_change,
             })
           },
           'mouseleave': function () {
             $('.smicon-read', $this).css({
               'background-color': $color_btn_bg,
-              'border-color'    : $color_btn_border,
-              'color'           : $color_btn_bg_text_color,
+              'border-color': $color_btn_border,
+              'color': $color_btn_bg_text_color,
             })
           },
         })
@@ -1018,8 +1013,8 @@ var can_escape = true;
       $($this).on({
         'mouseenter': function () {
           if ($this.attr('data-icon')) {
-            $('.boxes-icon i', $this).css({'color': $color_icon_change})
-            $('.heading__primary a', $this).css({'color': $color_icon_change})
+            $('.boxes-icon i', $this).css({ 'color': $color_icon_change })
+            $('.heading__primary a', $this).css({ 'color': $color_icon_change })
           }
           if ($this.attr('data-icon-bg')) {
             /* for select style*/
@@ -1028,22 +1023,22 @@ var can_escape = true;
                 $color_bg = $('.boxes-icon', $this).css('background-color')
             }
 
-            $('.boxes-icon', $this).css({'background-color': $color_bg_change})
+            $('.boxes-icon', $this).css({ 'background-color': $color_bg_change })
           }
           if ($this.attr('data-icon-border')) {
-            $('.boxes-icon', $this).css({'border-color': $color_icon_border_change})
+            $('.boxes-icon', $this).css({ 'border-color': $color_icon_border_change })
           }
         },
         'mouseleave': function () {
           if ($this.attr('data-icon')) {
-            $('.boxes-icon i', $this).css({'color': $color_icon})
-            $('.heading__primary a', $this).css({'color': $color_title})
+            $('.boxes-icon i', $this).css({ 'color': $color_icon })
+            $('.heading__primary a', $this).css({ 'color': $color_title })
           }
           if ($this.attr('data-icon-bg')) {
-            $('.boxes-icon', $this).css({'background-color': $color_bg})
+            $('.boxes-icon', $this).css({ 'background-color': $color_bg })
           }
           if ($this.attr('data-icon-border')) {
-            $('.boxes-icon', $this).css({'border-color': $color_icon_border})
+            $('.boxes-icon', $this).css({ 'border-color': $color_icon_border })
           }
         },
       })
@@ -1054,8 +1049,8 @@ var can_escape = true;
     //Background video
     $('.bg-video-play').on('click', function () {
       var elem = $(this),
-          video = $(this).parents('.thim-widget-icon-box').find('.full-screen-video'),
-          player = video.get(0)
+        video = $(this).parents('.thim-widget-icon-box').find('.full-screen-video'),
+        player = video.get(0)
       if (player.paused) {
         player.play()
         elem.addClass('bg-pause')
@@ -1068,7 +1063,7 @@ var can_escape = true;
     //wpcf7-form-submit
     $(document).on('click', '.wpcf7-form-control.wpcf7-submit', function () {
       var elem = $(this),
-          form = elem.parents('.wpcf7-form')
+        form = elem.parents('.wpcf7-form')
       form.addClass('thim-sending')
       $(document).on('invalid.wpcf7', function (event) {
         form.removeClass('thim-sending')
@@ -1109,10 +1104,10 @@ var can_escape = true;
     for (var i = 0; i < carousels.length; i++) {
       var data = $(carousels[i]).attr('data-countdown')
       var options = {
-        navigation     : true, // Show next and prev buttons
-        slideSpeed     : 300,
+        navigation: true, // Show next and prev buttons
+        slideSpeed: 300,
         paginationSpeed: 400,
-        singleItem     : true,
+        singleItem: true,
       }
       if (typeof data !== 'undefined') {
         data = JSON.parse(data)
@@ -1128,7 +1123,7 @@ var can_escape = true;
       }
 
       if (typeof options.slide === 'undefined' || options.slide ===
-          true) {
+        true) {
         $(carousels[i]).owlCarousel(options)
       } else {
         $(carousels[i]).removeClass('owl-carousel')
@@ -1146,35 +1141,24 @@ var can_escape = true;
       offsetTop += $('#masthead.sticky-header').outerHeight()
     }
     jQuery('#sidebar.sticky-sidebar').theiaStickySidebar({
-      'containerSelector'     : '',
-      'additionalMarginTop'   : offsetTop,
+      'containerSelector': '',
+      'additionalMarginTop': offsetTop,
       'additionalMarginBottom': '0',
-      'updateSidebarHeight'   : false,
-      'minWidth'              : '768',
-      'sidebarBehavior'       : 'modern',
+      'updateSidebarHeight': false,
+      'minWidth': '768',
+      'sidebarBehavior': 'modern',
     })
   })
 
   // Prevent search when no content submited
   jQuery(document).ready(function () {
-    const elSkeleton = document.querySelector( '.lp-archive-course-skeleton' );
-
-    /*$('.courses-searching form').submit(function (e) {
-      e.preventDefault();
-      var input_search = $(this).find('input[name=c_search]');
-
-      if ( ! elSkeleton ) {
-        const url = new URL( window.location.href );
-        url.searchParams.set( 'isPageLoad', 1 );
-        url.searchParams.set( 'c_search', input_search.val() );
-        window.location.href = url;
-      }
-
+    $('.courses-searching form').submit(function () {
+      var input_search = $(this).find('input[name=\'s\']')
       if ($.trim(input_search.val()) === '') {
         input_search.focus()
         return false
       }
-    })*/
+    })
 
     $('form#bbp-search-form').submit(function () {
       if ($.trim($('#bbp_search').val()) === '') {
@@ -1194,8 +1178,8 @@ var can_escape = true;
     //My account login
     $('#customer_login .login').submit(function (event) {
       var elem = $(this),
-          input_username = elem.find('#username'),
-          input_pass = elem.find('#password')
+        input_username = elem.find('#username'),
+        input_pass = elem.find('#password')
 
       if (input_pass.length > 0 && input_pass.val() == '') {
         input_pass.addClass('invalid')
@@ -1211,15 +1195,15 @@ var can_escape = true;
     //My account register
     $('#customer_login .register').submit(function (event) {
       var elem = $(this),
-          input_username = elem.find('#reg_username'),
-          input_email = elem.find('#reg_email'),
-          input_pass = elem.find('#reg_password'),
-          input_captcha = $('#customer_login .register .captcha-result'),
-          valid_email = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm
+        input_username = elem.find('#reg_username'),
+        input_email = elem.find('#reg_email'),
+        input_pass = elem.find('#reg_password'),
+        input_captcha = $('#customer_login .register .captcha-result'),
+        valid_email = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm
 
       if (input_captcha.length > 0) {
         var captcha_1 = parseInt(input_captcha.data('captcha1')),
-            captcha_2 = parseInt(input_captcha.data('captcha2'))
+          captcha_2 = parseInt(input_captcha.data('captcha2'))
 
         if (captcha_1 + captcha_2 != parseInt(input_captcha.val())) {
           input_captcha.addClass('invalid').val('')
@@ -1238,7 +1222,7 @@ var can_escape = true;
       }
 
       if (input_email.length > 0 && (input_email.val() == '' ||
-          !valid_email.test(input_email.val()))) {
+        !valid_email.test(input_email.val()))) {
         input_email.addClass('invalid')
         event.preventDefault()
       }
@@ -1247,11 +1231,11 @@ var can_escape = true;
     //Validate comment form submit
     $('form#commentform').submit(function (event) {
       var elem = $(this),
-          comment = elem.find('#comment[aria-required="true"]'),
-          author = elem.find('#author[aria-required="true"]'),
-          url = elem.find('#url[aria-required="true"]'),
-          email = elem.find('#email[aria-required="true"]'),
-          valid_email = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm
+        comment = elem.find('#comment[aria-required="true"]'),
+        author = elem.find('#author[aria-required="true"]'),
+        url = elem.find('#url[aria-required="true"]'),
+        email = elem.find('#email[aria-required="true"]'),
+        valid_email = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm
 
       if (author.length > 0 && author.val() == '') {
         author.addClass('invalid')
@@ -1269,7 +1253,7 @@ var can_escape = true;
       }
 
       if (email.length > 0 &&
-          (email.val() == '' || !valid_email.test(email.val()))) {
+        (email.val() == '' || !valid_email.test(email.val()))) {
         email.addClass('invalid')
         event.preventDefault()
       }
@@ -1304,11 +1288,11 @@ var can_escape = true;
     })
 
     //Widget gallery-posts
-    function gallery_layout() {
+    function gallery_layout () {
       var $container = jQuery('.isotope-layout')
       $container.each(function () {
         var $this = jQuery(this), $width, $col, $width_unit,
-            $height_unit
+          $height_unit
         var $spacing = 10
         $col = 6
         if ($col != 1) {
@@ -1321,7 +1305,7 @@ var can_escape = true;
 
         }
         $width_unit = Math.floor((parseInt($container.width(), 10) -
-            ($col - 1) * $spacing) / $col)
+          ($col - 1) * $spacing) / $col)
         $height_unit = Math.floor(parseInt($width_unit, 10))
 
         $this.find('.item_gallery').css({
@@ -1367,9 +1351,9 @@ var can_escape = true;
         if (jQuery().isotope) {
           $this.isotope({
             itemSelector: '.item_gallery',
-            masonry     : {
+            masonry: {
               columnWidth: $width_unit,
-              gutter     : $spacing,
+              gutter: $spacing,
             },
           })
         }
@@ -1384,31 +1368,31 @@ var can_escape = true;
     $(document).on('click', '.filter-controls .filter', function (e) {
       e.preventDefault()
       var filter = $(this).data('filter'),
-          filter_wraper = $(this).parents('.thim-widget-gallery-posts').find('.wrapper-gallery-filter')
+        filter_wraper = $(this).parents('.thim-widget-gallery-posts').find('.wrapper-gallery-filter')
       $('.filter-controls .filter').removeClass('active')
       $(this).addClass('active')
-      filter_wraper.isotope({filter: filter})
+      filter_wraper.isotope({ filter: filter })
     })
 
     $(document).on('click', '.thim-gallery-popup', function (e) {
       e.preventDefault()
       var elem = $(this),
-          post_id = elem.attr('data-id'),
-          data = {action: 'thim_gallery_popup', post_id: post_id}
+        post_id = elem.attr('data-id'),
+        data = { action: 'thim_gallery_popup', post_id: post_id }
       elem.addClass('loading')
       $.post(ajaxurl, data, function (response) {
         elem.removeClass('loading')
         $('.thim-gallery-show').append(response)
         if ($('.thim-gallery-show img').length > 0) {
           $('.thim-gallery-show').magnificPopup({
-            mainClass   : 'my-mfp-zoom-in',
-            type        : 'image',
-            delegate    : 'a',
+            mainClass: 'my-mfp-zoom-in',
+            type: 'image',
+            delegate: 'a',
             showCloseBtn: false,
-            gallery     : {
+            gallery: {
               enabled: true,
             },
-            callbacks   : {
+            callbacks: {
               open: function () {
                 $('body').addClass('thim-popup-active')
                 $.magnificPopup.instance.close = function () {
@@ -1421,13 +1405,13 @@ var can_escape = true;
           }).magnificPopup('open')
         } else {
           $.magnificPopup.open({
-            mainClass   : 'my-mfp-zoom-in',
-            items       : {
-              src : $('.thim-gallery-show'),
+            mainClass: 'my-mfp-zoom-in',
+            items: {
+              src: $('.thim-gallery-show'),
               type: 'inline',
             },
             showCloseBtn: false,
-            callbacks   : {
+            callbacks: {
               open: function () {
                 $('body').addClass('thim-popup-active')
                 $.magnificPopup.instance.close = function () {
@@ -1446,8 +1430,8 @@ var can_escape = true;
 
     $('.widget-button.custom_style').each(function () {
       var elem = $(this),
-          old_style = elem.attr('style'),
-          hover_style = elem.data('hover')
+        old_style = elem.attr('style'),
+        hover_style = elem.data('hover')
       elem.on({
         'mouseenter': function () {
           elem.attr('style', hover_style)
@@ -1463,34 +1447,42 @@ var can_escape = true;
   $(window).on('load', function () {
 
     $(window).resize(function () {
-       $('.thim-carousel-instructors .instructor-item').css('min-height', '')
-       $('body.thim-demo-university-4 .thim-about-eduma, body.thim-demo-university-4 .thim-video-popup .video-info').css('min-height', '')
+      thim_get_position_header_course_v2(
+        $('.content_course_2 .header_single_content .bg_header'))
+      $('.thim-carousel-instructors .instructor-item').css('min-height', '')
+      // $('.thim-owl-carousel-post:not(.layout-3) .image').
+      //     css('min-height', '');
+      // $('.thim-course-carousel .course-thumbnail').css('min-height', '')
+      $('body.thim-demo-university-4 .thim-about-eduma, body.thim-demo-university-4 .thim-video-popup .video-info').css('min-height', '')
       if ($(window).width() < 767 || $(window).width() > 1200) {
         $('body.thim-demo-university-4 #sb_instagram .sbi_photo').css('min-height', '')
       }
- 
+      thim_get_position_header_course_v2(
+        $('.content_course_2 .header_single_content .bg_header'))
+      // thim_min_height_carousel($('.thim-carousel-instructors .instructor-item'));
       thim_min_height_carousel($('.thim-owl-carousel-post:not(.layout-3) .image'))
-       thim_min_height_carousel($('.thim-row-bg-border-top .thim-bg-border-top'))
+      // thim_min_height_carousel($('.thim-course-carousel .course-thumbnail'))
+      thim_min_height_carousel($('.thim-row-bg-border-top .thim-bg-border-top'))
       thim_min_height_carousel_old($('.thim-carousel-instructors .instructor-item'))
       thim_min_height_carousel_old($('.thim-testimonial-carousel-kindergarten .item'))
 
       thim_min_height_carousel(
-          $('.thim-widget-carousel-categories .item'))
+        $('.thim-widget-carousel-categories .item'))
       thim_min_height_carousel(
-          $('.elementor-widget-thim-carousel-categories .item'))
+        $('.elementor-widget-thim-carousel-categories .item'))
 
       thim_min_height_content_area()
       if ($(window).width() > 767) {
         thim_min_height_carousel(
-            $('.thim-grid-posts .item-post'))
+          $('.thim-grid-posts .item-post'))
         thim_min_height_carousel(
-            $('body.thim-demo-university-4 .thim-about-eduma, body.thim-demo-university-4 .thim-video-popup .video-info'))
+          $('body.thim-demo-university-4 .thim-about-eduma, body.thim-demo-university-4 .thim-video-popup .video-info'))
       }
 
       if ($(window).width() > 767 && $(window).width() < 1200) {
         if ($('body.thim-demo-university-4 .thim-icon-our-programs').length) {
           var min_height = parseInt($(
-              'body.thim-demo-university-4 .thim-icon-our-programs').outerHeight() / 3)
+            'body.thim-demo-university-4 .thim-icon-our-programs').outerHeight() / 3)
           $('body.thim-demo-university-4 #sb_instagram .sbi_photo').css('min-height', min_height)
         }
 
@@ -1498,18 +1490,18 @@ var can_escape = true;
     })
   })
 
-  function thim_get_position_header_course_v2($selector) {
+  function thim_get_position_header_course_v2 ($selector) {
     if ($(window).width() > 1025) {
       $selector.css('left', '-' +
-          ($(window).width() - $('.container').width()) / 2 + 'px')
+        ($(window).width() - $('.container').width()) / 2 + 'px')
       $selector.css('right', '-' +
-          (($(window).width() - $('.container').width()) / 2 +
-              (45 + $('.content_course_2 .course_right').width())) +
-          'px')
+        (($(window).width() - $('.container').width()) / 2 +
+          (45 + $('.content_course_2 .course_right').width())) +
+        'px')
     } else {
       $selector.css('left', '-15px')
       $selector.css('right', '-' +
-          (45 + $('.content_course_2 .course_right').width()) + 'px')
+        (45 + $('.content_course_2 .course_right').width()) + 'px')
     }
 
   }
@@ -1522,7 +1514,7 @@ var can_escape = true;
     thim_min_height_content_area()
   })
 
-  function thim_min_height_carousel_old($selector) {
+  function thim_min_height_carousel_old ($selector) {
     var min_height = 0
     $selector.each(function (index, val) {
       if ($(this).outerHeight() > min_height) {
@@ -1534,13 +1526,13 @@ var can_escape = true;
     })
   }
 
-  function thim_min_height_carousel(el, child) {
+  function thim_min_height_carousel (el, child) {
     var $elements = $(el)
 
     $elements.each(function () {
       var $element = $(this),
-          $child = child ? $element.find(child) : $element.children(),
-          maxHeight = 0
+        $child = child ? $element.find(child) : $element.children(),
+        maxHeight = 0
 
       $child.each(function () {
         var thisHeight = $(this).outerHeight()
@@ -1551,10 +1543,10 @@ var can_escape = true;
     })
   }
 
-  function thim_min_height_content_area() {
+  function thim_min_height_content_area () {
     var content_area = $('#main-content .content-area'),
-        footer = $('#main-content .site-footer'),
-        winH = $(window).height()
+      footer = $('#main-content .site-footer'),
+      winH = $(window).height()
     if (content_area.length > 0 && footer.length > 0) {
       content_area.css('min-height', winH - footer.height())
     }
@@ -1566,7 +1558,7 @@ var can_escape = true;
       e.preventDefault()
       if ($('#wpadminbar').length > 0) {
         var height = parseInt($('#wpadminbar').outerHeight()) +
-            parseInt($('.thim-search-light-style').outerHeight())
+          parseInt($('.thim-search-light-style').outerHeight())
       } else {
         var height = parseInt($('.thim-search-light-style').outerHeight())
       }
@@ -1576,50 +1568,50 @@ var can_escape = true;
     })
 
     var html_scroll = '<div class="scroll_slider_tab"><div class="container">' +
-        '<a href="" class="to_bottom">' +
-        '<svg xmlns="http://www.w3.org/2000/svg"' +
-        'xmlns:xlink="http://www.w3.org/1999/xlink"' +
-        'width="18px" height="28px">' +
-        '<path fill-rule="evenodd"  fill="rgb(255, 255, 255)"' +
-        'd="M16.169,2.687 C14.585,0.904 12.173,0.000 9.000,0.000 C5.827,0.000 3.415,0.904 1.831,2.687 C0.238,4.479 -0.000,6.580 -0.000,7.673 L-0.000,20.328 C-0.000,21.420 0.238,23.520 1.831,25.313 C3.415,27.096 5.827,28.000 9.000,28.000 C12.173,28.000 14.585,27.096 16.169,25.313 C17.762,23.520 18.000,21.420 18.000,20.328 L18.000,7.673 C18.000,6.580 17.762,4.479 16.169,2.687 ZM9.000,9.755 C8.342,9.755 7.808,9.242 7.808,8.611 L7.808,6.159 C7.808,5.528 8.342,5.015 9.000,5.015 C9.658,5.015 10.192,5.528 10.192,6.159 L10.192,8.611 C10.192,9.242 9.658,9.755 9.000,9.755 ZM17.059,20.328 C17.059,21.458 16.670,27.097 9.000,27.097 C1.330,27.097 0.941,21.458 0.941,20.328 L0.941,7.673 C0.941,6.566 1.315,1.138 8.529,0.911 L8.529,4.163 C7.578,4.369 6.866,5.185 6.866,6.159 L6.866,8.611 C6.866,9.585 7.578,10.401 8.529,10.607 L8.529,14.318 C8.529,14.568 8.740,14.770 9.000,14.770 C9.260,14.770 9.471,14.568 9.471,14.318 L9.471,10.607 C10.422,10.401 11.134,9.585 11.134,8.611 L11.134,6.159 C11.134,5.185 10.422,4.369 9.471,4.163 L9.471,0.911 C16.685,1.138 17.059,6.566 17.059,7.673 L17.059,20.328 Z"/>' +
-        '</svg>' +
-        '<i class="icon-chevron-down icon1"></i>' +
-        '<i class="icon-chevron-down icon2"></i>' +
-        '</a>' +
-        '</div></div>'
+      '<a href="" class="to_bottom">' +
+      '<svg xmlns="http://www.w3.org/2000/svg"' +
+      'xmlns:xlink="http://www.w3.org/1999/xlink"' +
+      'width="18px" height="28px">' +
+      '<path fill-rule="evenodd"  fill="rgb(255, 255, 255)"' +
+      'd="M16.169,2.687 C14.585,0.904 12.173,0.000 9.000,0.000 C5.827,0.000 3.415,0.904 1.831,2.687 C0.238,4.479 -0.000,6.580 -0.000,7.673 L-0.000,20.328 C-0.000,21.420 0.238,23.520 1.831,25.313 C3.415,27.096 5.827,28.000 9.000,28.000 C12.173,28.000 14.585,27.096 16.169,25.313 C17.762,23.520 18.000,21.420 18.000,20.328 L18.000,7.673 C18.000,6.580 17.762,4.479 16.169,2.687 ZM9.000,9.755 C8.342,9.755 7.808,9.242 7.808,8.611 L7.808,6.159 C7.808,5.528 8.342,5.015 9.000,5.015 C9.658,5.015 10.192,5.528 10.192,6.159 L10.192,8.611 C10.192,9.242 9.658,9.755 9.000,9.755 ZM17.059,20.328 C17.059,21.458 16.670,27.097 9.000,27.097 C1.330,27.097 0.941,21.458 0.941,20.328 L0.941,7.673 C0.941,6.566 1.315,1.138 8.529,0.911 L8.529,4.163 C7.578,4.369 6.866,5.185 6.866,6.159 L6.866,8.611 C6.866,9.585 7.578,10.401 8.529,10.607 L8.529,14.318 C8.529,14.568 8.740,14.770 9.000,14.770 C9.260,14.770 9.471,14.568 9.471,14.318 L9.471,10.607 C10.422,10.401 11.134,9.585 11.134,8.611 L11.134,6.159 C11.134,5.185 10.422,4.369 9.471,4.163 L9.471,0.911 C16.685,1.138 17.059,6.566 17.059,7.673 L17.059,20.328 Z"/>' +
+      '</svg>' +
+      '<i class="icon-chevron-down icon1"></i>' +
+      '<i class="icon-chevron-down icon2"></i>' +
+      '</a>' +
+      '</div></div>'
     $('.have_scroll_bottom').append(html_scroll)
     $(document).on('click', '.have_scroll_bottom .scroll_slider_tab .to_bottom',
-        function (e) {
+      function (e) {
+        e.preventDefault()
+        if ($('#wpadminbar').length > 0) {
+          var height = parseInt($('#wpadminbar').outerHeight()) +
+            parseInt($('.have_scroll_bottom').outerHeight())
+        } else {
+          var height = parseInt(
+            $('.have_scroll_bottom').outerHeight())
+        }
+        $('body, html').animate({
+          'scrollTop': height,
+        }, 600)
+      })
+
+    $(document).on('click', 'body.page-template-landing-page .current_page_item>a, .thim-top-landing .widget-button',
+      function (e) {
+        if ($('.thim-top-landing').length > 0) {
           e.preventDefault()
           if ($('#wpadminbar').length > 0) {
-            var height = parseInt($('#wpadminbar').outerHeight()) +
-                parseInt($('.have_scroll_bottom').outerHeight())
+            var height = parseInt(
+              $('#wpadminbar').outerHeight()) +
+              parseInt($('.thim-top-landing').outerHeight())
           } else {
             var height = parseInt(
-                $('.have_scroll_bottom').outerHeight())
+              $('.thim-top-landing').outerHeight())
           }
           $('body, html').animate({
             'scrollTop': height,
           }, 600)
-        })
-
-    $(document).on('click', 'body.page-template-landing-page .current_page_item>a, .thim-top-landing .widget-button',
-        function (e) {
-          if ($('.thim-top-landing').length > 0) {
-            e.preventDefault()
-            if ($('#wpadminbar').length > 0) {
-              var height = parseInt(
-                      $('#wpadminbar').outerHeight()) +
-                  parseInt($('.thim-top-landing').outerHeight())
-            } else {
-              var height = parseInt(
-                  $('.thim-top-landing').outerHeight())
-            }
-            $('body, html').animate({
-              'scrollTop': height,
-            }, 600)
-          }
-        })
+        }
+      })
 
   })
   $(document).ready(function () {
@@ -1666,7 +1658,7 @@ var can_escape = true;
     })
 
     var item_input_new = $(
-        '.form_developer_course .content .yikes-easy-mc-form>label>input')
+      '.form_developer_course .content .yikes-easy-mc-form>label>input')
     item_input_new.focusin(function () {
       $(this).parent().find('span').css('font-size', '14px')
       $(this).parent().find('span').css('bottom', '36px')
@@ -1685,8 +1677,8 @@ var can_escape = true;
 
     $('.thim-widget-timetable .timetable-item ').each(function () {
       var elem = $(this),
-          old_style = elem.attr('style'),
-          hover_style = elem.data('hover')
+        old_style = elem.attr('style'),
+        hover_style = elem.data('hover')
       elem.on({
         'mouseenter': function () {
           elem.attr('style', hover_style)
@@ -1700,10 +1692,10 @@ var can_escape = true;
     if (typeof LP != 'undefined') {
       LP.Hook.addAction('learn_press_receive_message', function () {
         var lesson_title = $(
-                '.course-item.item-current .course-item-title').text(),
-            lesson_index = $('.course-item.item-current .index').text()
+          '.course-item.item-current .course-item-title').text(),
+          lesson_index = $('.course-item.item-current .index').text()
         $('#popup-header .popup-title').html('<span class="index">' + lesson_index + '</span>' +
-            lesson_title)
+          lesson_title)
       })
     }
 
@@ -1711,12 +1703,12 @@ var can_escape = true;
       var item = $(this)
       e.preventDefault()
       $.magnificPopup.open({
-        items       : {
-          src : item.parent().parent().find('.video-content'),
+        items: {
+          src: item.parent().parent().find('.video-content'),
           type: 'inline',
         },
         showCloseBtn: false,
-        callbacks   : {
+        callbacks: {
           open: function () {
             $('body').addClass('thim-popup-active')
             $.magnificPopup.instance.close = function () {
@@ -1760,14 +1752,14 @@ var can_escape = true;
 
     $('.width-navigation .menu-main-menu>li.menu-item').last().addClass('last-menu-item')
 
-    // //add mac-os to body class
-    // if (navigator.userAgent.indexOf('Mac') > 0) {
-    //   $('body').addClass('mac-os')
-    // }
-    // //add i-os to body class
-    // if (navigator.platform.match(/(iPhone|iPod|iPad)/i)) {
-    //   $('body').addClass('i-os')
-    // }
+    //add mac-os to body class
+    if (navigator.userAgent.indexOf('Mac') > 0) {
+      $('body').addClass('mac-os')
+    }
+    //add i-os to body class
+    if (navigator.platform.match(/(iPhone|iPod|iPad)/i)) {
+      $('body').addClass('i-os')
+    }
 
     //Set padding for demo vc RTL
     setTimeout(function () {
@@ -1775,16 +1767,91 @@ var can_escape = true;
     }, 1000)
     $(window).resize(function () {
       var get_padding1 = parseFloat(
-              $('body.rtl .vc_row-has-fill[data-vc-full-width="true"]').css('left')),
-          get_padding2 = parseFloat(
-              $('body.rtl .vc_row-no-padding[data-vc-full-width="true"]').css('left'))
+        $('body.rtl .vc_row-has-fill[data-vc-full-width="true"]').css('left')),
+        get_padding2 = parseFloat(
+          $('body.rtl .vc_row-no-padding[data-vc-full-width="true"]').css('left'))
       if (get_padding1 != 'undefined') {
-        $('body.rtl .vc_row-has-fill[data-vc-full-width="true"]').css({'right': get_padding1, 'left': ''})
+        $('body.rtl .vc_row-has-fill[data-vc-full-width="true"]').css({ 'right': get_padding1, 'left': '' })
       }
       if (get_padding2 != 'undefined') {
-        $('body.rtl .vc_row-no-padding[data-vc-full-width="true"]').css({'right': get_padding2, 'left': ''})
+        $('body.rtl .vc_row-no-padding[data-vc-full-width="true"]').css({ 'right': get_padding2, 'left': '' })
       }
     })
+
+    //Course archive search filter
+    var search_time_out = null
+    $(document).on('keydown', 'body:not(.course-filter-active) .course-search-filter',
+      function (event) {
+        if (event.ctrlKey) {
+          return
+        }
+
+        if (event.keyCode === 13) {
+          event.preventDefault()
+          return false
+        }
+
+        if ((event.keyCode >= 48 && event.keyCode <= 90) || event.keyCode === 8 || event.keyCode === 32) {
+          var elem = $(this),
+            keyword = event.keyCode === 8 ? elem.val() : elem.val() + event.key,
+            $body = $('body')
+
+          if (search_time_out != null) clearTimeout(search_time_out)
+
+          search_time_out = setTimeout(function () {
+            elem.attr('disabled', 'disabled')
+            search_time_out = null
+
+            $('#thim-course-archive').addClass('loading')
+
+            var archive = elem.parents('#lp-archive-courses'),
+              cateArr = []
+
+            if ($body.hasClass('category')) {
+              var bodyClass = $body.attr('class'),
+                cateClass = bodyClass.match(/category\-\d+/gi)[0],
+                cateID = cateClass.split('-').pop()
+
+              cateArr.push(cateID)
+            }
+
+            if ($('.list-cate-filter').length > 0) {
+              $('.list-cate-filter input.filtered').each(function () {
+
+                if ($(this).val() !== cateID) {
+                  cateArr.push($(this).val())
+                }
+              })
+            }
+
+            $.ajax({
+              url: $('#lp-archive-courses').data('allCoursesUrl'),
+              type: 'POST',
+              dataType: 'html',
+              data: {
+                s: keyword,
+                ref: 'course',
+                post_type: 'lp_course',
+                course_orderby: $('.thim-course-order > select').val(),
+                course_cate_filter: cateArr,
+                course_paged: 1,
+              },
+              success: function (html) {
+                var archive_html = $(html).find('#lp-archive-courses').html()
+                archive.html(archive_html)
+                $('.course-search-filter').val(keyword).trigger('focus')
+                $body.removeClass('course-filter-active')
+                $('.filter-loading').remove()
+              },
+              error: function () {
+                $body.removeClass('course-filter-active')
+                $('.filter-loading').remove()
+              },
+            })
+
+          }, 1000)
+        }
+      })
 
     $(document).on('click', '.button-load-item', function () {
       can_escape = false
@@ -1805,7 +1872,7 @@ var can_escape = true;
     $('.login-password').append('<span id="show_pass"><i class="fa fa-eye"></i></span>')
     $(document).on('click', '#show_pass', function () {
       var el = $(this),
-          thim_pass = el.parents('.login-password').find('>input')
+        thim_pass = el.parents('.login-password').find('>input')
       if (el.hasClass('active')) {
         thim_pass.attr('type', 'password')
       } else {
@@ -1815,11 +1882,11 @@ var can_escape = true;
     })
 
     $(document).on('click', '.content_course_2 .course_right .menu_course ul li a, .content_course_2 .thim-course-menu-landing .thim-course-landing-tab li a',
-        function () {
-          $('html, body').animate({
-            scrollTop: $($(this).attr('href')).offset().top,
-          }, 1000)
-        })
+      function () {
+        $('html, body').animate({
+          scrollTop: $($(this).attr('href')).offset().top,
+        }, 1000)
+      })
 
     $(window).resize(function () {
       if ($(window).width() > 600) {

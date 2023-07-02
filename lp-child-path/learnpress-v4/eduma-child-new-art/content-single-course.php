@@ -4,7 +4,7 @@
  *
  * @author  ThimPress
  * @package LearnPress/Templates
- * @version 4.0.1
+ * @version 4.0.0
  */
 
 /**
@@ -15,14 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-$course = learn_press_get_course();
-if ( ! $course ) {
-	return;
-}
+global $course;
 
 do_action( 'learn_press_before_single_course' ); ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'learn-press' ); ?> itemscope itemtype="http://schema.org/CreativeWork">
+<article id="post-<?php the_ID(); ?>" <?php post_class( 'learn-press' ); ?> itemscope
+		 itemtype="http://schema.org/CreativeWork">
 
 	<?php do_action( 'learn_press_before_single_course_summary' ); ?>
 
@@ -30,7 +28,7 @@ do_action( 'learn_press_before_single_course' ); ?>
 	the_title( '<h1 class="entry-title" itemprop="name">', '</h1>' );
 	?>
 
-	<div class="course-meta course-meta-single">
+	<div class="course-meta">
 		<?php learn_press_course_instructor(); ?>
 		<?php learn_press_course_categories(); ?>
 	</div>

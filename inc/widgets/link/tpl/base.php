@@ -1,15 +1,16 @@
 <?php
-$title_tag = 'h4';
-if(isset($instance['title_tag']) && !empty($instance['title_tag'])){
-	$title_tag = $instance['title_tag'];
-}
-if ( ! empty( $instance['text'] ) ) {
-	if ( ! empty( $instance['link'] ) ) {
-		echo '<'.$title_tag.' class="title"><a href="' . $instance['link'] . '">' . $instance['text'] . '</a></'.$title_tag.'>';
+
+$html = '';
+
+if ( !empty( $instance['text'] ) ) {
+	if ( !empty( $instance['link'] ) ) {
+		$html .= '<h4 class="title"><a href="' . $instance['link'] . '">' . $instance['text'] . '</a></h4>';
 	} else {
-		echo '<'.$title_tag.' class="title">' . $instance['text'] . '</'.$title_tag.'>';
+		$html .= '<h4 class="title">' . $instance['text'] . '</h4>';
+	}
+	if ( !empty( $instance['content'] ) ) {
+		$html .= '<div class="desc">' . $instance['content'] . '</div>';
 	}
 }
-if ( ! empty( $instance['content'] ) ) {
-	echo '<div class="desc">' . $instance['content'] . '</div>';
-}
+
+echo ent2ncr( $html );

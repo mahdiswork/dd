@@ -4,52 +4,41 @@
  *
  * @author   ThimPress
  * @package  Learnpress/Templates
- * @version  4.0.1
+ * @version  4.0.0
  */
 
 defined( 'ABSPATH' ) || exit();
 
-if ( ! isset( $user ) || ! isset( $course ) ) {
-	return;
-}
-
-if ( ! isset( $course_data ) ) {
-	$course_data = $user->get_course_data( $course->get_id() );
-
-	if ( ! $course_data ) {
-		return;
-	}
-
-	$course_results = $course_data->get_result();
-}
-
+$course_data       = $user->get_course_data( $course->get_id() );
+$course_results    = $course_data->get_results( false );
+$graduation = $course_data->get_graduation();
 $passing_condition = $course->get_passing_condition();
 $quiz_false        = 0;
 
 if ( ! empty( $course_results['items'] ) ) {
 	$quiz_false = $course_results['items']['quiz']['completed'] - $course_results['items']['quiz']['passed'];
 }
-
-$graduation = $course_data->get_graduation();
-$classes    = array(
+if ( ! isset( $graduation ) ) {
+	$graduation = _x( 'un-graduated', 'course graduation', 'learnpress' );
+}
+$classes = array(
 	'lp-course-graduation',
 	$graduation,
 	$graduation === 'passed' ? 'success' : ( $graduation === 'failed' ? 'error' : '' ),
 );
+
+
 ?>
 
 <div class="course-results-progress">
-	<?php do_action( 'learn-press/user-item-progress', $course_results, $course_data, $user, $course ); ?>
+	<?php do_action( 'learn-press/user-item-progress' ); ?>
 
 	<div class="course-progress">
-		<?php
-		$heading = apply_filters( 'learn-press/course/result-heading', __( 'Course results', 'eduma' ) );
-		if ( false !== $heading ) {
-			?>
+		<?php if ( false !== ( $heading = apply_filters( 'learn-press/course/result-heading', __( 'Course results', 'eduma' ) ) ) ) { ?>
 			<label class="lp-course-progress-heading"><?php echo $heading; ?>
 				<span class="value result"><b class="number">
-						<?php echo round( $course_results['result'], 2 ); ?></b>%
-				</span>
+                        <?php echo round( $course_results['result'], 2 ); ?></b>%
+                </span>
 			</label>
 		<?php } ?>
 		<div class="learn-press-progress lp-course-progress <?php echo $course_data->is_passed() ? ' passed' : ''; ?>"
@@ -65,6 +54,6 @@ $classes    = array(
 				 style="left: <?php echo $passing_condition; ?>%;">
 			</div>
 		</div>
-	 </div>
+ 	</div>
 	<div class="<?php echo implode( ' ', $classes ); ?>"><?php learn_press_course_grade_html( $graduation ); ?></div>
 </div>

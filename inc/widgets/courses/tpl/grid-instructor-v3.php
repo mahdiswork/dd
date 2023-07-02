@@ -9,7 +9,7 @@ $sort              = $instance['order'];
 $feature           = ! empty( $instance['featured'] ) ? true : false;
 $thumb_w           = ( ! empty( $instance['thumbnail_width'] ) && '' != $instance['thumbnail_width'] ) ? $instance['thumbnail_width'] : apply_filters( 'thim_course_thumbnail_width', 450 );
 $thumb_h           = ( ! empty( $instance['thumbnail_width'] ) && '' != $instance['thumbnail_height'] ) ? $instance['thumbnail_height'] : apply_filters( 'thim_course_thumbnail_height', 400 );
-if ( isset( $instance['grid_hide_author'] ) && $instance['grid_hide_author'] == 'yes' ) {
+if ( isset( $instance['grid_hide_author'] ) ) {
 	$extra_class   = ' thim-widget-grid-courses-new';
 	$hidden_author = 'yes';
 } else {
@@ -49,7 +49,7 @@ if ( $feature ) {
 	);
 }
 
-$the_query    = new WP_Query( $condition );
+$the_query = new WP_Query( $condition );
 $coursesCount = $the_query->found_posts;
 if ( $the_query->have_posts() ) :
 	?>
@@ -68,7 +68,7 @@ if ( $the_query->have_posts() ) :
 				$course_rate = '';
 				$course      = learn_press_get_course( get_the_ID() );
 				if ( class_exists( 'LP_Addon_Course_Review' ) ) {
-					$course_rate = learn_press_get_course_rate( get_the_ID() );
+ 					$course_rate = learn_press_get_course_rate( get_the_ID() );
 				}
 				?>
 				<div class="lpr_course <?php echo 'course-grid-' . $columns; ?>">
@@ -76,14 +76,13 @@ if ( $the_query->have_posts() ) :
 						<div class="course-thumbnail">
 							<a href="<?php echo esc_url( get_the_permalink( get_the_ID() ) ); ?>">
 								<?php echo thim_get_feature_image( get_post_thumbnail_id( get_the_ID() ), 'full', $thumb_w, $thumb_h, get_the_title() ); ?>
-							</a>
 
-							<?php
-							do_action( 'thim_inner_thumbnail_course' );
-							// only button read more
-							do_action( 'thim-lp-course-button-read-more' );
-							?>
-							<?php do_action('learnpress_loop_item_price'); ?>
+							</a>
+							<?php if ( $hidden_author == 'yes' ) {
+								echo '<a href="' . esc_url( get_the_permalink( get_the_ID() ) ) . '" class="button-readmore">' . esc_html__( 'Read More', 'eduma' ) . '</a>';
+							} ?>
+							<?php do_action( 'thim_inner_thumbnail_course' ); ?>
+							<?php learn_press_courses_loop_item_price(); ?>
 						</div>
 
 						<div class="thim-course-content">
@@ -91,35 +90,37 @@ if ( $the_query->have_posts() ) :
 							if ( $hidden_author == 'no' ) {
 								learn_press_courses_loop_item_instructor();
 							}
-
+							?>
+							<?php
 							the_title( sprintf( '<h2 class="course-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' );
+							?>
 
-							if ( class_exists( 'LP_Addon_Coming_Soon_Courses' ) && learn_press_is_coming_soon( get_the_ID() ) ): ?>
+							<?php if ( class_exists( 'LP_Addon_Coming_Soon_Courses' ) && learn_press_is_coming_soon( get_the_ID() ) ): ?>
 								<div class="message message-warning learn-press-message coming-soon-message">
 									<?php esc_html_e( 'Coming soon', 'eduma' ) ?>
 								</div>
 							<?php else: ?>
 								<div class="course-meta">
 									<?php
-									$student_text = $total_lessson='';
+									$student_text = '';
 									if ( $hidden_author == 'yes' ) {
-  										$total_lessson = $course->count_items( 'lp_lesson' );
-										echo '<span class="item-info"><i class="tk tk-file"></i> ';
+										$total_lessson = $course->count_items( 'lp_lesson' );
+										echo '<span class="item-info"><i class="icon ion-document"></i> ';
 										echo sprintf( _n( '%s Lesson', '%s Lessons', $total_lessson, 'eduma' ), $total_lessson );
 										echo '</span>';
 										$student_text = ' ' . esc_html__( 'Students' );
 									}
 
-									echo '<span><i class="tk tk-users"></i> ' . intval( $course->count_students() ) . $student_text . '</span>';
+									echo '<span><i class="ion ion-android-person"></i> ' . intval( $course->count_students() ) . $student_text . '</span>';
 									if ( $hidden_author == 'no' ) { ?>
 										<?php
 										$courses_tag = get_the_terms( $course->get_id(), 'course_category' );
 										if ( $courses_tag ) {
 											echo '<a href="' . esc_url( get_term_link( $courses_tag[0]->term_id ) ) . '">';
-											echo ' <i class="tk tk-tag1"></i> ' . $courses_tag[0]->name . '</a>';
+											echo ' <i class="ion ion-ios-pricetags-outline"></i> ' . $courses_tag[0]->name . '</a>';
 										}
 										if ( $course_rate ) {
-											echo '<span class="star"><i class="tk tk-star1"></i> ' . intval( $course_rate ) . '</span>';
+											echo '<span class="star"><i class="ion ion-android-star"></i> ' . intval( $course_rate ) . '</span>';
 										} ?>
 									<?php } ?>
 								</div>
@@ -134,10 +135,10 @@ if ( $the_query->have_posts() ) :
 		<div class="number-courses">
 			<span class="course-text">
 				<?php
-				echo esc_html__( 'There are', 'eduma' ) . ' ' . esc_html( $limit ) . ' ' . esc_html__( 'courses of', 'eduma' ) . ' ' . esc_html( $coursesCount );
+					echo esc_html__('There are','eduma') .' ' . esc_html($limit) . ' ' . esc_html__('courses of','eduma') . ' ' . esc_html($coursesCount);
 				?>
 			</span>
-
+			
 		</div>
 		<?php
 		if ( $hidden_author == 'yes' ) {

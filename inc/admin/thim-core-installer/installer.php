@@ -860,6 +860,7 @@ if ( ! class_exists( 'Thim_Core_Installer' ) ) {
 
 			<?php do_action( 'admin_print_styles' ); ?>
 			<?php do_action( 'admin_print_scripts' ); ?>
+			<?php do_action( 'admin_head' ); ?>
 			<?php do_action( 'thim_core_installer_head' ); ?>
         </head>
         <body class="thim-core-installer wp-core-ui thim-core-status-<?php echo esc_attr( $status ) ?>">

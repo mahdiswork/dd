@@ -27,7 +27,7 @@ if ( ! class_exists( 'Thim_Builder_Config_One_Course_Instructors' ) ) {
 			// info
 			self::$base = 'one-course-instructors';
 			self::$name = esc_html__( 'Thim: One Course Instructors', 'eduma' );
-			self::$desc = esc_html__( 'Display course instructors.', 'eduma' );
+			self::$desc = esc_html__('Display course instructors.', 'eduma' );
 			self::$icon = 'thim-widget-icon thim-widget-icon-one-course-instructors';
 			parent::__construct();
 		}
@@ -36,16 +36,9 @@ if ( ! class_exists( 'Thim_Builder_Config_One_Course_Instructors' ) ) {
 		 * @return array
 		 */
 		public function get_options() {
+
 			// options
 			return array(
-				array(
-					'type'        => 'textfield',
-					'admin_label' => true,
-					'heading'     => esc_html__( 'Course ID', 'eduma' ),
-					'description' => esc_html__( 'Set course id to show all instructors of a course', 'eduma' ),
-					'param_name'  => 'courses_id',
-					'std'         => ! empty( get_theme_mod( 'thim_learnpress_one_course_id' ) ) ? get_theme_mod( 'thim_learnpress_one_course_id' ) : ''
-				),
 				array(
 					'type'        => 'number',
 					'admin_label' => true,
@@ -60,7 +53,7 @@ if ( ! class_exists( 'Thim_Builder_Config_One_Course_Instructors' ) ) {
 					'heading'     => esc_html__( 'Show Pagination', 'eduma' ),
 					'param_name'  => 'show_pagination',
 					'std'         => true,
-				),
+ 				),
 
 				array(
 					'type'        => 'number',

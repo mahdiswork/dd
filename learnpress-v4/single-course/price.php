@@ -15,7 +15,7 @@
 defined( 'ABSPATH' ) || exit();
 
 $user   = LP_Global::user();
-$course = learn_press_get_course();
+$course = LP_Global::course();
 if ( ! $course || ! $user ) {
 	return;
 }

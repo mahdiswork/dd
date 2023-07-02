@@ -1,20 +1,16 @@
 <?php
-$class = '';
+
 global $post;
-$category     = empty( $instance['portfolio_category'] ) ? array() : $instance['portfolio_category'];
-$filter_hiden = $instance['filter_hiden'] ? $instance['filter_hiden'] : false;
-$class        .= isset( $instance['style-item'] ) ? ' ' . $instance['style-item'] : '';
-$class        .= isset( $instance['gutter'] ) && $instance['gutter'] ? " gutter" : '';
-$class        .= isset( $instance['item_size'] ) ? ' ' . $instance['item_size'] : '';
-$class        .= isset( $instance['paging'] ) ? ' ' . $instance['paging'] : '';
-
-$paging       = isset( $instance['paging'] ) ? $instance['paging'] : '';
-$item_size    = isset( $instance['item_size'] ) ? $instance['item_size'] : '';
-$gutter       = isset( $instance['gutter'] ) ? $instance['gutter'] : '';
-$column       = isset( $instance['column'] ) ? $instance['column'] : '';
-$num_per_view = isset( $instance['num_per_view'] ) ? $instance['num_per_view'] : "";
-
-$portfolio_taxs = array();
+$category        = empty( $instance['portfolio_category'] ) ? array() : $instance['portfolio_category'];
+$filter_hiden    = $instance['filter_hiden'] ? $instance['filter_hiden'] : false;
+$filter_position = $instance['filter_position'];
+$column          = $instance['column'];
+$gutter          = $instance['gutter'];
+$item_size       = $instance['item_size'];
+$item_style      = $instance['style-item'];
+$paging          = $instance['paging'];
+$num_per_view    = $instance['num_per_view'] ? $instance['num_per_view'] : "";
+$portfolio_taxs  = array();
 
 if ( $category == 'all' ) {
 	$category = array();
@@ -25,11 +21,22 @@ if ( isset( $category[''] ) && is_array( $category[''] ) ) {
 }
 
 // Filter position
-$css_filter_position = isset( $instance['filter_position'] ) ? ' style="text-align:' . $instance['filter_position'] . ';"' : '';
-
+if ( $filter_position == "left" ) {
+	$css_filter_position = ' style="text-align:left;"';
+} else {
+	if ( $filter_position == "right" ) {
+		$css_filter_position = ' style="text-align:right;"';
+	} else {
+		$css_filter_position = ' style="text-align:center;"';
+	}
+}
 
 // Gutter
-
+if ( $gutter ) {
+	$class_gutter = " gutter";
+} else {
+	$class_gutter = "";
+}
 
 // Column
 if ( $column == 'two' ) {
@@ -143,20 +150,19 @@ if ( is_array( $gallery->posts ) && ! empty( $gallery->posts ) && $gallery->post
 wp_enqueue_script( 'thim-portfolio-appear' );
 wp_enqueue_script( 'thim-portfolio-widget' );
 ?>
-<div
-	class="wapper_portfolio<?php echo esc_attr( $class ); ?>">
+<div class="wapper_portfolio <?php echo esc_attr( $item_style ); ?> <?php echo esc_attr( $class_gutter ); ?> <?php echo esc_attr( $item_size ); ?> <?php echo esc_attr( $paging ); ?>">
 	<?php if ( $filter_hiden != true ) { ?>
-		<div class="portfolio-tabs-wapper filters"<?php echo ent2ncr( $css_filter_position ); ?> >
-			<ul class="portfolio-tabs">
+        <div class="portfolio-tabs-wapper filters"<?php echo ent2ncr( $css_filter_position ); ?> >
+            <ul class="portfolio-tabs">
 				<?php if ( empty( $category ) ) { ?>
-					<li><a href class="filter active" data-filter="*"><?php echo esc_html__( 'All', 'eduma' ); ?></a>
-					</li>
+                    <li><a href class="filter active" data-filter="*"><?php echo esc_html__( 'All', 'eduma' ); ?></a>
+                    </li>
 					<?php if ( $portfolio_taxs ) : ?>
 						<?php foreach ( $portfolio_taxs as $portfolio_tax_slug => $portfolio_tax_name ): ?>
-							<li>
-								<a class="filter" href
-								   data-filter=".<?php echo ent2ncr( $portfolio_tax_slug ); ?>"><?php echo ent2ncr( $portfolio_tax_name ); ?></a>
-							</li>
+                            <li>
+                                <a class="filter" href
+                                   data-filter=".<?php echo ent2ncr( $portfolio_tax_slug ); ?>"><?php echo ent2ncr( $portfolio_tax_name ); ?></a>
+                            </li>
 						<?php endforeach; ?>
 					<?php endif;
 				} else {
@@ -164,18 +170,18 @@ wp_enqueue_script( 'thim-portfolio-widget' );
 					$name = $term->name;
 					$slug = $term->slug;
 					?>
-					<li>
-						<a class="filter active" href data-filter=".<?php echo $slug; ?>"><?php echo $name; ?></a>
-					</li>
+                    <li>
+                        <a class="filter active" href data-filter=".<?php echo $slug; ?>"><?php echo $name; ?></a>
+                    </li>
 					<?php
 				}
 				?>
-			</ul>
-		</div>
+            </ul>
+        </div>
 	<?php } ?>
-
-	<div class="portfolio_column">
-		<ul class="content_portfolio <?php echo esc_attr( $instance['style-item'] ); ?>">
+	<?php $style_items = $instance['style-item']; ?>
+    <div class="portfolio_column">
+        <ul class="content_portfolio <?php echo esc_attr( $style_items ); ?>">
 			<?php
 			while ( $gallery->have_posts() ): $gallery->the_post();
 
@@ -341,11 +347,15 @@ wp_enqueue_script( 'thim-portfolio-widget' );
 						wp_enqueue_script( 'magnific-popup' );
 						$imclass = "video-popup";
 						if ( get_post_meta( get_the_ID(), 'project_video_embed', true ) != "" ) {
+
 							if ( get_post_meta( get_the_ID(), 'project_video_type', true ) == "youtube" ) {
-								$imImage = 'https://www.youtube.com/watch?v=' . get_post_meta( get_the_ID(), 'project_video_embed', true );
-							} else if ( get_post_meta( get_the_ID(), 'project_video_type', true ) == "vimeo" ) {
-								$imImage = 'https://player.vimeo.com/video/' . get_post_meta( get_the_ID(), 'project_video_embed', true );
+								$imImage = 'http://www.youtube.com/watch?v=' . get_post_meta( get_the_ID(), 'project_video_embed', true );
+							} else {
+								if ( get_post_meta( get_the_ID(), 'project_video_type', true ) == "vimeo" ) {
+									$imImage = 'https://vimeo.com/' . get_post_meta( get_the_ID(), 'project_video_embed', true );
+								}
 							}
+
 
 						} else {
 							if ( has_post_thumbnail( $post->ID ) ) {
@@ -375,12 +385,8 @@ wp_enqueue_script( 'thim-portfolio-widget' );
 				echo '<li data-color="' . $bk_ef . '" class="element-item ' . $item_classes . ' item_portfolio ' . $class_size . $style_layout . '" ' . $bg . '>';
 				echo '<div class="portfolio-image">';
 				echo '<div class="img-portfolio">';
-				if ( get_post_meta( get_the_ID(), 'project_video_embed', true ) != "" ) {
-					if ( get_post_meta( get_the_ID(), 'project_video_type', true ) == "youtube" ) {
-						echo '<iframe width="100%" height="250" src="https://www.youtube.com/embed/' . get_post_meta( get_the_ID(), 'project_video_embed', true ) . '" frameborder="0" allowfullscreen></iframe>';
-					} else if ( get_post_meta( get_the_ID(), 'project_video_type', true ) == "vimeo" ) {
-						echo '<iframe src="https://player.vimeo.com/video/' . get_post_meta( get_the_ID(), 'project_video_embed', true ) . '?h=f443210a78&title=0" width="100%" height="250" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
-					}
+				if ( get_post_meta( get_the_ID(), 'selectPortfolio', true ) == "portfolio_type_video" ) {
+					echo '<iframe width="100%" height="250" src="https://www.youtube.com/embed/' . get_post_meta( get_the_ID(), 'project_video_embed', true ) . '" frameborder="0" allowfullscreen></iframe>';
 				} else {
 					echo $image_url;
 				}
@@ -406,7 +412,7 @@ wp_enqueue_script( 'thim-portfolio-widget' );
 			<?php endwhile;
 			wp_reset_postdata();
 			?>
-		</ul>
+        </ul>
 		<?php
 		$show_readmore = $instance['show_readmore'];
 		$btn_text      = esc_html__( 'View More', 'eduma' );
@@ -423,6 +429,6 @@ wp_enqueue_script( 'thim-portfolio-widget' );
 			portfolio_pagination( $gallery->max_num_pages, $range = 2, $paged );
 		}
 		?>
-	</div>
+    </div>
 </div>
 <!-- .wapper portfolio -->

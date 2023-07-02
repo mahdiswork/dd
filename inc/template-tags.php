@@ -411,14 +411,13 @@ if ( !function_exists( 'thim_about_author' ) ) {
 							thim_lp_social_user();
 						}
 					?>
-					<div class="author-description">
-						<?php
-	//                    fix error author description cannot line break
-						echo wpautop(get_user_meta(  get_the_author_meta( 'ID' ) , 'description', true ));
-						?>
-					</div>
 				</div>
-
+				<div class="author-description">
+					<?php
+//                    fix error author description cannot line break
+  					  echo wpautop(get_user_meta(  get_the_author_meta( 'ID' ) , 'description', true ));
+					?>
+				</div>
 			</div>
 		</div>
 		<?php

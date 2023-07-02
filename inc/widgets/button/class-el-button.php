@@ -24,13 +24,11 @@ if ( ! class_exists( 'Thim_Builder_El_Button' ) ) {
 		 * @var string
 		 */
 		protected $config_class = 'Thim_Builder_Config_Button';
-		protected function get_html_wrapper_class() {
-			return 'thim-widget-button';
-		}
+
 		/**
 		 * Register controls.
 		 */
-		protected function register_controls() {
+		protected function _register_controls() {
 			$this->start_controls_section(
 				'el-button', [ 'label' => esc_html__( 'Thim: Button', 'eduma' )]
 			);

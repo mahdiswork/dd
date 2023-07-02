@@ -1,7 +1,9 @@
 <?php
-$number_post = isset( $instance['number_post'] ) ? $instance['number_post'] : 4;
-$columns     = isset( $instance['columns'] ) ? 12 / $instance['columns'] : 4;
-$class_demo  = isset( $instance['layout_demo_elegant'] ) && ( ! empty( $instance['layout_demo_elegant'] ) && $instance['layout_demo_elegant'] == 'yes' ) ? ' icon-image-hover' : '';
+$number_post = $instance['number_post'];
+$columns     = $instance['columns'] ? $instance['columns'] : 4;
+
+$css_animation = $instance['css_animation'];
+$css_animation = thim_getCSSAnimation( $css_animation );
 
 $our_team_args = array(
 	'posts_per_page'      => $number_post,
@@ -20,27 +22,31 @@ if ( $instance['cat_id'] && $instance['cat_id'] != 'all' ) {
 		);
 	}
 }
- 
+
+if ( $columns <> '' ) {
+	$columns = 12 / $columns;
+}
+
 $our_team = new WP_Query( $our_team_args );
 $html     = $extral_url = '';
 if ( $our_team->have_posts() ) {
-	$html .= '<div class="wrapper-lists-our-team' . $class_demo . '">';
+	$html .= '<div class="wrapper-lists-our-team ' . $css_animation . '">';
 
 	if ( is_array( $instance['link'] ) ) {
 		$link       = $instance['link']['url'];
-		$extral_url = isset( $instance['link']['rel'] ) ? ' rel="nofollow"' : '';
-		$extral_url .= isset( $instance['link']['target'] ) ? ' target="_blank"' : '';
+		$extral_url = isset($instance['link']['rel']) ? ' rel="nofollow"' : '';
+		$extral_url .= isset($instance['link']['target']) ? ' target="_blank"' : '';
 	} else {
 		$link       = $instance['link'];
-		$extral_url = isset( $instance['nofollow'] ) ? ' rel="nofollow"' : '';
-		$extral_url .= isset( $instance['is_external'] ) ? ' target="_blank"' : '';
+		$extral_url = isset($instance['nofollow']) ? ' rel="nofollow"' : '';
+		$extral_url .= isset($instance['is_external']) ? ' target="_blank"' : '';
 	}
 	if ( empty( $link ) ) {
 		$link       = "#";
 		$extral_url = '';
 	}
 	if ( $instance['text_link'] && $instance['text_link'] != '' ) {
-		$html .= '<a class="join-our-team" href="' . $link . '" title="' . $instance['text_link'] . '"' . $extral_url . '>' . $instance['text_link'] . '</a>';
+ 		$html .= '<a class="join-our-team" href="' . $link . '" title="' . $instance['text_link'] . '"' . $extral_url . '>' . $instance['text_link'] . '</a>';
 	}
 	$html .= '<div class="row">';
 	while ( $our_team->have_posts() ): $our_team->the_post();

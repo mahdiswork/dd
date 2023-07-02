@@ -11,7 +11,7 @@
 
 defined( 'ABSPATH' ) || exit();
 
-$course = learn_press_get_course();
+$course = LP_Global::course();
 $user   = learn_press_get_current_user();
 
 if ( ! $course || ! $user ) {
@@ -49,16 +49,14 @@ $can_view_content_course = $user->can_view_content_course( $course->get_id() );
 			</ul>
 
 		<?php else : ?>
-			<div class="curriculum-empty">
-				<?php
-				echo wp_kses_post(
-					apply_filters(
-						'learnpress/course/curriculum/empty',
-						esc_html__( 'Curriculum is empty', 'learnpress' )
-					)
-				);
-				?>
-			</div>
+			<?php
+			echo wp_kses_post(
+				apply_filters(
+					'learnpress/course/curriculum/empty',
+					esc_html__( 'Curriculum is empty', 'learnpress' )
+				)
+			);
+			?>
 		<?php endif ?>
 
 		<?php do_action( 'learn-press/after-single-course-curriculum' ); ?>

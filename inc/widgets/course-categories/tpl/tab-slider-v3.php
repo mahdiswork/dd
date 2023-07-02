@@ -22,7 +22,7 @@ $html = '';
 if ( $cat_course ) {
 	$index = 1;
 	$html  = '<div class="thim-carousel-course-categories-tabs">';
-	$html  .= '<div class="thim-course-slider" data-visible="' . $item_visible . '" data-desktop="' . $item_visible . '" data-tablet="4" data-mobile="2" data-pagination="' . $pagination . '" data-navigation="' . $navigation . '" data-autoplay="' . esc_attr( $autoplay ) . '">';
+	$html  .= '<div class="thim-course-slider" data-visible="' . $item_visible . '" data-desktop="' . $item_visible . '" data-tablet="4" data-mobile="1" data-pagination="' . $pagination . '" data-navigation="' . $navigation . '" data-autoplay="' . esc_attr( $autoplay ) . '">';
 	$i     = 0;
 	foreach ( $cat_course as $key => $value ) {
 		$i ++;
@@ -43,9 +43,8 @@ if ( $cat_course ) {
 		$active = ( $i == 1 ) ? 'active' : '';
 
 		$html .= '<div class="item ' . $active . '">';
-		
+		$html .= '<div class="icon">';
 		if ( ! empty( $icon ) ) {
-			$html .= '<div class="icon">';
 			$alt = '';
 			$alt = get_post_meta( $icon['id'], '_wp_attachment_image_alt', true ) ? get_post_meta( $icon['id'], '_wp_attachment_image_alt', true ) : $value->name;
 			if ( is_array( $icon ) ) {
@@ -53,9 +52,8 @@ if ( $cat_course ) {
 			} else {
 				$html .= '<i class="' . $icon . '"></i>';
 			}
-			$html .= '</div>';
 		}
-		
+		$html .= '</div>';
 		$html .= '<h3 class="title"><a href="#' . urldecode( $value->slug ) . '">' . $value->name . '</a></h3>';
 		$html .= '</div>';
 		if ( $index == $limit ) {
@@ -73,7 +71,7 @@ if ( $cat_course ) {
 		$content  = get_term_meta( $value->term_id, 'thim_learnpress_cate_content', true );
 		$content  = htmlspecialchars_decode( $content );
 		$content  = wpautop( $content );
-		$link_cat = '<a class="view_all_courses" href="' . esc_url( get_term_link( (int) $value->term_id, $taxonomy ) ) . '">' . esc_html__( 'View all courses', 'eduma' ) . ' <i class="tk tk-arrow-right"></i></a>';
+		$link_cat = '<a class="view_all_courses" href="' . esc_url( get_term_link( (int) $value->term_id, $taxonomy ) ) . '">' . esc_html__( 'View all courses', 'eduma' ) . ' <i class="lnr icon-arrow-right"></i></a>';
 		$html     .= '<div class="item_content ' . $active . '" id="' . urldecode( $value->slug ) . '">';
 		if ( isset( $thumb["url"] ) ) {
 			$html .= '<img class="fleft" src="' . $thumb["url"] . '">';

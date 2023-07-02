@@ -37,9 +37,9 @@ if ( empty( $woocommerce_loop['loop'] ) ) {
 }
 
 // Store column count for displaying the grid
-// if ( empty( $woocommerce_loop['columns'] ) ) {
-// 	$woocommerce_loop['columns'] = apply_filters( 'loop_shop_columns', 4 );
-// }
+if ( empty( $woocommerce_loop['columns'] ) ) {
+	$woocommerce_loop['columns'] = apply_filters( 'loop_shop_columns', 4 );
+}
 
 // Ensure visibility
 if ( ! $product || ! $product->is_visible() ) {
@@ -49,13 +49,23 @@ if ( ! $product || ! $product->is_visible() ) {
 // Increase loop count
 $woocommerce_loop['loop'] ++;
 $column_product = 4;
- 
+
 if ( '' != $thim_custom_column ) {
 	$column_product = 12 / $thim_custom_column;
-} elseif ( ! empty( $theme_options_data['thim_woo_product_column'] ) ) {
+} else {
+	if ( ! empty( $woocommerce_loop['columns'] ) && ! is_post_type_archive( 'product' ) && ! defined( 'DOING_AJAX' ) ) {
+		$column_product = 12 / $woocommerce_loop['columns'];
+	} else {
+		if ( ! empty( $theme_options_data['thim_woo_product_column'] ) ) {
 			$thim_custom_column = $theme_options_data['thim_woo_product_column'];
 			$column_product     = 12 / $theme_options_data['thim_woo_product_column'];
-} 
+		}
+	}
+}
+if ( '2.4' == $column_product ) {
+	$column_product = 'col-5';
+}
+
 ?>
 <li <?php wc_product_cat_class( 'col-md-' . $column_product . ' col-sm-6 col-xs-6', $category ); ?>>
     <div class="content__product">

@@ -5,25 +5,25 @@
  * @package Eduma
  */
 
-// thim_customizer()->add_section(
-// 	array(
-// 		'id'       => 'product_setting',
-// 		'panel'    => 'woocommerce',
-// 		'title'    => esc_html__( 'Settings', 'eduma' ),
-// 		'priority' => 10,
-// 	)
-// );
+thim_customizer()->add_section(
+	array(
+		'id'       => 'product_setting',
+		'panel'    => 'product',
+		'title'    => esc_html__( 'Settings', 'eduma' ),
+		'priority' => 20,
+	)
+);
 
 thim_customizer()->add_field(
 	array(
 		'type'     => 'select',
 		'id'       => 'thim_woo_product_column',
-		'label'    => esc_html__( 'Products per row', 'woocommerce' ),
-		'tooltip'  => esc_html__( 'How many products should be shown per row?', 'woocommerce' ),
+		'label'    => esc_html__( 'Grid Columns', 'eduma' ),
+		'tooltip'  => esc_html__( 'Choose the number grid columns for product.', 'eduma' ),
 		'default'  => '3',
 		'priority' => 10,
 		'multiple' => 0,
-		'section'  => 'woocommerce_product_catalog',
+		'section'  => 'product_setting',
 		'choices'  => array(
 			'2' => esc_html__( '2', 'eduma' ),
 			'3' => esc_html__( '3', 'eduma' ),
@@ -41,7 +41,7 @@ thim_customizer()->add_field(
 		'tooltip'     => esc_html__( 'Choose the number of products per page.', 'eduma' ),
 		'priority'    => 30,
 		'default'     => 9,
-		'section'  => 'woocommerce_product_catalog',
+		'section'  => 'product_setting',
 		'choices'     => array(
 			'min'  => '1',
 			'max'  => '20',
@@ -57,7 +57,7 @@ thim_customizer()->add_field(
 		'type'     => 'switch',
 		'label'    => esc_html__( 'Show Quick View', 'eduma' ),
 		'tooltip'  => esc_html__( 'Allows you to enable or disable quick view.', 'eduma' ),
-		'section'  => 'woocommerce_product_catalog',
+		'section'  => 'product_setting',
 		'default'  => true,
 		'priority' => 40,
 		'choices'  => array(

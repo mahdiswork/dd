@@ -14,7 +14,7 @@
  */
 defined( 'ABSPATH' ) || exit();
 
- $course = learn_press_get_course();
+ $course = LP_Global::course();
 $class = '';
 $class .= ( $course->has_sale_price() ) ? ' has-origin' : '';
 if ( $course->is_free() ) {

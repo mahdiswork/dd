@@ -19,22 +19,6 @@ if ( ! function_exists( 'thim_getCSSAnimation' ) ) {
 	}
 }
 
-if ( ! function_exists( 'thim_lp_style_content_course' ) ) {
-	function thim_lp_style_content_course(){
-		$style_content_course= get_theme_mod( 'thim_style_content_course');
-		if ( isset($style_content_course) &&  empty($style_content_course)) {
-		  $style_content_course = get_theme_mod( 'thim_layout_content_page');
-		}
-  		return apply_filters('thim-setting-content-course', $style_content_course ) ;
-	}
-}
-
-if ( ! function_exists( 'thim_lp_style_single_course' ) ) {
-	function thim_lp_style_single_course(){
-  		return apply_filters('thim-setting-content-single-course', get_theme_mod( 'thim_layout_content_page','normal') ) ;
-	}
-}
-
 /**
  * Custom excerpt
  *
@@ -460,6 +444,42 @@ if ( ! function_exists( 'thim_social_share' ) ) {
 add_action( 'thim_social_share', 'thim_social_share' );
 
 
+/**
+ * Display favicon
+ */
+//function thim_favicon() {
+//	if ( function_exists( 'wp_site_icon' ) ) {
+//		if ( function_exists( 'has_site_icon' ) ) {
+//			if ( ! has_site_icon() ) {
+//				// Icon default
+//				$thim_favicon_src = get_template_directory_uri() . "/images/favicon.png";
+//				echo '<link rel="shortcut icon" href="' . esc_url( $thim_favicon_src ) . '" type="image/x-icon" />';
+//
+//				return;
+//			}
+//
+//			return;
+//		}
+//	}
+//
+//	/**
+//	 * Support WordPress < 4.3
+//	 */
+//	$theme_options_data = get_theme_mods();
+//	$thim_favicon_src   = '';
+//	if ( isset( $theme_options_data['thim_favicon'] ) ) {
+//		$thim_favicon       = $theme_options_data['thim_favicon'];
+//		$favicon_attachment = wp_get_attachment_image_src( $thim_favicon, 'full' );
+//		$thim_favicon_src   = $favicon_attachment[0];
+//	}
+//	if ( ! $thim_favicon_src ) {
+//		$thim_favicon_src = get_template_directory_uri() . "/images/favicon.png";
+//	}
+//	echo '<link rel="shortcut icon" href="' . esc_url( $thim_favicon_src ) . '" type="image/x-icon" />';
+//}
+//
+//add_action( 'wp_head', 'thim_favicon' );
+
 if ( ! function_exists( 'thim_multisite_signup_redirect' ) ) {
 	function thim_multisite_signup_redirect() {
 		if ( is_multisite() ) {
@@ -501,9 +521,7 @@ if ( ! function_exists( 'thim_get_feature_image' ) ) {
 		$style = '';
 		if ( $width && $height ) {
 			$src   = wp_get_attachment_image_src( $attachment_id, array( $width, $height ) );
-			if ( ! empty( $src[1] ) && ! empty( $src[2] ) ) {
-				$style = ' width="' . $src[1] . '" height="' . $src[2] . '"';
-			}
+			$style = ' width="' . $width . '" height="' . $height . '"';
 		} else {
 			$src = wp_get_attachment_image_src( $attachment_id, $size_type );
 			if ( ! empty( $src[1] ) && ! empty( $src[2] ) ) {
@@ -825,32 +843,10 @@ if ( ! function_exists( 'thim_body_classes' ) ) {
 		if ( get_theme_mod( 'thim_size_body', '' ) == 'wide' ) {
 			$classes[] = 'size_wide';
 		}
-		//
-		if(thim_lp_style_single_course() != 'normal' ){
-			$classes[] = 'thim-style-content-' . thim_lp_style_single_course();
-		}
 
-		if (thim_lp_style_content_course() != 'normal' ) {
-			$classes[] =  'thim-course-content-' . esc_attr(thim_lp_style_content_course())  ;
+		if ( get_theme_mod( 'thim_layout_content_page', 'normal' ) != 'normal' ) {
+			$classes[] = 'thim-style-content-' . get_theme_mod( 'thim_layout_content_page', '' );
 		}
-
-		if (get_theme_mod( 'thim_content_course_border', false ) == true) {
-			$classes[] = 'thim-border-radius';
-		}
-
-		if(is_archive()){
-			// switch layout
-			$style_switch_layout = get_theme_mod( 'thim_switch_layout_style' );
-			// fix old option
-			if($style_switch_layout == '' && thim_lp_style_single_course() == 'new-1'){
-				$style_switch_layout = 'style_1';
-			}elseif($style_switch_layout == '' && thim_lp_style_single_course() == 'layout_style_2'){
-				$style_switch_layout = 'style_2';
-			}
-			if ($style_switch_layout ) {
-				$classes[] = 'switch-layout-' . $style_switch_layout;
-			}
- 		}
 
 		if ( get_theme_mod( 'thim_learnpress_single_popup', false ) ) {
 			$classes[] = 'thim-popup-feature';
@@ -898,6 +894,26 @@ function thim_plugin_active( $plugin ) {
 	return false;
 }
 
+
+/**
+ * Custom WooCommerce breadcrumbs
+ *
+ * @return array
+ */
+if ( ! function_exists( 'thim_woocommerce_breadcrumbs' ) ) {
+	function thim_woocommerce_breadcrumbs() {
+		return array(
+			'delimiter'   => '',
+			'wrap_before' => '<ul class="breadcrumbs" id="breadcrumbs">',
+			'wrap_after'  => '</ul>',
+			'before'      => '<li>',
+			'after'       => '</li>',
+			'home'        => esc_html__( 'Home', 'eduma' ),
+		);
+	}
+}
+add_filter( 'woocommerce_breadcrumb_defaults', 'thim_woocommerce_breadcrumbs' );
+
 /**
  * Display post thumbnail by default
  *
@@ -941,14 +957,13 @@ add_action( 'thim_entry_top', 'thim_default_get_post_thumbnail', 20 );
  */
 if ( ! function_exists( 'thim_event_post_filter' ) ) {
 	function thim_event_post_filter( $query ) {
-		if ( is_post_type_archive( 'tp_event' ) && 'tp_event' == $query->get( 'post_type' ) ) {
+ 		if ( is_post_type_archive( 'tp_event' ) && 'tp_event' == $query->get( 'post_type' ) ) {
 			$query->set( 'posts_per_page', - 1 );
-
-			return;
+ 			return;
 		}
 		if ( $query->is_main_query() && ! is_admin() && is_post_type_archive( 'our_team' ) ) {
 			$query->set( 'posts_per_page', 1 );
-		}
+ 		}
 	}
 }
 add_action( 'pre_get_posts', 'thim_event_post_filter' );
@@ -1330,7 +1345,6 @@ if ( ! function_exists( 'thim_gallery_popup' ) ) {
  */
 
 if ( class_exists( 'LearnPress' ) ) {
-	$field_course_offline = true;
 	function thim_new_learnpress_template_path( $slash ) {
 		if ( thim_is_new_learnpress( '4.0.beta-0' ) ) {
 			$layout = '-v4';
@@ -1365,14 +1379,9 @@ if ( class_exists( 'LearnPress' ) ) {
 
 		add_filter( 'learn_press_child_in_parrent_template_path', 'thim_eduma_child_locate_template', 999 );
 		$base_directory = basename( get_stylesheet_directory() );
-
 		if ( ( $base_directory == 'eduma-child-kid-art' ) || ( $base_directory == 'eduma-child-kindergarten' ) || ( $base_directory == 'eduma-child-new-art' ) || ( $base_directory == 'eduma-child-udemy' ) ) {
 			require_once THIM_DIR . 'lp-child-path/learnpress-v4/' . $base_directory . '/custom-functions-child.php';
- 			$field_course_offline = false;
 		}
-	}
-	if ( get_theme_mod( 'thim_single_course_offline', false ) == true && $field_course_offline ) {
-		require_once THIM_DIR . 'inc/lp-course_offline.php';
 	}
 }
 
@@ -1449,19 +1458,6 @@ function thim_is_version_addons_certificates( $version ) {
 function thim_is_version_addons_wishlist( $version ) {
 	if ( defined( 'LP_ADDON_WISHLIST_VER' ) ) {
 		return ( version_compare( LP_ADDON_WISHLIST_VER, $version, '>=' ) );
-	}
-
-	return false;
-}
-
-/**
- * Check new version of addons LearnPress Woo Payment
- *
- * @return mixed
- */
-function thim_is_version_addons_woo_payment( $version ) {
-	if ( defined( 'LP_ADDON_WOO_PAYMENT_VER' ) ) {
-		return ( version_compare( LP_ADDON_WOO_PAYMENT_VER, $version, '>=' ) );
 	}
 
 	return false;
@@ -2882,12 +2878,6 @@ if ( ! function_exists( 'thim_header_class' ) ) {
 		}
 		if ( get_theme_mod( 'thim_line_active_item_menu', 'bottom' ) == 'top' ) {
 			$header_class .= ' item_menu_active_top';
-		}elseif ( get_theme_mod( 'thim_line_active_item_menu', 'bottom' ) == 'noline' ) {
-			$header_class .= ' noline_menu_active';
-		}
-
-		if(get_theme_mod( 'thim_header_style', 'header_v1' )  ==  'header_v4' && get_theme_mod( 'thim_line_active_item_menu', 'bottom' ) !='noline'){
-			$header_class .= ' noline_menu_active';
 		}
 		echo esc_attr( $header_class );
 	}
@@ -2911,7 +2901,6 @@ if ( ! function_exists( 'thim_footer_bottom' ) ) {
 	}
 }
 add_action( 'thim_end_content_pusher', 'thim_footer_bottom' );
-
 
 if ( ! function_exists( 'thim_above_footer_area_fnc' ) ) {
 	function thim_above_footer_area_fnc() {
@@ -2953,18 +2942,17 @@ if ( ! function_exists( 'thim_print_copyright' ) ) {
 	function thim_print_copyright() {
 		$html_to_top         = $div_inline = '';
 		$theme_mods          = get_theme_mods();
-		$copyright_text      = isset( $theme_mods['thim_copyright_text'] ) ? $theme_mods['thim_copyright_text'] : 'Education WordPress Theme by ThimPress';
-		$display_copyright   = $copyright_text ? true : false;
-		$show_copyright = get_theme_mod('thim_copyright_show','true');
+		$copyright_text      = isset( $theme_mods['thim_copyright_text'] ) ? $theme_mods['thim_copyright_text'] : '';
+		$display_copyright   = ( ! isset( $theme_mods['thim_copyright_text'] ) || ! empty( $theme_mods['thim_copyright_text'] ) ) ? true : false;
 		$is_active_copyright = is_active_sidebar( 'copyright' );
 		if ( get_theme_mod( 'thim_show_to_top', false ) && get_theme_mod( 'thim_to_top_position', '' ) == 'show_in_copyright' ) {
 			$is_active_copyright = true;
 			$div_inline          = ' block-inline';
 			$html_to_top         = '<aside class="to-top-copyright"><a href="#" id="back-to-top">
-				<i class="tk tk-location-arrow"></i>' . esc_html__( 'Back to top', 'eduma' ) . '
+				<i class="las la-location-arrow"></i>' . esc_html__( 'Back to top', 'eduma' ) . '
 			</a></aside>';
 		}
-		if ( $show_copyright && ($display_copyright || $is_active_copyright )) { ?>
+		if ( $display_copyright || $is_active_copyright ) { ?>
 			<div class="copyright-area">
 				<div class="container">
 					<div class="copyright-content">
@@ -2994,11 +2982,12 @@ add_action( 'thim_copyright_area', 'thim_print_copyright' );
 if ( ! function_exists( 'thim_footer_class' ) ) {
 	function thim_footer_class() {
 		$theme_options_data = get_theme_mods();
- 		$style_header       = isset( $theme_options_data['thim_header_style'] ) ? $theme_options_data['thim_header_style'] : 'header_v1';
+		$style_content      = isset( $theme_options_data['thim_layout_content_page'] ) ? $theme_options_data['thim_layout_content_page'] : 'normal';
+		$style_header       = isset( $theme_options_data['thim_header_style'] ) ? $theme_options_data['thim_header_style'] : 'header_v1';
 		$custom_class       = get_theme_mod( 'thim_footer_custom_class', '' ) . ' site-footer';
 		$footer_bg_image    = get_theme_mod( 'thim_footer_background_img', '' );
 		$custom_class       .= ! empty( $footer_bg_image ) ? ' footer-bg-image' : '';
-		$footer_class       = ( ( is_active_sidebar( 'footer_bottom' ) && thim_lp_style_single_course() != 'new-1' ) || ( is_active_sidebar( 'footer_bottom' ) && $style_header != 'header_v4' ) ) ? $custom_class . ' has-footer-bottom' : $custom_class;
+		$footer_class       = ( ( is_active_sidebar( 'footer_bottom' ) && $style_content != 'new-1' ) || ( is_active_sidebar( 'footer_bottom' ) && $style_header != 'header_v4' ) ) ? $custom_class . ' has-footer-bottom' : $custom_class;
 
 		echo esc_attr( $footer_class );
 	}
@@ -3040,16 +3029,16 @@ if ( ! get_option( 'thim_update_tax_meta', false ) ) {
 /**
  * Filter demos path
  */
-//function thim_filter_site_demos( $demo_datas ) {
-//	$demo_data_file_path = get_template_directory() . '/inc/data/demos.php';
-//	if ( is_file( $demo_data_file_path ) ) {
-//		require $demo_data_file_path;
-//	}
-//
-//	return $demo_datas;
-//}
-//
-//add_filter( 'tp_chameleon_get_site_demos', 'thim_filter_site_demos' );
+function thim_filter_site_demos( $demo_datas ) {
+	$demo_data_file_path = get_template_directory() . '/inc/data/demos.php';
+	if ( is_file( $demo_data_file_path ) ) {
+		require $demo_data_file_path;
+	}
+
+	return $demo_datas;
+}
+
+add_filter( 'tp_chameleon_get_site_demos', 'thim_filter_site_demos' );
 
 
 /**
@@ -3060,25 +3049,21 @@ if ( ! get_option( 'thim_update_tax_meta', false ) ) {
 if ( ! function_exists( 'thim_import_add_basic_settings' ) ) {
 	function thim_import_add_basic_settings( $settings ) {
 		$settings[] = 'learn_press_archive_course_limit';
-		// $settings[] = 'siteorigin_panels_settings';
-		$settings[] = 'thim_enable_mega_menu';
+		$settings[] = 'siteorigin_panels_settings';
 		//$settings[] = 'wpb_js_margin';
 		//$settings[] = 'users_can_register';
 		//$settings[] = 'permalink_structure';
 		//$settings[] = 'wpb_js_use_custom';
 
 		// Elementor global settings
-		// $settings[] = 'elementor_container_width';
-		// $settings[] = 'elementor_space_between_widgets';
-		$settings[] = 'learn_press_course_thumbnail_dimensions';
-		$settings[] = 'thim_ekits_widget_settings';
-		$settings[] = 'elementor_css_print_method';
-		$settings[] = 'elementor_experiment-e_font_icon_svg';
-  		return $settings;
+		$settings[] = 'elementor_container_width';
+		$settings[] = 'elementor_space_between_widgets';
+		$settings[] = 'elementor_active_kit';
+
+		return $settings;
 	}
 }
 add_filter( 'thim_importer_basic_settings', 'thim_import_add_basic_settings' );
-add_filter( 'thim_importer_thim_enable_mega_menu', '__return_true' );
 
 /**
  * @param $settings
@@ -3089,11 +3074,12 @@ if ( ! function_exists( 'thim_import_add_page_id_settings' ) ) {
 	function thim_import_add_page_id_settings( $settings ) {
 		$settings[] = 'learn_press_courses_page_id';
 		$settings[] = 'learn_press_profile_page_id';
-		$settings[] = 'elementor_active_kit';
+
 		return $settings;
 	}
 }
 add_filter( 'thim_importer_page_id_settings', 'thim_import_add_page_id_settings' );
+
 
 //Add info for Dashboard Admin
 if ( ! function_exists( 'thim_eduma_links_guide_user' ) ) {
@@ -3158,7 +3144,7 @@ if ( ! function_exists( 'thim_eduma_field_name_custom_css_theme' ) ) {
 		return 'thim_custom_css';
 	}
 }
-// add_filter( 'thim_core_field_name_custom_css_theme', 'thim_eduma_field_name_custom_css_theme' );
+add_filter( 'thim_core_field_name_custom_css_theme', 'thim_eduma_field_name_custom_css_theme' );
 
 function thim_eduma_register_meta_boxes_portfolio( $meta_boxes ) {
 	$prefix       = 'thim_';
@@ -3556,11 +3542,50 @@ if ( ! function_exists( "thim_get_instructors" ) ) {
 					}
 				}
 			}
+
+			//				if ( ! empty( $co_instructors ) ) {
+			//					foreach ( $co_instructors as $key => $value ) {
+			//						if ( $vc == true ) {
+			//							$ins[ get_the_author_meta( 'display_name', $value["user_id"] ) ] = $value["user_id"];
+			//						} else {
+			//							$ins[ $value["user_id"] ] = get_the_author_meta( 'display_name', $value["user_id"] );
+			//						}
+			//					}
+			//				}
 		}
 
 		return $ins;
 	}
 }
+//}
+
+//add_action( 'wp_ajax_get_template_mainmenu_rezize', 'get_template_mainmenu_rezize' );
+//add_action( 'wp_ajax_nopriv_get_template_mainmenu_rezize', 'get_template_mainmenu_rezize' );
+
+//function get_template_mainmenu_rezize() {
+//	$screen_size = ( isset( $_POST['screen_size'] ) ) ? esc_attr( $_POST['screen_size'] ) : '';
+//	$html_mobile = $html_desktop = '';
+//	if ( $screen_size < 992 ) {
+//		ob_start();
+//		get_template_part( 'inc/header/menu-mobile' );
+//		$html_mobile = ob_get_contents();
+//		ob_end_clean();
+//	} else {
+// 	    ob_start();
+// 		get_template_part( 'inc/header/main-menu' );
+// 		$html_desktop = ob_get_contents();
+//		ob_end_clean();
+//	}
+//
+//	$resp = array(
+//		'success'      => true,
+//		'html_mobile'  => $html_mobile,
+//		'html_desktop' => apply_filters('the_content',$html_desktop)
+//	);
+//
+//	wp_send_json_success( $resp );
+//
+//	die();
 //}
 
 /**
@@ -3671,9 +3696,9 @@ function thim_sc_get_list_image_size() {
 
 if ( ! function_exists( 'list_item_course_cat' ) ) {
 	function list_item_course_cat( $course_id ) {
- 		$html  = '';
+		$html  = '';
 		$terms = get_the_terms( $course_id, 'course_category' );
- 		if ( $terms && ! is_wp_error( $terms ) ) {
+		if ( $terms && ! is_wp_error( $terms ) ) {
 			$html .= '<div class="wrapper-cat">';
 			foreach ( $terms as $term ) {
 				$sub_color_cate = get_term_meta( $term->term_id, 'learnpress_cate_text_color', true );
@@ -3683,7 +3708,7 @@ if ( ! function_exists( 'list_item_course_cat' ) ) {
 			$html .= '</div>';
 		}
 
-		echo $html;
+		return $html;
 	}
 }
 
@@ -3844,129 +3869,5 @@ class Thim_Widget_Attributes {
 		}
 
 		return $params;
-	}
-}
-
-if ( ! function_exists( "thim_message_before_importer" ) ) {
-	function thim_message_before_importer() {
-		$title = 'Import data demo with Elementor Page Builder';
-		if ( get_theme_mod( 'thim_page_builder_chosen' ) == 'visual_composer' ) {
-			$title = 'You has import data demo with WPBakery Page Builder';
-		} elseif ( get_theme_mod( 'thim_page_builder_chosen' ) == 'site_origin' ) {
-			$title = 'You has import data demo with SiteOrigin Page Builder';
-		}
-		if ( apply_filters( 'thim-importer-demo-vc', false ) ) {
-			$title = 'You has enabled import data demo with WPBakery Page Builder';
-		} elseif ( apply_filters( 'thim-importer-demo-so', false ) ) {
-			$title = 'You has enabled import data demo with SiteOrigin Page Builder';
-		}
-		echo '<div class="thim-message-import"><h3>' . esc_html__( $title, 'eduma' ) . '</h3>';
-		echo '<p><i>If you want to import data with <b>WPBakery</b> or <b>SiteOrigin</b> Page Builder <a href="https://thimpress.com/knowledge-base/how-to-import-data-with-wpbakery-or-siteorigin/" target="_blank">Please read the guide on here.</a></i></p></div>';
-	}
-}
-add_filter( 'thim-message-before-importer', 'thim_message_before_importer' );
-
-if ( ! function_exists( "thim_sub_info_login_popup" ) ) {
-	function thim_sub_info_login_popup( $text_profile = '' ,$text_logout = '' ){
-		$user              = wp_get_current_user();
-		$user_profile_edit = get_edit_user_link( $user->ID );
-		$user_avatar       = get_avatar( $user->ID, 30 );
-		$html = '';
-		if ( ! class_exists( 'LearnPress' ) ) {
-			$html .= '<a href="' . esc_url( $user_profile_edit ) . '" class="profile"><span class="author">'.esc_attr($text_profile).' ' . $user->display_name . '</span>' . ( $user_avatar ) . '</a>';
-			$html .= '<ul class="user-info">';
-		} else {
-			$profile       = LP_Profile::instance();
-			$allowed_roles = array( 'editor', 'administrator', 'author', 'instructor' );
-
-			if ( array_intersect( $allowed_roles, $user->roles ) ) {
-
-				$html .= '<a href="' . esc_url( $user_profile_edit ) . '" class="profile"><span class="author">'.esc_attr($text_profile).' ' . $user->display_name . '</span>' . ( $user_avatar ) . '</a>';
-			} else {
-				$html .= '<a href="' . esc_url( $profile->get_tab_link( 'settings', true ) ) . '" class="profile"><span class="author">'.esc_attr($text_profile).' ' . $user->display_name . '</span>' . ( $user_avatar ) . '</a>';
-			}
-
-			$html .= '<ul class="user-info">';
-
-			$items = apply_filters( 'thim_menu_profile_items', array('courses','orders','become_a_teacher','certificates','settings') );
-
-			$menu_items_output = '';
-
-			$profile_page = learn_press_get_page_link( 'profile' );
-			$current_user = wp_get_current_user();
-
-			if ( is_array( $items ) && count( $items ) > 0 ) {
- 				$view_endpoint = LP_Settings::instance()->get( 'learn_press_profile_endpoints' );
- 				$view_endpoint_basic_information = isset( $view_endpoint['settings-basic-information'] ) ? $view_endpoint['settings-basic-information'] : '';
-				$view_endpoint_orders            = isset( $view_endpoint['profile-orders'] ) ? $view_endpoint['profile-orders'] : '';
-				$view_endpoint_settings          = isset( $view_endpoint['profile-settings'] ) ? $view_endpoint['profile-settings'] : '';
-
-
-				for ( $index = 0; $index < count( $items ); $index ++ ) {
-
-					switch ( $items[$index] ) {
-						case 'courses':
-							if ( 0 == $current_user->ID ) {
-								$menu_items_output .= '<li class="menu-item-courses"><a href="' . esc_url( $profile->get_tab_link( 'courses', true ) ) . '">' . esc_html__( 'My Courses', 'eduma' ) . '</a></li>';
-
-							} else {
-								$menu_items_output .= '<li class="menu-item-courses"><a href="' . esc_url( $profile_page . wp_get_current_user()->user_login ) . '">' . esc_html__( 'My Courses', 'eduma' ) . '</a></li>';
-
-							}
-
-							break;
-						case 'orders':
-							if ( 0 == $current_user->ID ) {
-								$menu_items_output .= '<li class="menu-item-orders"><a href="' . esc_url( $profile->get_tab_link( 'orders', true ) ) . '">' . esc_html__( 'My Orders', 'eduma' ) . '</a></li>';
-
-							} else {
-								if ( ! empty( $view_endpoint_orders ) ) {
-									$menu_items_output .= '<li class="menu-item-orders"><a href="' . esc_url( $profile_page . wp_get_current_user()->user_login ) . '/' . $view_endpoint_orders . '">' . esc_html__( 'My Orders', 'eduma' ) . '</a></li>';
-								} else {
-									$menu_items_output .= '<li class="menu-item-orders"><a href="' . esc_url( $profile_page . wp_get_current_user()->user_login ) . '/orders' . '">' . esc_html__( 'My Orders', 'eduma' ) . '</a></li>';
-								}
- 							}
-							break;
-						case 'become_a_teacher':
-  							if(learn_press_get_page_link( 'become_a_teacher' ) &&  ! array_intersect( array('administrator', 'lp_teacher','instructor'), $user->roles)){
-								$menu_items_output .= '<li class="menu-item-become-a-teacher"><a href="' . learn_press_get_page_link( 'become_a_teacher' ) . '">' . esc_html__( 'Become An Instructor', 'eduma' ) . '</a></li>';
-							}
- 							break;
-						case 'certificates':
-							if ( ! class_exists( 'LP_Addon_Certificates' ) ) {
-								break;
-							}
-							if ( 0 == $current_user->ID ) {
-								$menu_items_output .= '<li class="menu-item-certificates"><a href="' . esc_url( $profile->get_tab_link( 'certificates', true ) ) . '">' . esc_html__( 'My Certificates', 'eduma' ) . '</a></li>';
-							} else {
-								$menu_items_output .= '<li class="menu-item-certificates"><a href="' . esc_url( $profile_page . wp_get_current_user()->user_login ) . '/certificates' . '">' . esc_html__( 'My Certificates', 'eduma' ) . '</a></li>';
-							}
-							break;
-						case 'settings':
-							if ( 0 == $current_user->ID ) {
-								$menu_items_output .= '<li class="menu-item-settings"><a href="' . esc_url( $profile->get_tab_link( 'settings', true ) ) . '">' . esc_html__( 'Edit Profile', 'eduma' ) . '</a></li>';
-							} else {
-								if ( ! empty( $view_endpoint_settings ) ) {
-									if ( ! empty( $view_endpoint_basic_information ) ) {
-										$menu_items_output .= '<li class="menu-item-settings"><a href="' . esc_url( $profile_page . wp_get_current_user()->user_login ) . '/' . $view_endpoint_settings . '/' . $view_endpoint_basic_information . '">' . esc_html__( 'Edit Profile', 'eduma' ) . '</a></li>';
-									} else {
-										$menu_items_output .= '<li class="menu-item-settings"><a href="' . esc_url( $profile_page . wp_get_current_user()->user_login ) . '/' . $view_endpoint_settings . '/basic-information' . '">' . esc_html__( 'Edit Profile', 'eduma' ) . '</a></li>';
-									}
-								} else {
-									$menu_items_output .= '<li class="menu-item-settings"><a href="' . esc_url( $profile_page . wp_get_current_user()->user_login ) . '/settings' . '">' . esc_html__( 'Edit Profile', 'eduma' ) . '</a></li>';
-								}
-							}
-							break;
-						default:
-							break;
-					}
-				}
-			}
-
- 			$html .= apply_filters( 'thim_menu_profile_items_extend', $menu_items_output );
-			$html .= '<li class="menu-item-log-out">' . '<a href="' . wp_logout_url( home_url() ) . '">' . esc_html( $text_logout ) . '</a></li>';
-			$html .= '</ul>';
-		}
-		return $html;
 	}
 }

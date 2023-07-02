@@ -228,7 +228,7 @@ if ( ! class_exists( 'Thim_Builder_Config_Icon_Box' ) ) {
 					'param_name'    => 'layout_pos',
 					'param_name_el' => 'pos',
 					'value'         => array(
-						esc_html__( 'Icon at Left', 'eduma' )  => 'left',
+ 						esc_html__( 'Icon at Left', 'eduma' )  => 'left',
 						esc_html__( 'Icon at Right', 'eduma' ) => 'right',
 						esc_html__( 'Icon at Top', 'eduma' )   => 'top',
 					),
@@ -242,11 +242,26 @@ if ( ! class_exists( 'Thim_Builder_Config_Icon_Box' ) ) {
 					'param_name'    => 'layout_text_align_sc',
 					'param_name_el' => 'text_align_sc',
 					'value'         => array(
-						esc_html__( 'Text at left', 'eduma' )   => 'text-left',
+ 						esc_html__( 'Text at left', 'eduma' )   => 'text-left',
 						esc_html__( 'Text at center', 'eduma' ) => 'text-center',
 						esc_html__( 'Text at right', 'eduma' )  => 'text-right',
 					),
 					'std'           => 'text-left'
+				),
+				array(
+					'type'        => 'dropdown',
+					'heading'     => esc_html__( 'Animation', 'eduma' ),
+					'param_name'  => 'css_animation',
+					'admin_label' => true,
+					'value'       => array(
+						esc_html__( 'No', 'eduma' )                 => '',
+						esc_html__( 'Top to bottom', 'eduma' )      => 'top-to-bottom',
+						esc_html__( 'Bottom to top', 'eduma' )      => 'bottom-to-top',
+						esc_html__( 'Left to right', 'eduma' )      => 'left-to-right',
+						esc_html__( 'Right to left', 'eduma' )      => 'right-to-left',
+						esc_html__( 'Appear from center', 'eduma' ) => 'appear'
+					),
+					'description' => esc_html__( 'Select type of animation if you want this element to be animated when it enters into the browsers viewport. Note: Works only in modern browsers.', 'eduma' )
 				),
 
 				array(
@@ -380,7 +395,7 @@ if ( ! class_exists( 'Thim_Builder_Config_Icon_Box' ) ) {
 					'param_name'    => 'icon_type',
 					'description'   => esc_html__( 'Select icon type to display', 'eduma' ),
 					'value'         => array(
-						esc_html__( 'Font Awesome Icon', 'eduma' )  => 'font-awesome',
+ 						esc_html__( 'Font Awesome Icon', 'eduma' )  => 'font-awesome',
 						esc_attr__( "Ionicons", 'eduma' )           => "font_ionicons",
 						esc_attr__( "Font 7 stroke Icon", 'eduma' ) => "font-7-stroke",
 						esc_attr__( "Font Flat Icon", 'eduma' )     => "font-flaticon",
@@ -489,7 +504,7 @@ if ( ! class_exists( 'Thim_Builder_Config_Icon_Box' ) ) {
 						'type'          => 'flat_icon',
 						'enqueue_style' => 'thim-admin-font-flaticon',
 						'prefix_icon' => 'flaticon-',
-					),
+ 					),
 					'dependency' => array(
 						'element' => 'icon_type',
 						'value'   => 'font-flaticon',
@@ -553,7 +568,7 @@ if ( ! class_exists( 'Thim_Builder_Config_Icon_Box' ) ) {
 					'admin_label' => false,
 					'heading'     => esc_html__( 'Width box icon', 'eduma' ),
 					'param_name'  => 'width_icon_box',
-					//					'std'         => '100',
+//					'std'         => '100',
 					'description' => esc_html__( 'Custom width box icon. Unit is pixel', 'eduma' ),
 					'group'       => esc_html__( 'Icon Settings', 'eduma' ),
 					'range'       => array(
@@ -575,7 +590,7 @@ if ( ! class_exists( 'Thim_Builder_Config_Icon_Box' ) ) {
 					'admin_label' => false,
 					'heading'     => esc_html__( 'Height box icon', 'eduma' ),
 					'param_name'  => 'height_icon_box',
-					//					'std'         => '100',
+//					'std'         => '100',
 					'description' => esc_html__( 'Custom height box icon. Unit is pixel', 'eduma' ),
 					'group'       => esc_html__( 'Icon Settings', 'eduma' ),
 					'range'       => array(
@@ -692,7 +707,7 @@ if ( ! class_exists( 'Thim_Builder_Config_Icon_Box' ) ) {
 					'std'         => false,
 					'group'       => esc_html__( 'Icon Settings', 'eduma' ),
 				),
-				array(
+  				array(
 					'type'       => 'attach_image',
 					'heading'    => esc_html__( "Select background image", 'eduma' ),
 					'param_name' => 'bg_image_box',

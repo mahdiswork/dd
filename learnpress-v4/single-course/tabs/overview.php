@@ -13,12 +13,9 @@
  * Prevent loading this file directly
  */
 defined( 'ABSPATH' ) || exit();
-
-$course = learn_press_get_course();
-if ( ! $course ) {
-	return;
-}
 ?>
+
+<?php global $course; ?>
 
 <div class="course-description" id="learn-press-course-description">
 
@@ -35,16 +32,13 @@ if ( ! $course ) {
 
 	?>
 
-	<div class="thim-course-content">
-		<?php the_content(); ?>
-	</div>
+    <div class="thim-course-content">
+        <?php the_content(); ?>
+    </div>
 
-	<?php
-	/**
-	 * @since  4.5.6
-	 *         thim_course_info
-	 */
-	do_action( 'thim_course_info_right' );
+    <?php
+
+    thim_course_info();
 
 	/**
 	 * @since 4.0.0

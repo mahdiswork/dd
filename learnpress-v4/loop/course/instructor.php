@@ -14,13 +14,13 @@
  */
 defined( 'ABSPATH' ) || exit();
 
-$course  = learn_press_get_course();
+$course  = LP_Global::course();
 
 $user_id = get_the_author_meta( 'ID' );
 ?>
 
 <div class="course-author" itemscope itemtype="http://schema.org/Person">
-	<?php echo '<a href="'.learn_press_user_profile_link( $user_id ).'">'.get_avatar( $user_id, 50 ) .'</a>'; ?>
+	<?php echo get_avatar( $user_id, 50 ); ?>
 	<div class="author-contain">
 		<div class="value" itemprop="name">
 			<?php

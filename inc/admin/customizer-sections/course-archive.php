@@ -11,48 +11,9 @@ thim_customizer()->add_section(
 		'panel'    => 'course',
 		'title'    => esc_html__( 'Archive Pages', 'eduma' ),
 		'priority' => 10,
- 	)
+	)
 );
 
-$callback ='';
-if(class_exists( 'Thim_EL_Kit' )){
-	$callback = array(
-		'setting'  => 'thim_ekits_archive_course_tpl',
-		'operator' => '!=',
-		'value'    => 'ekits_tpl',
-	);
-
-	thim_customizer()->add_field(
-		array(
-			'id'       => 'thim_ekits_archive_course_tpl',
-			'type'     => 'select',
-			'label'    => esc_html__( 'Template', 'eduma' ),
-  			'priority' => 11,
-			'default'  => '',
- 			'multiple' => 0,
-			'section'  => 'course_archive',
-			'choices'  => array(
-				'' => esc_html__( 'Theme Template', 'eduma' ),
-				'ekits_tpl' => esc_html__( 'ElementorKits Template', 'eduma' ),
-			),
-		)
-	);
-
-	thim_customizer()->add_field(
-		array(
-			'id'       => 'thim_desc_archive_course_tpl',
-			'type'     => 'tp_notice',
- 			'description'=>  __('You can config and builder in <a href="'.admin_url('edit.php?post_type=thim_elementor_kit&thim_elementor_type=archive-course').'" target="_blank"> Thim Elementor</a>','eduma'),
-			'section'  => 'course_archive',
-			'priority' => 11,
-			'active_callback' => array(array(
-				'setting'  => 'thim_ekits_archive_course_tpl',
-				'operator' => '===',
-				'value'    => 'ekits_tpl',
-			)),
-		)
-	);
-}
 thim_customizer()->add_field(
 	array(
 		'id'       => 'thim_learnpress_cate_layout',
@@ -67,28 +28,25 @@ thim_customizer()->add_field(
 			'full-content'  => THIM_URI . 'images/layout/body-full.jpg',
 			'sidebar-right' => THIM_URI . 'images/layout/sidebar-right.jpg',
 		),
-		'active_callback' => array($callback),
 	)
 );
 
-// Select All Content Page Layout
-thim_customizer()->add_field(
-	array(
-		'type'     => 'select',
-		'id'       => 'thim_style_content_course',
-		'label'    => esc_html__( 'Course List Layout', 'eduma' ),
-		'default'  => 'normal',
-		'section'  => 'course_archive',
-		'priority' => 13,
-		'choices'  => array(
-			'normal'         => esc_html__( 'Default', 'eduma' ),
-			'new-1'          => esc_html__( 'Layout 1 - New Demo', 'eduma' ),
-			'layout_style_2' => esc_html__( 'Layout 2', 'eduma' ),
-			// 'layout_style_3' => esc_html__( 'Layout 3 - Demo Edume', 'eduma' ),
-		),
-		'active_callback' => array($callback),
-	)
-);
+//thim_customizer()->add_field(
+//	array(
+//		'type'     => 'select',
+//		'id'       => 'thim_learnpress_cate_style_heading_title',
+//		'label'    => esc_html__( 'Style Heading title', 'eduma' ),
+//		'tooltip'  => esc_html__( 'Select style for Heading title.', 'eduma' ),
+//		'default'  => '',
+//		'priority' => 13,
+//		'multiple' => 0,
+//		'section'  => 'course_archive',
+//		'choices'  => array(
+//			'style_heading_1' => esc_html__( 'Style Heading 1', 'eduma' ),
+//			'style_heading_2' => esc_html__( 'Style Heading 2', 'eduma' ),
+// 		),
+//	)
+//);
 
 // Enable or disable breadcrumbs
 thim_customizer()->add_field(
@@ -104,7 +62,6 @@ thim_customizer()->add_field(
 			true  => esc_html__( 'On', 'eduma' ),
 			false => esc_html__( 'Off', 'eduma' ),
 		),
-		'active_callback' => array($callback),
 	)
 );
 
@@ -122,8 +79,6 @@ thim_customizer()->add_field(
 			true  => esc_html__( 'On', 'eduma' ),
 			false => esc_html__( 'Off', 'eduma' ),
 		),
-		'active_callback' => array($callback),
-
 	)
 );
 
@@ -135,7 +90,6 @@ thim_customizer()->add_field(
 		'tooltip'  => esc_html__( 'Allows you can setup sub heading.', 'eduma' ),
 		'section'  => 'course_archive',
 		'priority' => 20,
-		'active_callback' => array($callback),
 	)
 );
 
@@ -152,7 +106,6 @@ thim_customizer()->add_field(
 			true  => esc_html__( 'On', 'eduma' ),
 			false => esc_html__( 'Off', 'eduma' ),
 		),
-		'active_callback' => array($callback),
 	)
 );
 
@@ -170,7 +123,6 @@ thim_customizer()->add_field(
 			true  => esc_html__( 'On', 'eduma' ),
 			false => esc_html__( 'Off', 'eduma' ),
 		),
-		'active_callback' => array($callback),
 	)
 );
 
@@ -185,8 +137,7 @@ thim_customizer()->add_field(
 		'priority' => 27,
 		'choices'  => array(
 			'min' => 0
-		),
-		'active_callback' => array($callback),
+		)
 	)
 );
 
@@ -204,7 +155,6 @@ thim_customizer()->add_field(
 			'list_courses' => esc_html__( 'Layout List', 'eduma' ),
 			'grid_courses' => esc_html__( 'Layout Grid', 'eduma' ),
 		),
-		'active_callback' => array($callback),
 	)
 );
 
@@ -223,7 +173,6 @@ thim_customizer()->add_field(
 			'3' => esc_html__( '3', 'eduma' ),
 			'4' => esc_html__( '4', 'eduma' ),
 		),
-		'active_callback' => array($callback),
 	)
 );
 
@@ -236,7 +185,6 @@ thim_customizer()->add_field(
 		'transport' => 'postMessage',
 		'section'   => 'course_archive',
 		'default'   => THIM_URI . "images/bg-page.jpg",
-		'active_callback' => array($callback),
 	)
 );
 
@@ -258,8 +206,7 @@ thim_customizer()->add_field(
 				'element'  => '.top_site_main>.overlay-top-header',
 				'property' => 'background',
 			)
-		),
-		'active_callback' => array($callback),
+		)
 	)
 );
 
@@ -280,8 +227,7 @@ thim_customizer()->add_field(
 				'element'  => '.top_site_main h1, .top_site_main h2',
 				'property' => 'color',
 			)
-			),
-		'active_callback' => array($callback),
+		)
 	)
 );
 
@@ -302,8 +248,7 @@ thim_customizer()->add_field(
 				'element'  => '.top_site_main .banner-description',
 				'property' => 'color',
 			)
-			),
-		'active_callback' => array($callback),
+		)
 	)
 );
 
@@ -316,7 +261,6 @@ thim_customizer()->add_field(
 		'section'  => 'course_archive',
 		'default'  => false,
 		'priority' => 50,
-		'active_callback' => array($callback),
 		'choices'  => array(
 			true  => esc_html__( 'Show', 'eduma' ),
 			false => esc_html__( 'Hide', 'eduma' ),
@@ -339,7 +283,6 @@ thim_customizer()->add_field(
 				'operator' => '==',
 				'value'    => true,
 			),
-			$callback
 		),
 	)
 );
@@ -359,7 +302,6 @@ thim_customizer()->add_field(
 				'operator' => '==',
 				'value'    => true,
 			),
-			$callback
 		),
 	)
 );
@@ -374,18 +316,11 @@ thim_customizer()->add_field(
 		'default'         => 0,
 		'priority'        => 65,
 		'active_callback' => array(
-
 			array(
 				'setting'  => 'thim_display_course_filter',
 				'operator' => '==',
 				'value'    => true,
 			),
-			array(
-				'setting'  => 'thim_single_course_offline',
-				'operator' => '==',
-				'value'    => false,
-			),
-			$callback
 		),
 	)
 );
@@ -399,7 +334,6 @@ thim_customizer()->add_field(
 		'section'  => 'course_archive',
 		'default'  => true,
 		'priority' => 70,
-		'active_callback' => array($callback),
 		'choices'  => array(
 			true  => esc_html__( 'Show', 'eduma' ),
 			false => esc_html__( 'Hide', 'eduma' ),

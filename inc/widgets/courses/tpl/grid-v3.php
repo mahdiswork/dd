@@ -44,8 +44,6 @@ if ( $feature ) {
 	);
 }
 
-$condition = apply_filters( 'eduma/inc/widgets/courses/grid-v3/query_args', $condition );
-
 $the_query = new WP_Query( $condition );
 
 if ( $the_query->have_posts() ) :
@@ -67,12 +65,10 @@ if ( $the_query->have_posts() ) :
                             <a href="<?php echo esc_url( get_the_permalink( get_the_ID() ) ); ?>">
 								<?php echo thim_get_feature_image( get_post_thumbnail_id( get_the_ID() ), 'full', $thumb_w, $thumb_h, get_the_title() ); ?>
                             </a>
-							<?php
-							do_action( 'thim_inner_thumbnail_course' );
-							// only button read more
-							do_action ('thim-lp-course-button-read-more');
-							?>
-                         </div>
+							<?php do_action( 'thim_inner_thumbnail_course' ); ?>
+                            <a class="course-readmore"
+                               href="<?php echo esc_url( get_the_permalink( get_the_ID() ) ); ?>"><?php echo esc_html__( 'Read More', 'eduma' ); ?></a>
+                        </div>
 
                         <div class="thim-course-content">
 							<?php learn_press_courses_loop_item_instructor(); ?>
@@ -84,10 +80,22 @@ if ( $the_query->have_posts() ) :
                                 <div class="message message-warning learn-press-message coming-soon-message">
 									<?php esc_html_e( 'Coming soon', 'eduma' ) ?>
                                 </div>
-							<?php else:  
-								do_action( 'learnpress_loop_item_course_meta' );
-							endif; ?>
-                         </div>
+							<?php else: ?>
+                                <div class="course-meta">
+									<?php learn_press_courses_loop_item_instructor(); ?>
+									<?php thim_course_ratings(); ?>
+									<?php learn_press_get_template( 'loop/course/students.php' ); ?>
+									<?php thim_course_ratings_count(); ?>
+									<?php learn_press_courses_loop_item_price(); ?>
+                                </div>
+
+								<?php learn_press_courses_loop_item_price(); ?>
+							<?php endif; ?>
+
+                            <div class="course-readmore">
+                                <a href="<?php echo esc_url( get_permalink() ); ?>"><?php esc_html_e( 'Read More', 'eduma' ); ?></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 			<?php

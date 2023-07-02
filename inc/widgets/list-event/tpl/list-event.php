@@ -26,7 +26,6 @@ if ( is_array( $instance['cat_id'] ) ) {
 if ( strpos( $instance['cat_id'], 'all' ) ) {
 	$instance['cat_id'] = 'all';
 }
-
 ?>
 
 <?php thim_builder_get_template(

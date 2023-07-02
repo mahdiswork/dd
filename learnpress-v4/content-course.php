@@ -16,21 +16,24 @@ defined( 'ABSPATH' ) || exit();
 
 $user = LP_Global::user();
 
-$theme_options_data = get_theme_mods();
- 
-$class = isset( $theme_options_data['thim_learnpress_cate_grid_column'] ) && $theme_options_data['thim_learnpress_cate_grid_column'] ? 'course-grid-' . $theme_options_data['thim_learnpress_cate_grid_column'] : 'course-grid-3';
+$theme_options_data         = get_theme_mods();
+$course_item_excerpt_length = intval( get_theme_mod( 'thim_learnpress_excerpt_length', 25 ) );
 
+$class = isset( $theme_options_data['thim_learnpress_cate_grid_column'] ) && $theme_options_data['thim_learnpress_cate_grid_column'] ? 'course-grid-' . $theme_options_data['thim_learnpress_cate_grid_column'] : 'course-grid-3';
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 $class .= ' lpr_course';
 
+// edit by tuanta
 $thim_show_course_meta = apply_filters( 'thim_show_course_meta', true );
+$cl_coming_soon= '';
 if ( class_exists( 'LP_Addon_Coming_Soon_Courses' ) ) {
-	$instance_addon = LP_Addon_Coming_Soon_Courses::instance();
-	if ( $instance_addon->is_coming_soon( get_the_ID() ) ) {
-		$thim_show_course_meta = false;
-	}
+    $instance_addon = LP_Addon_Coming_Soon_Courses::instance();
+    if ( $instance_addon->is_coming_soon( get_the_ID() ) ) {
+        $thim_show_course_meta = false;
+        $cl_coming_soon = ' archive_coming_soon';
+    }
 }
 
 ?>
@@ -54,25 +57,47 @@ if ( class_exists( 'LP_Addon_Coming_Soon_Courses' ) ) {
 		do_action( 'thim_courses_loop_item_thumb' );
 		?>
 
-		<div class="thim-course-content">
+		<div class="thim-course-content<?php echo $cl_coming_soon; ?>">
 			<?php
- 			/**
-			 * @hooked thim_learnpress_loop_item_title - 10
-			 * @hooked learn_press_courses_loop_item_instructor - 5
-			 */
-			do_action( 'learnpress_loop_item_title' );
- 
-			do_action( 'learnpress_loop_item_desc' );
+				if(get_theme_mod( 'thim_layout_content_page', 'normal' ) =='layout_style_2'){
+					echo list_item_course_cat( get_the_ID() );
+					the_title( sprintf( '<h2 class="course-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' );
+					learn_press_courses_loop_item_instructor(); 	
+				}else{
+					learn_press_courses_loop_item_instructor(); 
+					the_title( sprintf( '<h2 class="course-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' );
+				}
 			?>
-
+			<?php if ( $course_item_excerpt_length ): ?>
+				<div class="course-description">
+					<?php
+					do_action( 'learn_press_before_course_content' );
+					echo thim_excerpt( $course_item_excerpt_length );
+					do_action( 'learn_press_after_course_content' );
+					?>
+				</div>
+			<?php endif; ?>
 			<?php
 			if ( $thim_show_course_meta ) {
-				do_action( 'learnpress_loop_item_course_meta' );
+				echo '<div class="course-meta">';
+				learn_press_courses_loop_item_instructor();
+				thim_course_ratings();
+				learn_press_get_template( 'loop/course/students.php' );
+				thim_course_ratings_count();
+				learn_press_courses_loop_item_price();
+				echo '</div>';
 			} else {
 				echo '<div class="message message-warning learn-press-message coming-soon-message">' . esc_html__( 'Coming soon', 'eduma' ) . '</div>';
-			}
- 
+			} ?>
+			
+			<?php learn_press_courses_loop_item_price(); ?>
+			<?php
+				if(get_theme_mod( 'thim_layout_content_page', 'normal' ) !='layout_style_2'){
 			?>
+			<div class="course-readmore">
+				<a href="<?php echo esc_url( get_permalink() ); ?>"><?php esc_html_e( 'Read More', 'eduma' ); ?></a>
+			</div>
+			<?php } ?>
 		</div>
 
 		<?php

@@ -17,4 +17,3 @@ function thim_buddypress_search_form() {
 	return $search_form_html;
 }
 add_filter( 'bp_directory_members_search_form', 'thim_buddypress_search_form' );
- 

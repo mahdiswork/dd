@@ -38,14 +38,11 @@
 			this.form_submission_validate()
 			this.thim_TopHeader()
 			this.ctf7_input_effect()
+			this.thim_course_filter()
 			this.mobile_menu_toggle()
 			this.thim_backgroud_gradient()
 			this.thim_single_image_popup()
-			this.full_right(),
-			this.course_sidebar_right_offset_top();
-			this.thim_carousel()
-
-
+			this.full_right()
 		},
 
 		getElements: function () {
@@ -55,17 +52,13 @@
 
 		load: function () {
 			this.thim_menu()
-			// this.thim_carousel()
+			this.thim_carousel()
 			this.thim_contentslider()
 			this.counter_box()
-			if ($('#contact-form-registration').length) {
- 				this.thim_course_offline_popup_form_register();
-			}
 		},
 
 		resize: function () {
 			this.full_right()
-			this.thim_carousel()
 		},
 
 		validate_form: function (form) {
@@ -127,7 +120,7 @@
 		login_form_popup: function () {
 			var teduma = this
 
-			/*\$(document).on('click', 'body:not(".loggen-in") .thim-button-checkout',
+			/*$(document).on('click', 'body:not(".loggen-in") .thim-button-checkout',
 				function(e) {
 				  if ($(window).width() > 767) {
 					e.preventDefault();
@@ -194,7 +187,26 @@
 					// Add param purchase course to login and Register form if exists
 					teduma.add_params_purchase_course_to_el(teduma.el_loginpopopform)
 					teduma.add_params_purchase_course_to_el(teduma.el_registerPopupForm)
+					/*if (teduma.el_form_purchase_course.length) {
+					  teduma.el_loginpopopform.append('<p class="params-purchase-code"></p>');
 
+					  var el_paramsPurchaseCode = teduma.el_loginpopopform.find('.params-purchase-code');
+
+					  $.each(teduma.el_form_purchase_course.find('input'), function (i) {
+						var inputName = $(this).attr('name');
+						var inputPurchaseCourse = $(this).clone();
+
+						if (el_paramsPurchaseCode.find('input[name=' + inputName + ']').length == 0) {
+						  el_paramsPurchaseCode.append(inputPurchaseCourse);
+
+						  if (inputName == 'add-to-cart') {
+							var urlHandleAjax = window.location.href.addQueryVar('r', Math.random());
+							var el_urlHandleAjax = '<input name="urlHandleAjax" value="' + urlHandleAjax + '" type="hidden">';
+							el_paramsPurchaseCode.append(el_urlHandleAjax);
+						  }
+						}
+					  });
+					}*/
 				} else {
 					window.location.href = $(this).parent().find('input[name=redirect_to]').val()
 				}
@@ -341,6 +353,196 @@
 			})
 		},
 
+		thim_course_filter: function () {
+			let $body = $('body')
+
+			if (!$body.hasClass('learnpress') || !$body.hasClass('archive')) {
+				return
+			}
+
+			let ajaxCall = function (data) {
+				return $.ajax({
+					url       : $('#lp-archive-courses').data('allCoursesUrl'), //using for course category page
+					type      : 'POST',
+					data      : data,
+					dataType  : 'html',
+					beforeSend: function () {
+						$('#thim-course-archive').addClass('loading')
+					},
+				}).fail(function () {
+					$('#thim-course-archive').removeClass('loading')
+				}).done(function (data) {
+					/*if (typeof history.pushState === 'function') {
+					  history.pushState(orderby, null, url);
+					}*/
+					let $document = $($.parseHTML(data))
+
+					$('#thim-course-archive').replaceWith($document.find('#thim-course-archive'))
+					$('.learn-press-pagination').html($document.find('.learn-press-pagination').html() || '')
+					$('.thim-course-top .course-index span').replaceWith($document.find('.thim-course-top .course-index span'))
+				})
+			}
+
+			let sendData = {
+				s             : '',
+				ref           : 'course',
+				post_type     : 'lp_course',
+				course_orderby: 'newly-published',
+				course_paged  : 1,
+			}
+
+			/*
+			* Handle courses sort ajax
+			* */
+			$(document).on('change', '.thim-course-order > select', function () {
+				sendData.s = $('.courses-searching .course-search-filter').val()
+				sendData.course_orderby = $(this).val()
+				sendData.course_paged = 1
+
+				ajaxCall(sendData)
+			})
+
+			/*
+			* Handle pagination ajax
+			* */
+			var filterCategoryId = 0;
+			$(document).on('click', '#lp-archive-courses > .learn-press-pagination a.page-numbers', function (e) {
+				e.preventDefault()
+
+				// Check is page category of course
+				var body = $('body');
+				if (body.hasClass('archive') && body.hasClass('tax-course_category') &&
+					'thim-body' === body.attr('id')) {
+					var regexCheckCourseCategoryId = new RegExp('term-([0-9]+)');
+
+					$.each(document.getElementsByTagName('body')[0].classList,
+						function (i, e) {
+							var match = regexCheckCourseCategoryId.exec(e);
+
+							console.log(match);
+
+							if (match && undefined != match[1]) {
+								filterCategoryId = match[1];
+								return;
+							}
+						});
+				}
+
+				$('html, body').animate({
+					'scrollTop': $('.site-content').offset().top - 140,
+				}, 1000)
+
+				let pageNum = parseInt($(this).text()),
+					paged = pageNum ? pageNum : 1,
+					cateArr = [], instructorArr = [],
+					cpage = $('.learn-press-pagination.navigation.pagination ul.page-numbers li span.page-numbers.current').text(),
+					isNext = $(this).hasClass('next') && $(this).hasClass('page-numbers'),
+					isPrev = $(this).hasClass('prev') && $(this).hasClass('page-numbers')
+				if (!pageNum) {
+					if (isNext) {
+						paged = parseInt(cpage) + 1
+					}
+					if (isPrev) {
+						paged = parseInt(cpage) - 1
+					}
+				}
+
+				$('form.thim-course-filter').find('input.filtered').each(function () {
+					switch ($(this).attr('name')) {
+						case 'course-cate-filter':
+							cateArr.push($(this).val())
+							break
+						case 'course-instructor-filter':
+							instructorArr.push($(this).val())
+							break
+						case 'course-price-filter':
+							sendData.course_price_filter = $(this).val()
+							break
+						default:
+							break
+					}
+				})
+
+				if ($body.hasClass('category') && $('.list-cate-filter').length <= 0) {
+					let bodyClass = $body.attr('class'),
+						cateClass = bodyClass.match(/category\-\d+/gi)[0],
+						cateID = cateClass.split('-').pop()
+
+					cateArr.push(cateID)
+				}
+
+				if (cateArr.length === 0 && filterCategoryId) {
+					cateArr.push(filterCategoryId);
+				}
+
+				sendData.course_cate_filter = cateArr
+				sendData.course_instructor_filter = instructorArr
+
+				sendData.s = $('.courses-searching .course-search-filter').val()
+				sendData.course_orderby = $('.thim-course-order > select').val()
+				sendData.course_paged = paged
+
+				ajaxCall(sendData)
+			})
+
+			/*
+			* Handle filter form click ajax
+			* */
+			$('form.thim-course-filter').on('submit', function (e) {
+				e.preventDefault()
+
+				let formData = $(this).serializeArray(),
+					cateArr = [], instructorArr = []
+
+				if (!formData.length) {
+					return
+				}
+
+				$('html, body').animate({
+					'scrollTop': $('.site-content').offset().top - 140,
+				}, 1000)
+
+				$(this).find('input').each(function () {
+					let form_input = $(this)
+					form_input.removeClass('filtered')
+
+					if (form_input.is(':checked')) {
+						form_input.addClass('filtered')
+					}
+				})
+
+				$.each(formData, function (index, filter) {
+					switch (filter.name) {
+						case 'course-cate-filter':
+							cateArr.push(filter.value)
+							break
+						case 'course-instructor-filter':
+							instructorArr.push(filter.value)
+							break
+						case 'course-price-filter':
+							sendData.course_price_filter = filter.value
+							break
+						default:
+							break
+					}
+				})
+
+				if ($body.hasClass('tax-course_category') && $('.list-cate-filter').length <= 0) {
+					let bodyClass = $body.attr('class'),
+						cateClass = bodyClass.match(/term\-\d+/gi)[0],
+						cateID = cateClass.split('-').pop()
+
+					cateArr.push(cateID)
+				}
+
+				sendData.course_cate_filter = cateArr
+				sendData.course_instructor_filter = instructorArr
+				sendData.course_paged = 1
+
+				ajaxCall(sendData)
+			})
+		},
+
 		mobile_menu_toggle: function () {
 			$(document).on('click', '.menu-mobile-effect', function (e) {
 				e.stopPropagation()
@@ -465,6 +667,24 @@
 				}
 			})
 
+			//Show submenu when hover
+			// var $menuItem = $(
+			//     '.wrapper-container:not(.mobile-menu-open) .site-header .navbar-nav >li,' +
+			//     '.wrapper-container:not(.mobile-menu-open) .site-header .navbar-nav li,' +
+			//     '.site-header .navbar-nav li ul li');
+			//
+			// $menuItem.on({
+			//     'mouseenter': function() {
+			//         $(this).children('.sub-menu').stop(true, false).fadeIn(250);
+			//     },
+			//     'mouseleave': function() {
+			//         $(this).
+			//             children('.sub-menu').
+			//             stop(true, false).
+			//             fadeOut(250);
+			//     },
+			// });
+
 			let $headerLayout = $('header#masthead')
 			let magicLine = function () {
 				if ($(window).width() > 768) {
@@ -519,9 +739,9 @@
 				}
 			}
 
-            if (!$headerLayout.hasClass('noline_menu_active')) {
-                magicLine()
-            }
+			if (!$headerLayout.hasClass('header_v4')) {
+				magicLine()
+			}
 
 			var subMenuPosition = function (menuItem) {
 				var $menuItem = menuItem,
@@ -536,219 +756,153 @@
 			}
 		},
 
-		thim_carousel: function () {
+		thim_carousel: function ($scope) {
 			if (jQuery().owlCarousel) {
-				let is_rtl = $('body').hasClass('rtl') ? true : false ;
- 					$('.thim-gallery-images').owlCarousel({
-						rtl: is_rtl,
-						autoplay   : false,
-						singleItem : true,
-						stopOnHover: true,
- 						autoHeight : false,
-						loop: true,
-						loadedClass: 'owl-loaded owl-carousel',
-					})
+				$('.thim-gallery-images').owlCarousel({
+					autoPlay   : false,
+					singleItem : true,
+					stopOnHover: true,
+					pagination : true,
+					autoHeight : false,
+				})
 
-					$('.thim-carousel-wrapper').each(function () {
+				$('.thim-carousel-wrapper').each(function () {
+					var item_visible = $(this).data('visible') ? parseInt(
+						$(this).data('visible')) : 4,
+						item_desktopsmall = $(this).data('desktopsmall') ? parseInt(
+							$(this).data('desktopsmall')) : item_visible,
+						itemsTablet = $(this).data('itemtablet') ? parseInt(
+							$(this).data('itemtablet')) : 2,
+						itemsMobile = $(this).data('itemmobile') ? parseInt(
+							$(this).data('itemmobile')) : 1,
+						pagination = !!$(this).data('pagination'),
+						navigation = !!$(this).data('navigation'),
+						autoplay = $(this).data('autoplay') ? parseInt(
+							$(this).data('autoplay')) : false,
+						navigation_text = ($(this).data('navigation-text') &&
+							$(this).data('navigation-text') === '2') ? [
+							'<i class=\'fa fa-long-arrow-left \'></i>',
+							'<i class=\'fa fa-long-arrow-right \'></i>',
+						] : [
+							'<i class=\'fa fa-chevron-left \'></i>',
+							'<i class=\'fa fa-chevron-right \'></i>',
+						]
 
-						var item_visible = $(this).data('visible') ? parseInt(
-							$(this).data('visible')) : 4,
-							item_desktopsmall = $(this).data('desktopsmall') ? parseInt(
-								$(this).data('desktopsmall')) : item_visible,
-							itemsTablet = $(this).data('itemtablet') ? parseInt(
-								$(this).data('itemtablet')) : 2,
-							itemsMobile = $(this).data('itemmobile') ? parseInt(
-								$(this).data('itemmobile')) : 1,
-							pagination = !!$(this).data('pagination'),
-							navigation = !!$(this).data('navigation'),
-							autoplay = $(this).data('autoplay') ? parseInt(
-								$(this).data('autoplay')) : false,
-							navigation_text = ($(this).data('navigation-text') &&
-								$(this).data('navigation-text') === '2') ? [
-								'<i class=\'fa fa-long-arrow-left \'></i>',
-								'<i class=\'fa fa-long-arrow-right \'></i>',
-							] : [
-								'<i class=\'fa fa-chevron-left \'></i>',
-								'<i class=\'fa fa-chevron-right \'></i>',
-							]
- 						$(this).owlCarousel({
-							items            : item_visible,
-							// itemsDesktop     : [1200, item_visible],
-							// itemsDesktopSmall: [1024, item_desktopsmall],
-							// itemsTablet      : [768, itemsTablet],
-							// itemsMobile      : [480, itemsMobile],
-							nav       : navigation,
-							dots       : pagination,
-							loop: ($(this).children().length > item_visible) ? true: false,
-							rewind: true,
- 							rtl: is_rtl,
-							// dots       : true,
-							loadedClass: 'owl-loaded owl-carousel',
-							navContainerClass: 'owl-nav owl-buttons',
- 							dotsClass :'owl-dots owl-pagination',
-							dotClass:'owl-page',
-							responsive:{
-								0:{
-									items:itemsMobile,
-									dots: true,
-									nav: false
-								},
-								480:{
-									items:itemsTablet
-								},
-								 1024:{
-									items:item_desktopsmall
-								},
-								1200:{
-									items:item_visible
-								}
-							},
-							  lazyLoad         : true,
-							autoplay         : autoplay,
-							navText   : navigation_text,
-							afterAction      : function () {
-								var width_screen = $(window).width()
-								var width_container = $('#main-home-content').width()
-								var elementInstructorCourses = $('.thim-instructor-courses')
-								var button_full_left = $('.thim_full_right.thim-event-layout-6')
-								if (button_full_left.length) {
-									var full_left = (jQuery(window).width() - button_full_left.width()) / 2;
-									button_full_left.find('.owl-controls .owl-buttons').css("margin-left", "-" + full_left + "px")
-									button_full_left.find('.owl-controls .owl-buttons').css({
-										'margin-left' : '-' + full_left + 'px',
-										'padding-left': full_left + 'px',
-										'margin-right': full_left + 'px',
-									})
-								}
-								if (elementInstructorCourses.length) {
-									if (width_screen > width_container) {
-										var margin_left_value = (width_screen - width_container) / 2
-										$('.thim-instructor-courses .thim-course-slider-instructor .owl-controls .owl-buttons').css('left', margin_left_value + 'px')
-									}
+					$(this).owlCarousel({
+						items            : item_visible,
+						itemsDesktop     : [1200, item_visible],
+						itemsDesktopSmall: [1024, item_desktopsmall],
+						itemsTablet      : [768, itemsTablet],
+						itemsMobile      : [480, itemsMobile],
+						navigation       : navigation,
+						pagination       : pagination,
+						lazyLoad         : true,
+						autoPlay         : autoplay,
+						navigationText   : navigation_text,
+						afterAction      : function () {
+							var width_screen = $(window).width()
+							var width_container = $('#main-home-content').width()
+							var elementInstructorCourses = $('.thim-instructor-courses')
+							var button_full_left = $('.thim_full_right.thim-event-layout-6')
+							if (button_full_left.length) {
+								var full_left = (jQuery(window).width() - button_full_left.width()) / 2;
+								button_full_left.find('.owl-controls .owl-buttons').css("margin-left", "-" + full_left + "px")
+								button_full_left.find('.owl-controls .owl-buttons').css({
+									'margin-left' : '-' + full_left + 'px',
+									'padding-left': full_left + 'px',
+									'margin-right': full_left + 'px',
+								})
+							}
+							if (elementInstructorCourses.length) {
+								if (width_screen > width_container) {
+									var margin_left_value = (width_screen - width_container) / 2
+									$('.thim-instructor-courses .thim-course-slider-instructor .owl-controls .owl-buttons').css('left', margin_left_value + 'px')
 								}
 							}
-						})
-						 thim_eduma.addWrapOwlControls($(this));
-
+						}
 					})
+				})
 
-					$('.thim-course-slider-instructor').each(function () {
-						var item_visible = $(this).data('visible') ? parseInt( $(this).data('visible')) : 4,
-							item_desktopsmall = $(this).data('desktopsmall') ? parseInt(
-								$(this).data('desktopsmall')) : item_visible,
-							itemsTablet = $(this).data('itemtablet') ? parseInt(
-								$(this).data('itemtablet')) : 2,
-							itemsMobile = $(this).data('itemmobile') ? parseInt(
-								$(this).data('itemmobile')) : 1,
-							pagination = !!$(this).data('pagination'),
-							navigation = !!$(this).data('navigation'),
-							autoplay = $(this).data('autoplay') ? parseInt(
-								$(this).data('autoplay')) : false,
-							navigation_text = ($(this).data('navigation-text') &&
-								$(this).data('navigation-text') === '2') ? [
-								'<i class=\'fa fa-long-arrow-left \'></i>',
-								'<i class=\'fa fa-long-arrow-right \'></i>',
-							] : [
-								'<i class=\'fa fa-chevron-left \'></i>',
-								'<i class=\'fa fa-chevron-right \'></i>',
-							]
+				$('.thim-course-slider-instructor').each(function () {
+					var item_visible = $(this).data('visible') ? parseInt(
+						$(this).data('visible')) : 4,
+						item_desktopsmall = $(this).data('desktopsmall') ? parseInt(
+							$(this).data('desktopsmall')) : item_visible,
+						itemsTablet = $(this).data('itemtablet') ? parseInt(
+							$(this).data('itemtablet')) : 2,
+						itemsMobile = $(this).data('itemmobile') ? parseInt(
+							$(this).data('itemmobile')) : 1,
+						pagination = !!$(this).data('pagination'),
+						navigation = !!$(this).data('navigation'),
+						autoplay = $(this).data('autoplay') ? parseInt(
+							$(this).data('autoplay')) : false,
+						navigation_text = ($(this).data('navigation-text') &&
+							$(this).data('navigation-text') === '2') ? [
+							'<i class=\'fa fa-long-arrow-left \'></i>',
+							'<i class=\'fa fa-long-arrow-right \'></i>',
+						] : [
+							'<i class=\'fa fa-chevron-left \'></i>',
+							'<i class=\'fa fa-chevron-right \'></i>',
+						]
 
-						$(this).owlCarousel({
-							items            : item_visible,
-							rtl: is_rtl,
-							// itemsDesktop     : [1400, item_desktopsmall],
-							// itemsDesktopSmall: [1024, itemsTablet],
-							// itemsTablet      : [768, itemsTablet],
-							// itemsMobile      : [480, itemsMobile],
-							responsive:{
-								0:{
-									items:itemsMobile
-								},
-								480:{
-									items:itemsTablet
-								},
-								1024:{
-									items:itemsTablet
-								},
-								1400:{
-									items:item_desktopsmall
-								}
-							},
-							nav       : navigation,
-							dots       : pagination,
-							loop: ($(this).children().length > item_visible) ? true: false,
-							rewind: true,
-							lazyLoad         : true,
-							autoplay         : autoplay,
-							navText   : navigation_text,
-							loadedClass: 'owl-loaded owl-carousel',
-							navContainerClass: 'owl-nav owl-buttons',
-							dotsClass :'owl-dots owl-pagination',
-							dotClass:'owl-page',
-							afterAction      : function () {
-								var width_screen = $(window).width()
-								var width_container = $('#main-home-content').width()
-								var elementInstructorCourses = $('.thim-instructor-courses')
+					$(this).owlCarousel({
+						items            : item_visible,
+						itemsDesktop     : [1400, item_desktopsmall],
+						itemsDesktopSmall: [1024, itemsTablet],
+						itemsTablet      : [768, itemsTablet],
+						itemsMobile      : [480, itemsMobile],
+						navigation       : navigation,
+						pagination       : pagination,
+						lazyLoad         : true,
+						autoPlay         : autoplay,
+						navigationText   : navigation_text,
+						afterAction      : function () {
+							var width_screen = $(window).width()
+							var width_container = $('#main-home-content').width()
+							var elementInstructorCourses = $('.thim-instructor-courses')
 
-								if (elementInstructorCourses.length) {
-									if (width_screen > width_container) {
-										var margin_left_value = (width_screen - width_container) / 2
-										$('.thim-instructor-courses .thim-course-slider-instructor .owl-controls .owl-buttons').css('left', margin_left_value + 'px')
-									}
+							if (elementInstructorCourses.length) {
+								if (width_screen > width_container) {
+									var margin_left_value = (width_screen - width_container) / 2
+									$('.thim-instructor-courses .thim-course-slider-instructor .owl-controls .owl-buttons').css('left', margin_left_value + 'px')
 								}
 							}
-						})
-						 thim_eduma.addWrapOwlControls($(this));
-					 })
+						}
+					})
+				})
 
-					$('.thim-carousel-course-categories .thim-course-slider, .thim-carousel-course-categories-tabs .thim-course-slider').each(function () {
+				$('.thim-carousel-course-categories .thim-course-slider, .thim-carousel-course-categories-tabs .thim-course-slider').each(function () {
+					var item_visible = $(this).data('visible') ? parseInt($(this).data('visible')) : 7,
+						item_desktop = $(this).data('desktop') ? parseInt($(this).data('desktop')) : item_visible,
+						item_desktopsmall = $(this).data('desktopsmall')
+							? parseInt($(this).data('desktopsmall'))
+							: 6,
+						item_tablet = $(this).data('tablet') ? parseInt($(this).data('tablet')) : 4,
+						item_mobile = $(this).data('mobile') ? parseInt($(this).data('mobile')) : 2,
+						pagination = !!$(this).data('pagination'),
+						navigation = !!$(this).data('navigation'),
+						autoplay = $(this).data('autoplay') ? parseInt($(this).data('autoplay')) : false,
+						is_rtl = $('body').hasClass('rtl')
 
-						var item_visible = $(this).data('visible') ? parseInt($(this).data('visible')) : 7,
-							item_desktop = $(this).data('desktop') ? parseInt($(this).data('desktop')) : item_visible,
-							item_desktopsmall = $(this).data('desktopsmall') ? parseInt($(this).data('desktopsmall')) : 6,
-							item_tablet = $(this).data('tablet') ? parseInt($(this).data('tablet')) : 4,
-							item_mobile = $(this).data('mobile') ? parseInt($(this).data('mobile')) : 2,
-							pagination = !!$(this).data('pagination'),
-							navigation = !!$(this).data('navigation'),
-							autoplay = $(this).data('autoplay') ? parseInt($(this).data('autoplay')) : false
- 						$(this).owlCarousel({
-							items            : item_visible,
- 							loop: ($(this).children().length > item_visible) ? true: false,
-							rewind: true,
-							rtl: is_rtl,
-							responsive:{
-
-								0:{
-									items:item_mobile
-								},
-								480:{
-									items:item_tablet
-								},
-								1024:{
-									items:item_desktopsmall
-								},
-								1800:{
-									items:item_desktop
-								}
-							},
-							nav       : navigation,
-							dots       : pagination,
-							loadedClass: 'owl-loaded owl-carousel',
-							autoplay         : autoplay,
-							navContainerClass: 'owl-nav owl-buttons',
-							dotsClass :'owl-dots owl-pagination',
-							dotClass:'owl-page',
-							navText   : [
-								'<i class=\'fa fa-chevron-left \'></i>',
-								'<i class=\'fa fa-chevron-right \'></i>',
-							],
-						})
-						 thim_eduma.addWrapOwlControls($(this));
-					 })
+					$(this).owlCarousel({
+						items            : item_visible,
+						itemsDesktop     : [1800, item_desktop],
+						itemsDesktopSmall: [1024, item_desktopsmall],
+						itemsTablet      : [768, item_tablet],
+						itemsMobile      : [480, item_mobile],
+						navigation       : navigation,
+						pagination       : pagination,
+						autoPlay         : autoplay,
+						navigationText   : [
+							'<i class=\'fa fa-chevron-left \'></i>',
+							'<i class=\'fa fa-chevron-right \'></i>',
+						],
+					})
+				})
 			}
 		},
 
-		thim_contentslider: function () {
+		thim_contentslider: function ($scope) {
 			$('.thim-testimonial-slider').each(function () {
 				var elem = $(this),
 					item_visible = parseInt(elem.data('visible')),
@@ -822,6 +976,65 @@
 			}
 		},
 
+		check_load_menu: function () {
+			var window_with_resize = $(window).width()
+			var type_menu_first = ''
+
+			// if (window_with == window_with_resize) {
+			// 	return;
+			// }
+
+			if (!flag_call_ajax_check_load_menu) {
+				return
+			}
+
+			var el_mobile_menu_wrapper = $('.mobile-menu-wrapper')
+			var el_mobile_menu_inner = el_mobile_menu_wrapper.find('.mobile-menu-inner')
+			var el_main_menu = $('.width-navigation').find('.menu-main-menu')
+
+			if (el_main_menu.length) {
+				type_menu_first = 'html_desktop'
+			} else if (el_mobile_menu_inner.length) {
+				type_menu_first = 'html_mobile'
+			}
+			// console.log(type_menu_first)
+			// if (el_main_menu.length && el_mobile_menu_inner.length) {
+			// 	return;
+			// }
+
+			flag_call_ajax_check_load_menu = 0
+
+			setTimeout(function () {
+				$.ajax({
+					type      : 'post',
+					url       : ajaxurl,
+					data      : {
+						action     : 'get_template_mainmenu_rezize',
+						screen_size: $(window).width(),
+					},
+					beforeSend: function () {
+
+					},
+					success   : function (response) {
+						console.log(response)
+						if (response.success) {
+							if (response.data['html_mobile']) {
+								$('.mobile-menu-wrapper').html(response.data['html_mobile'])
+							}
+
+							if (response.data['html_desktop']) {
+								$('.width-navigation').html(response.data['html_desktop'])
+							}
+						}
+					},
+					complete  : function () {
+						flag_call_ajax_check_load_menu = 1
+					}
+				})
+			}, 300)
+
+		},
+
 		full_right: function () {
 			$('.thim_full_right').each(function () {
 				var full_right = (jQuery(window).width() - jQuery(this).width()) / 2;
@@ -837,115 +1050,67 @@
 				jQuery(this).find('.thim-widget-countdown-box').parent().css({"margin-left": '-' + number, "padding-left": number});
 			});
 		},
-		thim_course_offline_popup_form_register : function() {
-			if ($('#contact-form-registration >.wpcf7').length) {
-				  var el = $('#contact-form-registration >.wpcf7');
-				// 		el_H = el.outerHeight(),
-				// 		win_H = $(window).height();
-				// if (win_H > el_H) {
-				// 	el.css('top', ( win_H - el_H ) / 2);
-				// }
-				el.append('<a href="#" class="thim-close fa fa-times"></a>');
-			}
-			$(document).on('click', '#contact-form-registration .wpcf7-form-control.wpcf7-submit', function () {
-				$(document).on('mailsent.wpcf7', function (event) {
-					setTimeout(function(){
-						$('body').removeClass('thim-contact-popup-active');
-						$('#contact-form-registration').removeClass('active');
-					}, 3000);
-				});
-			});
-			$(document).on('click', '.course-payment .thim-enroll-course-button', function (e) {
-				e.preventDefault();
-				$('body').addClass('thim-contact-popup-active');
-				$('#contact-form-registration').addClass('active');
-			});
 
-			$(document).on('click', '#contact-form-registration', function (e) {
-				if ($(e.target).attr('id') == 'contact-form-registration') {
-					$('body').removeClass('thim-contact-popup-active');
-					$('#contact-form-registration').removeClass('active');
-				}
-			});
-
-			$(document).on('click', '#contact-form-registration .thim-close', function (e) {
-				e.preventDefault();
-				$('body').removeClass('thim-contact-popup-active');
-				$('#contact-form-registration').removeClass('active');
-			});
-		},
-		course_sidebar_right_offset_top : function(){
-			var elementInfoTop = $('.course-info-top');
-			if(elementInfoTop.length){
-				var InfoTopHeight = elementInfoTop.innerHeight(),
-					elementInfoRight = $('.thim-style-content-layout_style_3 .sticky-sidebar');
-				elementInfoRight.css('margin-top', '-' + ( InfoTopHeight - 20 ) + 'px' );
-			}
-		},
-		addWrapOwlControls: function ( el ) {
-			const elOwlControls = el.find('.owl-controls');
-			if ( ! elOwlControls.length ) {
-				el.find('.owl-nav, .owl-dots').wrapAll("<div class='owl-controls'></div>");
-			}
-		}
 	}
 
-	$(document).ready(function () {
-		thim_eduma.ready();
+	// var window_with;
+	var flag_call_ajax_check_load_menu = 1
 
+	$(document).ready(function () {
+		thim_eduma.ready()
+		// thim_eduma.check_load_menu();
+		// window_with = $(window).width();
+		//
 		$(window).resize(function () {
 			thim_eduma.resize()
+			// 	// Check load menu
+			// 	thim_eduma.check_load_menu();
 		})
 
 	})
 
 	$(window).on('load', function () {
-		thim_eduma.load();
+		thim_eduma.load()
 	})
 
-    $(window).on('elementor/frontend/init', function() {
-        elementorFrontend.hooks.addAction('frontend/element_ready/thim-carousel-post.default',
-            thim_eduma.thim_carousel)
-        elementorFrontend.hooks.addAction('frontend/element_ready/thim-twitter.default',
-            thim_eduma.thim_carousel)
+	$(window).on('elementor/frontend/init', function () {
+		elementorFrontend.hooks.addAction('frontend/element_ready/thim-carousel-post.default',
+			thim_eduma.thim_carousel)
 
-        elementorFrontend.hooks.addAction('frontend/element_ready/thim-courses.default',
-            thim_eduma.thim_carousel);
+		elementorFrontend.hooks.addAction('frontend/element_ready/thim-courses.default',
+		    thim_eduma.thim_carousel);
 
-        elementorFrontend.hooks.addAction('frontend/element_ready/thim-list-event.default',
-            thim_eduma.thim_carousel);
+		elementorFrontend.hooks.addAction('frontend/element_ready/thim-list-event.default',
+		    thim_eduma.thim_carousel);
 
-        elementorFrontend.hooks.addAction('frontend/element_ready/thim-course-categories.default',
-            thim_eduma.thim_carousel)
+		elementorFrontend.hooks.addAction('frontend/element_ready/thim-course-categories.default',
+			thim_eduma.thim_carousel)
 
-        elementorFrontend.hooks.addAction('frontend/element_ready/thim-our-team.default',
-            thim_eduma.thim_carousel)
+		elementorFrontend.hooks.addAction('frontend/element_ready/thim-our-team.default',
+			thim_eduma.thim_carousel)
 
-        elementorFrontend.hooks.addAction('frontend/element_ready/thim-gallery-images.default',
-            thim_eduma.thim_carousel)
+		elementorFrontend.hooks.addAction('frontend/element_ready/thim-gallery-images.default',
+			thim_eduma.thim_carousel)
 
-        elementorFrontend.hooks.addAction('frontend/element_ready/thim-list-instructors.default',
-            thim_eduma.thim_carousel)
+		elementorFrontend.hooks.addAction('frontend/element_ready/thim-list-instructors.default',
+			thim_eduma.thim_carousel)
 
-        elementorFrontend.hooks.addAction('frontend/element_ready/thim-testimonials.default',
-            thim_eduma.thim_carousel)
+		elementorFrontend.hooks.addAction('frontend/element_ready/thim-testimonials.default',
+			thim_eduma.thim_carousel)
 
-        elementorFrontend.hooks.addAction('frontend/element_ready/thim-courses-collection.default',
-            thim_eduma.thim_carousel)
+		elementorFrontend.hooks.addAction('frontend/element_ready/thim-testimonials.default',
+			thim_eduma.thim_contentslider)
 
-        elementorFrontend.hooks.addAction('frontend/element_ready/thim-testimonials.default',
-            thim_eduma.thim_contentslider)
+		elementorFrontend.hooks.addAction('frontend/element_ready/thim-counters-box.default',
+			thim_eduma.counter_box)
 
-        elementorFrontend.hooks.addAction('frontend/element_ready/thim-counters-box.default',
-            thim_eduma.counter_box)
+		elementorFrontend.hooks.addAction('frontend/element_ready/global', function ($scope) {
+			var $carousel = $scope.find('.owl-carousel')
+			if ($carousel.length) {
+				var carousel = $carousel.data('owlCarousel')
+				carousel && carousel.reload()
+			}
+		})
 
-        elementorFrontend.hooks.addAction('frontend/element_ready/global', function($scope) {
-            var $carousel = $scope.find('.owl-carousel')
-            if ($carousel.length) {
-                var carousel = $carousel.data('owlCarousel')
-                carousel && carousel.reload()
-            }
-        })
-
-    })
+	})
 })(jQuery)

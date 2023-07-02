@@ -1,14 +1,13 @@
 <?php
 $panel_list = $instance['panel'] ? $instance['panel'] : '';
 $pagination = ( ! empty( $instance['show_pagination'] ) && $instance['show_pagination'] !== 'no' ) ? 1 : 0;
-$show_navigation         = isset( $instance['show_navigation'] ) ? $instance['show_navigation'] : 1;
 $autoplay   = isset( $instance['auto_play'] ) ? $instance['auto_play'] : 0;
 $html       = '<div class="thim-instructors-new">';
 $heading    = ! ( empty( $instance['title'] ) ) ? $instance['title'] : esc_html__( 'Popular Courses', 'eduma' );
 wp_enqueue_style( 'thim-linearicons-font' );
 
 if ( ! empty( $panel_list ) ) {
-	$html .= '<div class="thim-carousel-wrapper" data-visible="1" data-navigation="'.$show_navigation.'" data-itemtablet="1" data-pagination="' . $pagination . '" data-autoplay="' . esc_attr( $autoplay ) . '">';
+	$html .= '<div class="thim-carousel-wrapper" data-visible="1" data-navigation="1" data-itemtablet="1" data-pagination="' . $pagination . '" data-autoplay="' . esc_attr( $autoplay ) . '">';
 	foreach ( $panel_list as $key => $panel ) {
 		if ( ! empty( $panel['panel_id'] ) ) {
 			$arr_query = array(

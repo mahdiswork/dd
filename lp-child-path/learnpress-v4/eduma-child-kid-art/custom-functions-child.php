@@ -1,6 +1,4 @@
 <?php
-// font icon old
-
 // add cusom field for course
 remove_action( 'learnpress/course-settings/after-general', 'eduma_add_custom_field_course' );
 

@@ -84,7 +84,7 @@ foreach ( $courses as $course_id ) {
 			<?php
 			echo '<div class="course-thumbnail">';
 			echo '<a class="thumb" href="' . esc_url( get_the_permalink($course_id) ) . '" >';
-			echo thim_get_feature_image( get_post_thumbnail_id( $course_id), 'full', apply_filters( 'thim_course_megamenu_thumbnail_width', 450 ), apply_filters( 'thim_course_megamenu_thumbnail_height', 450 ), get_the_title($course_id) );
+			echo thim_get_feature_image( get_post_thumbnail_id( $course_id), 'full', apply_filters( 'thim_course_thumbnail_width', 450 ), apply_filters( 'thim_course_thumbnail_height', 450 ), get_the_title($course_id) );
 			echo '</a>';
 			echo '</div>';
 			?>
@@ -94,7 +94,7 @@ foreach ( $courses as $course_id ) {
 				</h2>
 
 				<div class="course-meta">
-					<?php do_action('learnpress_loop_item_price'); ?>
+					<?php learn_press_courses_loop_item_price(); ?>
 				</div>
 				<?php
 				echo '<a class="course-readmore" href="' . esc_url( get_the_permalink($course_id) ) . '">' . esc_html__( 'Read More', 'eduma' ) . '</a>';

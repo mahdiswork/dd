@@ -28,7 +28,7 @@ if ( $total == 0 ) {
 } elseif ( $total == 1 ) {
 	$index = esc_html__( 'Showing only one result', 'eduma' );
 } else {
-	$courses_per_page = absint( LP_Settings::instance()->get('archive_course_limit' ) );
+	$courses_per_page = absint( LP()->settings->get( 'archive_course_limit' ) );
 	$paged            = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
 
 	$from = 1 + ( $paged - 1 ) * $courses_per_page;

@@ -1,5 +1,5 @@
 <?php
- // add cusom field for course
+// add cusom field for course
 remove_action( 'learnpress/course-settings/after-general', 'eduma_add_custom_field_course' );
 
 if ( ! function_exists( 'kid_new_art_child_eduma_add_custom_field_course' ) ) {

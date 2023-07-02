@@ -16,7 +16,9 @@ if ( isset( $instance['icon_type'] ) && $instance['icon_type'] == 'text_number' 
 }
 
 /* setup hover color */
-$data_color     = $boxes_icon_style  = $style_bg = "";
+$data_color     = $boxes_icon_style = $thim_animation = $style_bg = "";
+
+$thim_animation .= isset($instance['css_animation']) ? thim_getCSSAnimation( $instance['css_animation'] ) : '';
 
 if ( isset( $instance['color_group']['icon_hover_color'] ) && $instance['color_group']['icon_hover_color'] <> '' ) {
 	$data_color .= ' data-icon="' . $instance['color_group']['icon_hover_color'] . '"';
@@ -54,7 +56,7 @@ $icon_style = $boxes_icon_style = '';
 $icon_style .= ( isset( $instance['color_group']['icon_bg_color'] ) && $instance['color_group']['icon_bg_color'] != '' ) ? 'background-color: ' . $instance['color_group']['icon_bg_color'] . ';' : '';
 $icon_style .= ( isset( $instance['color_group']['icon_border_color'] ) && $instance['color_group']['icon_border_color'] != '' ) ? 'border-color:' . $instance['color_group']['icon_border_color'] . ';' : '';
 $icon_style .= ! empty( $instance['width_icon_box'] ) ? 'width: ' . $instance['width_icon_box'] . 'px;' : '';
-$icon_style .= ( ! empty( $instance['height_icon_box'] ) && '' != $instance['height_icon_box'] ) ? 'height: ' . $instance['height_icon_box'] . 'px;line-height:' . $instance['height_icon_box'] . 'px;' : '';
+$icon_style .= ( ! empty( $instance['height_icon_box'] ) && '' != $instance['height_icon_box'] ) ? 'height: ' . $instance['height_icon_box'] . 'px;' : '';
 if ( $icon_style ) {
 	$boxes_icon_style = 'style="' . $icon_style . '"';
 }
@@ -104,7 +106,7 @@ $html_title = $border_bottom_title = $class_separator = '';
 
 if ( isset( $instance['title_group']['line_after_title'] ) && ( $instance['title_group']['line_after_title'] == '1' || $instance['title_group']['line_after_title'] == true ) ) {
 	$border_bottom_title = '<span class="line-heading"></span>';
-	$extent_class      .= ' wrapper-line-heading';
+	$thim_animation      .= ' wrapper-line-heading';
 }
 if ( isset( $instance['layout_group']['text_align_sc'] ) ) {
 	$class_bg_video .= ' ' . $instance['layout_group']['text_align_sc'];
@@ -112,7 +114,7 @@ if ( isset( $instance['layout_group']['text_align_sc'] ) ) {
 if ( isset( $instance['layout_group']['style_box'] ) ) {
 	$class_bg_video .= ' ' . $instance['layout_group']['style_box'];
 }
-$prefix = '<div class="wrapper-box-icon' . $extent_class . $class_bg_video . '" ' . $style_bg . ' ' . $data_color . '>';
+$prefix = '<div class="wrapper-box-icon' . $extent_class . $class_bg_video . ' ' . $thim_animation . '" ' . $style_bg . ' ' . $data_color . '>';
 $suffix = '</div>';
 //wrapper-box-icon
 
@@ -175,7 +177,6 @@ if ( isset( $instance['layout_group']['box_icon_style'] ) && $instance['layout_g
 	$icon_layout = ' ' . $instance['layout_group']['box_icon_style'];
 }
 if ( isset( $instance['icon_type'] ) && $instance['icon_type'] == 'font-awesome' ) {
-
 	if ( isset($instance['font_awesome_group']['icon']) &&  $instance['font_awesome_group']['icon'] == '' ) {
 		$instance['font_awesome_group']['icon'] = 'none';
 	}
@@ -196,7 +197,6 @@ if ( isset( $instance['icon_type'] ) && $instance['icon_type'] == 'font-awesome'
 		$html_icon .= '</span></span>' . $icon_link_suffix . '</div>';
 	}
 } else if ( isset( $instance['icon_type'] ) && $instance['icon_type'] == 'font-7-stroke' ) {
-	wp_enqueue_style('font-pe-icon-7');
 	if (isset($instance['font_7_stroke_group']['icon']) &&  $instance['font_7_stroke_group']['icon'] == '' ) {
 		$instance['font_7_stroke_group']['icon'] = 'none';
 	}
@@ -214,7 +214,6 @@ if ( isset( $instance['icon_type'] ) && $instance['icon_type'] == 'font-awesome'
 		$html_icon .= '</span></span>' . $icon_link_suffix . '</div>';
 	}
 } else if ( isset( $instance['icon_type'] ) && $instance['icon_type'] == 'icomoon' ) {
-	wp_enqueue_style('thim-linearicons-font');
 	if (isset($instance['font_icomoon_group']['icon']) && $instance['font_icomoon_group']['icon'] == '' ) {
 		$instance['font_icomoon_group']['icon'] = 'none';
 	}
@@ -228,7 +227,7 @@ if ( isset( $instance['icon_type'] ) && $instance['icon_type'] == 'font-awesome'
 		$html_icon .= '</span></span>' . $icon_link_suffix . '</div>';
 	}
 } else if ( isset( $instance['icon_type'] ) && $instance['icon_type'] == 'font-flaticon' ) {
-	wp_enqueue_style('flaticon');
+
 	if ( $instance['font_flaticon_group']['icon'] == '' ) {
 		$instance['font_flaticon_group']['icon'] = 'none';
 	}
@@ -247,7 +246,6 @@ if ( isset( $instance['icon_type'] ) && $instance['icon_type'] == 'font-awesome'
 		$html_icon .= '</span></span>' . $icon_link_suffix . '</div>';
 	}
 } else if ( isset( $instance['icon_type'] ) && $instance['icon_type'] == 'font_ionicons' ) {
-	wp_enqueue_style('ionicons');
 	if ( $instance['font_ionicons_group']['icon'] == '' ) {
 		$instance['font_ionicons_group']['icon'] = 'none';
 	}

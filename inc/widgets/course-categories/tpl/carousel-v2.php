@@ -64,7 +64,7 @@ if ( $cat_course ) {
 		}
 		if ( !empty( $posts_array ) ) {
 			$html .= '<div class="list-course-items">';
-			$html .= '<label>' . esc_html__( 'Courses', 'eduma' ) . '</label>';
+			$html .= '<label>' . esc_html__( 'Course', 'eduma' ) . '</label>';
 			foreach ( $posts_array as $k => $v ) {
 				$html .= '<a class="course-link" href="' . get_the_permalink( $v->ID ) . '">' . $v->post_title . '</a>';
 			}

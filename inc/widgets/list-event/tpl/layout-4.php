@@ -104,11 +104,11 @@ if ( $events->have_posts() ) {
 
 				<div class="meta">
 					<div class="time">
-						<i class="tk tk-clock"></i>
+						<i class="ion-android-alarm-clock"></i>
 						<?php echo esc_html( $time_start ) . ' - ' . esc_html( $time_end ); ?>
 					</div>
 					<div class="location">
-						<i class="tk tk-map-marker"></i>
+						<i class="ion-ios-location-outline"></i>
 						<?php echo ent2ncr( $location ); ?>
 					</div>
 				</div>

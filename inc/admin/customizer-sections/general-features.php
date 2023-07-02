@@ -34,41 +34,27 @@ thim_customizer()->add_section(
 //);
 // Feature: Auto Login
 thim_customizer()->add_field(
-	array(
-		'type'     => 'switch',
-		'id'       => 'thim_auto_login',
-		'label'    => esc_html__( 'Auto Login', 'eduma' ),
-		'section'  => 'advanced',
-		'default'  => true,
-		'priority' => 15,
-		'choices'  => array(
-			true  => esc_html__( 'On', 'eduma' ),
-			false => esc_html__( 'Off', 'eduma' ),
-		),
-		//		'active_callback' => array(
-		//			array(
-		//				'setting'  => 'thim_form_lp_register',
-		//				'operator' => '===',
-		//				'value'    => false,
-		//			),
-		//		),
-	)
+    array(
+        'type'     => 'switch',
+        'id'       => 'thim_auto_login',
+        'label'    => esc_html__( 'Auto Login', 'eduma' ),
+        'section'  => 'advanced',
+        'default'  => true,
+        'priority' => 15,
+        'choices'  => array(
+            true  => esc_html__( 'On', 'eduma' ),
+            false => esc_html__( 'Off', 'eduma' ),
+        ),
+//		'active_callback' => array(
+//			array(
+//				'setting'  => 'thim_form_lp_register',
+//				'operator' => '===',
+//				'value'    => false,
+//			),
+//		),
+    )
 );
-thim_customizer()->add_field(
-	array(
-		'type'     => 'switch',
-		'id'       => 'thim_disable_el_google_font',
-		'label'    => esc_html__( 'Disable Google Fonts of Elementor', 'eduma' ),
-		'tooltip'  => esc_html__( 'disable auto load google font of elementor', 'eduma' ),
-		'section'  => 'advanced',
-		'default'  => false,
-		'priority' => 20,
-		'choices'  => array(
-			true  => esc_html__( 'On', 'eduma' ),
-			false => esc_html__( 'Off', 'eduma' ),
-		),
-	)
-);
+
 // Feature: Smoothscroll
 thim_customizer()->add_field(
 	array(
@@ -104,16 +90,16 @@ thim_customizer()->add_field(
 );
 thim_customizer()->add_field(
 	array(
-		'id'              => 'thim_to_top_position',
-		'type'            => 'select',
-		'label'           => esc_html__( 'Icon To Top Position', 'eduma' ),
-		'priority'        => 41,
-		'multiple'        => 0,
-		'section'         => 'advanced',
-		'choices'         => array(
-			''                  => esc_html__( 'Default', 'eduma' ),
-			'show_in_copyright' => esc_html__( 'Show in copyright', 'eduma' ),
-		),
+		'id'          => 'thim_to_top_position',
+		'type'        => 'select',
+ 		'label'    => esc_html__( 'Icon To Top Position', 'eduma' ),
+ 		'priority' => 41,
+		'multiple' => 0,
+		'section'  => 'advanced',
+		'choices'  => array(
+			''                => esc_html__( 'Default', 'eduma' ),
+			'show_in_copyright'     => esc_html__( 'Show in copyright', 'eduma' ),
+ 		),
 		'active_callback' => array(
 			array(
 				'setting'  => 'thim_show_to_top',
@@ -130,13 +116,13 @@ thim_customizer()->add_field( array(
 	'id'       => 'thim_preload',
 	'section'  => 'advanced',
 	'label'    => esc_html__( 'Preloading', 'eduma' ),
-	'default'  => '',
+	'default'  => 'style_3',
 	'priority' => 70,
 	'choices'  => array(
 		''                => THIM_URI . 'images/preloading/off.jpg',
-		'style_1'         => THIM_URI . 'images/preloading/style-1.gif',
-		'style_2'         => THIM_URI . 'images/preloading/style-2.gif',
-		'style_3'         => THIM_URI . 'images/preloading/style-3.gif',
+		'style_1'          => THIM_URI . 'images/preloading/style-1.gif',
+		'style_2'          => THIM_URI . 'images/preloading/style-2.gif',
+		'style_3'          => THIM_URI . 'images/preloading/style-3.gif',
 		'wave'            => THIM_URI . 'images/preloading/wave.gif',
 		'rotating-plane'  => THIM_URI . 'images/preloading/rotating-plane.gif',
 		'double-bounce'   => THIM_URI . 'images/preloading/double-bounce.gif',

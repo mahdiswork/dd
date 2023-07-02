@@ -6,7 +6,7 @@
  *
  * @author   ThimPress
  * @package  Learnpress/Templates
- * @version  4.0.1
+ * @version  4.0.0
  */
 
 /**
@@ -20,26 +20,6 @@ defined( 'ABSPATH' ) || exit();
 <?php
 if ( empty( $tabs ) ) {
 	return;
-}
-// Show status course
-$lp_user = learn_press_get_current_user();
-
-if ( $lp_user && ! $lp_user instanceof LP_User_Guest ) {
-	$can_view_course = $lp_user->can_view_content_course( get_the_ID() );
-
-	if ( ! $can_view_course->flag ) {
-		if ( LP_BLOCK_COURSE_FINISHED === $can_view_course->key ) {
-			learn_press_display_message(
-				esc_html__( 'You finished this course. This course has been blocked', 'learnpress' ),
-				'warning'
-			);
-		} elseif ( LP_BLOCK_COURSE_DURATION_EXPIRE === $can_view_course->key ) {
-			learn_press_display_message(
-				esc_html__( 'This course has been blocked reason by expire', 'learnpress' ),
-				'warning'
-			);
-		}
-	}
 }
 ?>
 

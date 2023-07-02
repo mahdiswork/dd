@@ -15,7 +15,7 @@ $theme_options_data         = get_theme_mods();
 $class                      = isset( $theme_options_data['thim_learnpress_cate_grid_column'] ) && $theme_options_data['thim_learnpress_cate_grid_column'] ? 'course-grid-' . $theme_options_data['thim_learnpress_cate_grid_column'] : 'course-grid-3';
 $course_item_excerpt_length = get_theme_mod( 'thim_learnpress_excerpt_length', 25 );
 $class                      .= ' lpr_course';
-$course                     = learn_press_get_course();
+$course                     = LP_Global::course();
 if ( $course ) {
 	$course_id  = $course->get_id();
 	$course_des = get_post_meta( $course_id, '_lp_coming_soon_msg', true );
@@ -55,10 +55,14 @@ if ( $course ) {
 				<?php learn_press_courses_loop_item_instructor(); ?>
 				<?php
 				the_title( sprintf( '<h2 class="course-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' );
-
-				do_action( 'learnpress_loop_item_course_meta' );
 				?>
-
+                <div class="course-meta">
+					<?php learn_press_courses_loop_item_instructor(); ?>
+					<?php thim_course_ratings(); ?>
+					<?php learn_press_get_template( 'loop/course/students.php' ); ?>
+					<?php thim_course_ratings_count(); ?>
+					<?php learn_press_courses_loop_item_price(); ?>
+                </div>
 
                 <div class="course-description">
 					<?php
@@ -67,7 +71,7 @@ if ( $course ) {
 					do_action( 'learn_press_after_course_content' );
 					?>
                 </div>
-				<?php do_action('learnpress_loop_item_price'); ?>
+				<?php learn_press_courses_loop_item_price(); ?>
                 <div class="course-readmore">
                     <a href="<?php echo esc_url( get_permalink() ); ?>"><?php esc_html_e( 'Read More', 'eduma' ); ?></a>
                 </div>

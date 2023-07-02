@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 global $post;
 $user_id   = get_current_user_id();
 $user      = new LP_User( $user_id );
-$limit     = apply_filters( 'learn_press_profile_tab_courses_all_limit', LP_Settings::instance()->get( 'profile_courses_limit', 10 ) );
+$limit     = apply_filters( 'learn_press_profile_tab_courses_all_limit', LP()->settings->get( 'profile_courses_limit', 10 ) );
 $courses   = learn_press_get_course_of_user_instructor( array( 'limit' => $limit, 'user_id' => $user_id ) );
 $num_pages = learn_press_get_num_pages( $courses['count'], $limit );
 ?>

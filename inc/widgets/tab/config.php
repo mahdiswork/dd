@@ -66,7 +66,14 @@ if ( ! class_exists( 'Thim_Builder_Config_Tab' ) ) {
 							'param_name' => 'title',
 							'allow_html_formatting' => true,
 						),
-
+						array(
+							'type'        => 'colorpicker',
+							'admin_label' => false,
+							'heading'     => esc_html__( 'Background Title', 'eduma' ),
+							'param_name'  => 'bg_title',
+							'value'       => '',
+							'description' => esc_html__( 'Select the color background for title.', 'eduma' ),
+						),
 						array(
 							'type'        => 'textarea',
 							'admin_label' => false,
@@ -74,20 +81,6 @@ if ( ! class_exists( 'Thim_Builder_Config_Tab' ) ) {
 							'param_name'  => 'content',
 							'std'         => esc_html__( 'Write a short description, that will describe the title or something informational and useful.', 'eduma' ),
 						),
-						array(
-							'type'        => 'colorpicker',
-							'admin_label' => false,
-							'heading'     => esc_html__( 'Background Title', 'eduma' ),
-							'param_name'  => 'bg_title',
-							'value'       => '',
-							'description' => esc_html__( 'Select the color background for title. (for Layout Step)', 'eduma' ),
-						),
-						array(
-							'type'       => 'textfield',
- 							'value'      => '',
-							'heading'    => esc_html__( 'Text Button', 'eduma' ),
- 							'param_name' => 'text_button',
- 						),
 						array(
 							'type'        => 'textfield',
 							'type_el'        => 'vc_link',

@@ -3,17 +3,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 // Remove each style one by one
-add_filter( 'woocommerce_enqueue_styles', 'thim_woo_dequeue_styles' );
-function thim_woo_dequeue_styles( $enqueue_styles ) {
-	unset( $enqueue_styles['woocommerce-smallscreen'] );   // Remove the smallscreen optimisation
+add_filter( 'woocommerce_enqueue_styles', 'thim_jk_dequeue_styles' );
+function thim_jk_dequeue_styles( $enqueue_styles ) {
+	unset( $enqueue_styles['woocommerce-smallscreen'] );    // Remove the smallscreen optimisation
 
 	return $enqueue_styles;
 }
-add_filter( 'loop_shop_columns', '__return_false');
 
 // remove woocommerce_breadcrumb
 remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
-// remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
+remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
 
 add_filter( 'loop_shop_per_page', 'thim_loop_shop_per_page' );
 function thim_loop_shop_per_page() {
@@ -34,7 +33,7 @@ function thim_loop_shop_per_page() {
 add_action( 'woocommerce_single_product_summary_quick', 'woocommerce_template_single_title', 5 );
 add_action( 'woocommerce_single_product_summary_quick', 'woocommerce_template_single_price', 10 );
 add_action( 'woocommerce_single_product_summary_quick', 'woocommerce_template_single_rating', 15 );
-add_action( 'woocommerce_single_product_summary_quick', 'woocommerce_template_single_add_to_cart', 20 );
+add_action( 'woocommerce_single_product_summary_quick', 'thim_woocommerce_template_loop_add_to_cart_quick_view', 20 );
 add_action( 'woocommerce_single_product_summary_quick', 'woocommerce_template_single_excerpt', 30 );
 
 //remove_action( 'woocommerce_single_product_summary_quick', 'woocommerce_template_single_meta', 40 );
@@ -43,11 +42,28 @@ add_action( 'woocommerce_single_product_summary_quick', 'woocommerce_template_si
 add_action( 'woocommerce_single_product_summary_quick', 'woocommerce_template_single_sharing', 50 );
 
 //overwrite content product.
-remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
 remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
-// add_action( 'woocommerce_after_shop_loop_item_title_rating', 'woocommerce_template_loop_rating', 5 );
-add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 15 );
+add_action( 'woocommerce_after_shop_loop_item_title_rating', 'woocommerce_template_loop_rating', 5 );
 
+
+if ( ! function_exists( 'thim_woocommerce_template_loop_add_to_cart_quick_view' ) ) {
+	function thim_woocommerce_template_loop_add_to_cart_quick_view() {
+		global $product;
+		do_action( 'woocommerce_' . $product->product_type . '_add_to_cart' );
+	}
+}
+
+/* PRODUCT QUICK VIEW */
+//add_action( 'wp_head', 'thim_lazy_ajax', 0, 0 );
+function thim_lazy_ajax() {
+	?>
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		var ajaxurl = "<?php echo esc_js( admin_url( 'admin-ajax.php' ) ); ?>";
+		/* ]]> */
+	</script>
+	<?php
+}
 
 add_action( 'wp_ajax_jck_quickview', 'thim_jck_quickview' );
 add_action( 'wp_ajax_nopriv_jck_quickview', 'thim_jck_quickview' );
@@ -59,9 +75,9 @@ function thim_jck_quickview() {
 	$product = wc_get_product( $prod_id );
 	// Get category permalink
 	ob_start();
-
-	wc_get_template_part( 'content', 'single-product-lightbox' );
-
+	?>
+	<?php wc_get_template( 'content-single-product-lightbox.php' ); ?>
+	<?php
 	$output = ob_get_contents();
 	ob_end_clean();
 	echo ent2ncr( $output );
@@ -122,18 +138,22 @@ function thim_override_woocommerce_widgets() {
 $shop_layout = get_theme_mod( 'thim_woo_cate_display_layout', 'grid' );
 if ( 'grid' == $shop_layout ) {
 	add_action( 'woocommerce_before_shop_loop', 'thim_woocommerce_product_filter', 15 );
-	add_action( 'woocommerce_before_shop_loop', function(){echo '</div>';}, 60 );
 }
 if ( ! function_exists( 'thim_woocommerce_product_filter' ) ) {
 	function thim_woocommerce_product_filter() {
-		echo '<div class="thim-product-switch-wrap switch-layout-container">
-					<div class="thim-product-switch-layout switch-layout">
-							<a href="javascript:;" class="list switchToGrid"><i class="fa fa-th"></i></a>
-							<a href="javascript:;" class="grid switchToList"><i class="fa fa-list-ul"></i></a>
-					</div>';
+		echo '
+		<div class="thim-product-switch-wrap switch-layout-container">
+		 	<div class="thim-product-switch-layout switch-layout">
+					<a href="javascript:;" class="list switchToGrid"><i class="fa fa-th-large"></i></a>
+					<a href="javascript:;" class="grid switchToList"><i class="fa fa-th-list"></i></a>
+			</div>';
 	}
 }
 
+
+//Page My Account from version 2.6.0
+//remove_action( 'woocommerce_account_content', 'woocommerce_account_content' );
+//
 add_filter( 'woocommerce_account_menu_items', 'thim_woocommerce_account_menu_items' );
 
 if ( ! function_exists( 'thim_woocommerce_account_menu_items' ) ) {
@@ -142,36 +162,4 @@ if ( ! function_exists( 'thim_woocommerce_account_menu_items' ) ) {
 
 		return $items;
 	}
-}
-
-/**
- * Custom WooCommerce breadcrumbs
- *
- * @return array
- */
-if ( ! function_exists( 'thim_woocommerce_breadcrumbs' ) ) {
-	function thim_woocommerce_breadcrumbs() {
-		return array(
-			'delimiter'   => '',
-			'wrap_before' => '<ul class="breadcrumbs" id="breadcrumbs">',
-			'wrap_after'  => '</ul>',
-			'before'      => '<li>',
-			'after'       => '</li>',
-			'home'        => esc_html__( 'Home', 'eduma' ),
-		);
-	}
-}
-add_filter( 'woocommerce_breadcrumb_defaults', 'thim_woocommerce_breadcrumbs' );
-
-add_filter( 'woocommerce_output_related_products_args', 'thim_related_products_args', 20 );
-  function thim_related_products_args( $args ) {
- 	$args['posts_per_page'] = get_theme_mod('thim_woo_product_column',4); // 4 related products
-	$args['columns'] = get_theme_mod('thim_woo_product_column',2); // arranged in 2 columns
-	return $args;
-}
-
-add_filter( 'woocommerce_upsell_display_args', 'thim_upsell_products_coulmn', 20 );
-function thim_upsell_products_coulmn( $args){
- 	$args['columns'] = get_theme_mod('thim_woo_product_column',4);
-   return $args;
 }

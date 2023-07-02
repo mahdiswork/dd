@@ -1,4 +1,7 @@
 <?php
+
+
+
 global $post, $wpdb;
 $random                     = rand( 1, 99 );
 $theme_options_data         = get_theme_mods();
@@ -75,16 +78,17 @@ if ( ! empty( $cat_id_tab ) ) {
 								<?php echo thim_get_feature_image( get_post_thumbnail_id( get_the_ID() ), 'full', $thumb_w, $thumb_h, get_the_title() ); ?>
 								<?php
 								if ( $style == 'style_1' ) {
-									echo '<i class="tk tk-arrow-right"></i>';
+									echo '<i class="lnr icon-arrow-right"></i>';
 								}
 								?>
+
 							</a>
-							 
+							<!-- <?php do_action( 'thim_inner_thumbnail_course' ); ?> -->
 							<?php
 							if ( $style == 'style_2' ) {
-								do_action('learnpress_loop_item_price');
+								learn_press_courses_loop_item_price();
 								echo '<div class="block-cat-author">';
-								list_item_course_cat( get_the_ID() );
+								echo list_item_course_cat( get_the_ID() );
 								learn_press_courses_loop_item_instructor();
 								echo '</div>';
 							}
@@ -95,8 +99,9 @@ if ( ! empty( $cat_id_tab ) ) {
 
 							<?php
 							if ( $style == 'style_1' ) {
-								do_action('learnpress_loop_item_price');
-								list_item_course_cat( get_the_ID() );
+
+								learn_press_courses_loop_item_price();
+								echo list_item_course_cat( get_the_ID() );
 							}
 
 
@@ -130,11 +135,7 @@ if ( ! empty( $cat_id_tab ) ) {
 				</div>
 				<?php
 				if ( $instance['item_tab_slider_style'] == 'style_2' ) {
-					echo '<div class="course-readmore-wrapper">';
-					// only button read more
-					do_action( 'thim-lp-course-button-read-more' );
-
-					echo '</div>';
+					echo '<div class="course-readmore-wrapper"><a class="course-readmore" href="' . esc_url( get_the_permalink( get_the_ID() ) ) . '">' . esc_html__( 'Read More', 'eduma' ) . '</a></div>';
 				}
 				?>
 				</div>

@@ -28,7 +28,6 @@ if ( $instance['layout'] != '' ) {
 
 $id = uniqid();
 echo '<div class="' . $text_align . ' ' . $style_color . '" id="coming-soon-counter' . $id . '"></div>';
-
 ?>
 <script data-cfasync="true" type="text/javascript">
 	(function ($) {

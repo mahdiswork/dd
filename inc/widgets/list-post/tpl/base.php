@@ -1,21 +1,17 @@
 <?php
 global $post;
-$number_posts = ( isset( $instance['number_posts'] ) && $instance['number_posts'] ) ? $instance['number_posts'] : 2;
-
+$number_posts = 2;
+if ( $instance['number_posts'] != '' ) {
+	$number_posts = $instance['number_posts'];
+}
 $style = $html_image = $html_des = $html_link = $ex_class = '';
-
 if ( $instance['style'] != '' ) {
 	$style = $instance['style'];
 }
-
-$show_feature_image = ( isset( $instance['show_feature_image'] )  ) ? $instance['show_feature_image'] : 'yes';
-$length_desc        = ( isset( $instance['length_desc'] ) && $instance['length_desc'] ) ? $instance['length_desc'] : 50;
-// old Data
-$image_size = ( isset( $instance['image_size'] ) && $instance['image_size'] ) ? $instance['image_size'] : 'full';
-if ( $image_size == 'none' ) {
-	$show_feature_image = 'no';
+$image_size = 'none';
+if ( $instance['image_size'] && $instance['image_size'] <> 'none' ) {
+	$image_size = $instance['image_size'];
 }
-
 $query_args = array(
 	'post_type'           => 'post',
 	'posts_per_page'      => $number_posts,
@@ -76,26 +72,41 @@ if ( $posts_display->have_posts() ) {
 	}
 	$ex_class .= ' ' . $style;
 
-	echo '<div class="sc-list-post thim-list-posts' . $ex_class . '" >';
+	echo '<div class="thim-list-posts' . $ex_class . '" >';
 	while ( $posts_display->have_posts() ) {
 		$posts_display->the_post();
 		if ( $style == 'home-new' || $style == 'sidebar' ) {
 			$class = 'item-post';
 		}
-		if ( has_post_thumbnail() && $show_feature_image == 'yes' ) {
-			$html_img   = '';
-			$class      .= ' has_thumb';
-			$html_img   .= '<div class="article-image image"><a href="' . esc_url( get_permalink( get_the_ID() ) ) . '">';
-			$html_img   .= get_the_post_thumbnail( get_the_ID(), $image_size );
-			$html_img   .= '</a></div>';
+		if ( $image_size <> 'none' && has_post_thumbnail() ) {
+			$html_img = '';
+			$class    .= ' has_thumb';
+			if ( $image_size == 'custom_image' ) {
+				$html_img .= '<div class="article-image image">';
+				$html_img .= '<a href="' . esc_url( get_permalink( get_the_ID() ) ) . '">';
+				$html_img .= thim_get_feature_image( get_post_thumbnail_id( $post->ID ), 'full', apply_filters( 'thim_carousel_post_thumbnail_width', 450 ), apply_filters( 'thim_carousel_post_thumbnail_height', 267 ), get_the_title() );
+				$html_img .= '</a>';
+				$html_img .= '</div>';
+			} else {
+				$html_img .= '<div class="article-image image">';
+				$html_img .= '<a href="' . esc_url( get_permalink( get_the_ID() ) ) . '">';
+				$html_img .= get_the_post_thumbnail( get_the_ID(), $image_size );
+				$html_img .= '</a>';
+				$html_img .= '</div>';
+			}
 			$html_image = $html_img;
 		}
 
 		if ( $instance['show_description'] && $instance['show_description'] != 'no' ) {
-			$html_des = '<div class="description">' . thim_excerpt( $length_desc ) . '</div>';
+			$html_des = '<div class="description">' . thim_excerpt( '50' ) . '</div>';
 		}
 
-		?>
+		if ( $instance['text_link'] && $instance['text_link'] != '' ) {
+             $html_link = '<a class="read-more list-post-read-more-' . $style . '" href="' . esc_url( get_permalink( get_the_ID() ) ) . '">'. $instance['text_link'] . '</a>';
+			if ( $style == 'style_2' ) {
+				$html_link = '<div class="block-read-more">'.$html_link.'</div>';
+			}
+		} ?>
 
 	<div <?php post_class( $class ); ?>>
 		<?php if ( $style == 'homepage' ) {
@@ -107,13 +118,13 @@ if ( $posts_display->have_posts() ) {
 					</div>';// end info
 			echo '<h4 class="title"><a href="' . esc_url( get_permalink( get_the_ID() ) ) . '">' . get_the_title() . '</a></h4>'; //end title
 			echo ent2ncr( $html_des );
-			echo '<a class="read-more list-post-read-more-homepage" href="' . esc_url( get_permalink( get_the_ID() ) ) . '">' . esc_html__( 'Read More', 'eduma' ) . '</a>';
+			echo ent2ncr( $html_link );
 			echo '</div>'; // end content
 		} elseif ( $style == 'home-new' ) {
 			echo ent2ncr( $html_image );
 			echo '<div class="article-title-wrapper">';
-			echo '<h5 class="title"><a href="' . esc_url( get_permalink( get_the_ID() ) ) . '" class="article-title">' . get_the_title() . '</a></h5>';
-			echo '<div class="article-date"><i class="tk tk-calendar-with-week-focus"></i> <span class="month">' . get_the_date( 'F' ) . '</span> <span class="day">' . get_the_date( 'd' ) . '</span>, <span class="year">' . get_the_date( 'Y' ) . '</span></div>';
+			echo '<h5><a href="' . esc_url( get_permalink( get_the_ID() ) ) . '" class="article-title">' . get_the_title() . '</a></h5>';
+			echo '<div class="article-date"><i class="ion-ios-calendar-outline"></i> <span class="month">' . get_the_date( 'F' ) . '</span> <span class="day">' . get_the_date( 'd' ) . '</span>, <span class="year">' . get_the_date( 'Y' ) . '</span></div>';
 			echo ent2ncr( $html_des );
 			echo '</div>';
 		} elseif ( $style == 'style_2' ) {
@@ -123,22 +134,27 @@ if ( $posts_display->have_posts() ) {
 			echo '<a href="' . esc_url( get_permalink( get_the_ID() ) ) . '" class="icon-post_format"></a>';
 			echo '</div>';
 			echo '<div class="block-content">';
-			echo '<h5 class="title article-title"><a href="' . esc_url( get_permalink( get_the_ID() ) ) . '">' . get_the_title() . '</a></h5>';
+			echo '<h5 class="article-title"><a href="' . esc_url( get_permalink( get_the_ID() ) ) . '">' . get_the_title() . '</a></h5>';
 			// info author and comment
 			echo '<div class="info">';
-			echo '<div class="author"><i class="tk tk-user"></i> ' . esc_html__( 'By', 'eduma' );
-			printf( '<a href="%1$s">%2$s</a>', esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ), esc_html( get_the_author() ) );
+			echo '<div class="author"><i class="las la-user"></i> ' . esc_html__( 'By', 'eduma' );
+			printf(
+				'<a href="%1$s">%2$s</a>',
+				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+				esc_html( get_the_author() )
+			);
 			echo '</div>';
-			echo '<div class="comments"><i class="tk tk-comment"></i>';
+			echo '<div class="comments"><i class="las la-comment"></i>';
 			comments_popup_link( esc_html__( '0 comments', 'eduma' ), esc_html__( '1 comment', 'eduma' ), '% ' . esc_html__( 'comments', 'eduma' ) );
 			echo '</div>';
 			echo '</div>';
 			// end
+
 			echo '</div>';//end block content
 		} else {
 			echo ent2ncr( $html_image );
 			echo '<div class="article-title-wrapper">';
-			echo '<h5 class="title"><a href="' . esc_url( get_permalink( get_the_ID() ) ) . '" class="article-title">' . get_the_title() . '</a></h5>';
+			echo '<h5><a href="' . esc_url( get_permalink( get_the_ID() ) ) . '" class="article-title">' . get_the_title() . '</a></h5>';
 			echo '<div class="article-date"><span class="day">' . get_the_date( 'd' ) . '</span><span class="month">' . get_the_date( 'M' ) . '</span><span class="year">' . get_the_date( 'Y' ) . '</span></div>';
 			echo ent2ncr( $html_des );
 			echo '</div>';
@@ -148,8 +164,8 @@ if ( $posts_display->have_posts() ) {
 	}
 	echo '</div>';
 
-	if ( $instance['text_link'] && $instance['text_link'] != '' ) {
-		echo '<div class="block-read-more link_read_more"><a class="list-post-read-more-' . $style . '" href="' . esc_url( $instance['link'] ) . '">' . $instance['text_link'] . '</a></div>';
+	if ( $style != 'homepage' ) {
+		echo ent2ncr( $html_link );
 	}
 
 }

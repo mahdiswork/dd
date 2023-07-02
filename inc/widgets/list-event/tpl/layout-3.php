@@ -89,7 +89,7 @@ if ( $events->have_posts() ) {
 				<h5 class="title">
 					<a href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"> <?php echo get_the_title(); ?></a>
 				</h5>
-				<div class="location meta">
+				<div class="location">
 					<?php echo ent2ncr( $location ); ?>
 				</div>
 				<a class="read-more" href="<?php echo esc_url( get_permalink( get_the_ID() ) ); ?>"><i class="fa fa-long-arrow-right"></i></a>

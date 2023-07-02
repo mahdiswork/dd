@@ -4,13 +4,15 @@
  *
  * @package thim
  */
-update_site_option( 'thim_core_product_registration_themes', [ 'eduma' => [ 'site_key' => '4569761464646' ] ] );
+
+update_site_option( 'thim_core_product_registration_themes', [ 'eduma' => [ 'site_key' => '99AB44DC-177F3DB8-9422A245-126B0836' ] ] );
+
+
 define( 'THIM_DIR', trailingslashit( get_template_directory() ) );
 define( 'THIM_URI', trailingslashit( get_template_directory_uri() ) );
+define( 'THIM_THEME_VERSION', '4.5.4' );
 
-const THIM_THEME_VERSION = '5.1.1';
-
- /**
+/**
  * Set the content width based on the theme's design and stylesheet.
  */
 if ( ! isset( $content_width ) ) {
@@ -170,11 +172,8 @@ if ( ! function_exists( 'thim_setup' ) ) :
 				),
 			)
 		);
-		// don't enqueue file css when save customizer
-		add_filter( 'thim_core_enqueue_file_css_customizer', '__return_false' );
-		// remove wp_global_styles_render_svg_filters
-		remove_action( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
-  	}
+ 
+	}
 endif; // thim_setup
 add_action( 'after_setup_theme', 'thim_setup' );
 
@@ -196,19 +195,19 @@ if ( ! function_exists( 'thim_widgets_inits' ) ) {
 				'after_title'   => '</h4>',
 			)
 		);
-		if(get_theme_mod('thim_toolbar_show','true')){
-			register_sidebar(
-				array(
-					'name'          => esc_html__( 'Toolbar', 'eduma' ),
-					'id'            => 'toolbar',
-					'description'   => esc_html__( 'Toolbar Header', 'eduma' ),
-					'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-					'after_widget'  => '</aside>',
-					'before_title'  => '<h4 class="widget-title">',
-					'after_title'   => '</h4>',
-				)
-			);
-		}
+
+		register_sidebar(
+			array(
+				'name'          => esc_html__( 'Toolbar', 'eduma' ),
+				'id'            => 'toolbar',
+				'description'   => esc_html__( 'Toolbar Header', 'eduma' ),
+				'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</aside>',
+				'before_title'  => '<h4 class="widget-title">',
+				'after_title'   => '</h4>',
+			)
+		);
+
 		register_sidebar(
 			array(
 				'name'          => esc_html__( 'Menu Right', 'eduma' ),
@@ -272,20 +271,17 @@ if ( ! function_exists( 'thim_widgets_inits' ) ) {
 			);
 		}
 
-		if(get_theme_mod('thim_copyright_show','true')){
-			register_sidebar(
-				array(
-					'name'          => esc_html__( 'Copyright', 'eduma' ),
-					'id'            => 'copyright',
-					'description'   => esc_html__( 'Copyright', 'eduma' ),
-					'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-					'after_widget'  => '</aside>',
-					'before_title'  => '<h4 class="widget-title">',
-					'after_title'   => '</h4>',
-				)
-			);
-		}
-
+		register_sidebar(
+			array(
+				'name'          => esc_html__( 'Copyright', 'eduma' ),
+				'id'            => 'copyright',
+				'description'   => esc_html__( 'Copyright', 'eduma' ),
+				'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</aside>',
+				'before_title'  => '<h4 class="widget-title">',
+				'after_title'   => '</h4>',
+			)
+		);
 
 		if ( class_exists( 'WooCommerce' ) ) {
 			register_sidebar(
@@ -370,289 +366,78 @@ add_action( 'widgets_init', 'thim_widgets_inits' );
  * Enqueue styles.
  */
 // remove font-awesome in elementor
-add_action(
-	'elementor/frontend/after_register_styles', function () {
-	foreach ( [ 'solid', 'regular', 'brands' ] as $style ) {
-		wp_deregister_style( 'elementor-icons-fa-' . $style );
-		wp_deregister_style( 'font-awesome' );
-	}
-}, 20
-);
-
-// disable load google font of elementor
-if ( get_theme_mod( 'thim_disable_el_google_font', true ) ) {
-	add_filter( 'elementor/frontend/print_google_fonts', '__return_false' );
-}
-/**
- * thim_get_option_var_css
- */
-function thim_get_theme_option( $name = '', $value_default = '' ) {
-	$data = get_theme_mods();
-	if ( isset( $data[$name] ) ) {
-		return $data[$name];
-	} else {
-		return $value_default;
-	}
-}
-
-function thim_get_option_var_css() {
-	$css           = '';
-	$theme_options = array(
-
-		// hearder
-		'thim_body_primary_color'            => '#ffb606',
-		'thim_body_secondary_color'          => '#4caf50',
-		'thim_button_text_color'             => '#333',
-		'thim_button_hover_color'            => '#e6a303',
-		'thim_border_color'					 =>'#eee',
-		'top_info_course' => array(
-			'background_color'=>'#273044',
-			'text_color'=>'#fff',
-		),
-
-		'thim_footer_font_title'             => array(
-			'font-size'      => '14px',
-			'line-height'    => '40px',
-			'text-transform' => 'uppercase',
-		),
-		'thim_top_heading_title_align' =>'left',
-		'thim_top_heading_title_font' => array(
-			'size-desktop'  => '48px',
-			'size-mobile' => '35px',
-		  	'text-transform' => 'uppercase' ,
-		   	'weight' => 'bold' ,
-		),
-		'thim_top_heading_padding' => array(
-			'top'  => '90px',
-			'bottom' => '90px',
-		    'top-mobile'  => '50px',
-			'bottom-mobile' => '50px',
-		),
-		'thim_breacrumb_font_size'=> '1em',
-		'thim_breacrumb_color'=> '#666',
-		'thim_breacrumb_bg_color'=> '',
-		'thim_breacrumb_border_color'=> '',
- 		'thim_course_price_color'=> '#f24c0a',
-		// Thim Logo
-		'thim_width_logo'=>'155px',
-		// Thim ToolBar
-		'thim_bg_color_toolbar'=>'#111',
-		'thim_text_color_toolbar'=>'#ababab',
-		'thim_link_color_toolbar'=>'#fff',
-		'thim_link_hover_color_toolbar'=>'#fff',
-		'thim_toolbar'                       => array(
-			'font-size'      => '12px',
-			'line-height'    => '30px',
-			'text-transform' => 'none',
-		),
-		'thim_toolbar_font_weight'           => '600',
-		'thim_toolbar_border_type'           => 'dashed',
-		'thim_toolbar_border_size'           => '1px',
-		'thim_link_color_toolbar_border_button'           => '#ddd',
-		// Main Menu
-		'thim_bg_main_menu_color'=>'rgba(255,255,255,0)',
-		'thim_main_menu'                     => array(
-			'font-size'      => '14px',
-			'line-height'    => '1.3em',
-			'text-transform' => 'uppercase',
-		),
-		'thim_main_menu_font_weight'         => '600',
-		'thim_main_menu_text_color'=> '#fff',
-		'thim_main_menu_text_hover_color'=> '#fff',
-		// Sticky Menu
-		'thim_sticky_bg_main_menu_color'=>'#fff',
-		'thim_sticky_main_menu_text_color'=>'#333',
-		'thim_sticky_main_menu_text_hover_color'=>'#333',
-		// Sub Menu
-		'thim_sub_menu_bg_color'=> '#fff',
-		'thim_sub_menu_border_color'=>'rgba(43,43,43,0)',
-		'thim_sub_menu_text_color'=>'#999',
-		'thim_sub_menu_text_color_hover'=>'#333',
-
-		// Mobile Menu
-		'thim_bg_mobile_menu_color'=>'#232323',
-		'thim_mobile_menu_text_color'=>'#777',
-		'thim_mobile_menu_text_hover_color'=>'#fff',
-		// Footer
-		'thim_footer_font_title_font_weight' => '700',
-		'thim_footer_font_size'              => '14px',
-
-		'thim_bg_switch_layout_style' => '#f5f5f5',
-		'thim_padding_switch_layout_style'=> '10px',
-
-		'thim_font_body'                        => array(
-			'font-family'    => 'Roboto',
-			'variant'        => '400',
-			'font-size'      => '15px',
-			'line-height'    => '1.7em',
-			'color'          => '#666666',
-		),
-		'thim_font_title'                       => array(
-			'font-family' => 'Roboto Slab',
-            'color'       => '#333333',
-            'variant'     => '700',
-		),
-		'thim_font_h1'                          => array(
-			'font-size'      => '36px',
-			'line-height'    => '1.6em',
-			'text-transform' => 'none',
-		),
-		'thim_font_h2'                          => array(
-			'font-size'      => '28px',
-			'line-height'    => '1.6em',
-			'text-transform' => 'none',
-		),
-		'thim_font_h3'                          => array(
-			'font-size'      => '24px',
-			'line-height'    => '1.6em',
-			'text-transform' => 'none',
-		),
-		'thim_font_h4'                          => array(
-			'font-size'      => '18px',
-			'line-height'    => '1.6em',
-			'text-transform' => 'none',
-		),
-		'thim_font_h5'                          => array(
-			'font-size'      => '16px',
-			'line-height'    => '1.6em',
-			'text-transform' => 'none',
-		),
-		'thim_font_h6'                          => array(
-			'font-size'      => '16px',
-			'line-height'    => '1.4em',
-			'text-transform' => 'none',
-		),
-		'thim_preload_style'   => array(
-			'background' => '#fff',
-			'color'      => '#333333',
-		),
-		'thim_footer_bg_color'=>'#111',
-		'thim_footer_color'=> array(
-			'title' => '#ffffff',
-			'text'  => '#ffffff',
-			'link'  => '#ffffff',
-			'hover' => '#ffb606',
-		),
-		'thim_copyright_bg_color'=>'#111',
-		'thim_copyright_text_color'=>'#999',
-		'thim_copyright_border_color'=>'#222',
-
-		'thim_bg_pattern'=> THIM_URI . 'images/patterns/pattern1.png',
-		'thim_bg_upload'=>'',
-		'thim_bg_repeat'=>'no-repeat',
-		'thim_bg_position'=>'center',
-		'thim_bg_attachment'=>'inherit',
-		'thim_bg_size'=>'inherit',
-		'thim_footer_background_img'=>'',
-		'thim_footer_bg_repeat'=>'no-repeat',
-		'thim_footer_bg_position'=>'center',
-		'thim_footer_bg_size'=>'inherit',
-		'thim_footer_bg_attachment'=>'inherit',
-		'thim_body_bg_color'=>'#fff'
-	);
-
-
-	foreach ( $theme_options as $key => $val ) {
-		$val_opt = thim_get_theme_option( $key, $val );
- 		if ( is_array( $val_opt ) ) {
-			// get options default
-			foreach ( $val as $attr => $value ) {
-				$val_ar = isset($val_opt[$attr]) ? $val_opt[$attr] : $value;
- 			 	$css .= '--' . str_replace( '_', '-', $key ) . '-' . $attr . ':' . $val_ar . ';';
-			}
-		} else {
-			if($val_opt != ''){
- 				if ( in_array( $key, array( 'thim_bg_pattern', 'thim_footer_background_img', 'thim_bg_upload' ) ) ) {
-  					$val_opt = 'url("' . $val_opt . '")';
-				}
-
-				 $css .= '--' . str_replace( '_', '-', $key ) . ':' . $val_opt . ';';
-				 // convert primary color to rga
-				 if($key == 'thim_body_primary_color' || $key == 'thim_button_hover_color' || $key == 'thim_main_menu_text_color'  || $key == 'thim_sticky_main_menu_text_color'){
-					list( $r, $g, $b ) = sscanf( $val_opt, "#%02x%02x%02x" );
- 					$css .= '--'.$key.'_rgb: ' . $r . ',' . $g . ',' . $b . ';';
-				 }
-			}
+add_action( 'elementor/frontend/after_register_styles', function () {
+		foreach ( [ 'solid', 'regular', 'brands' ] as $style ) {
+			wp_deregister_style( 'elementor-icons-fa-' . $style );
+			wp_deregister_style( 'font-awesome' );
 		}
-
-
-		// get data for on type is image
-	}
-
-	return apply_filters( 'thim_get_var_css_customizer', $css );
-}
+	}, 20
+);
 
 if ( ! function_exists( 'thim_styles' ) ) {
 	function thim_styles() {
-		$v_asset = THIM_THEME_VERSION;
- 		if ( class_exists( 'LP_Debug' ) && LP_Debug::is_debug() ) {
- 			$v_asset = uniqid();
-  		}
+		$v_rand = uniqid();
 		wp_deregister_style( 'font-awesome' );
-		if ( ! class_exists( 'TP' ) ) {
- 			wp_enqueue_style( 'thim-fontgoogle-default', 'https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap', array(), THIM_THEME_VERSION );
- 		}
-		// deregister font awesome in LP
-		wp_enqueue_style( 'font-awesome-5-all', THIM_URI . 'assets/css/all.min.css', array(), THIM_THEME_VERSION );
-		wp_enqueue_style( 'font-awesome-4-shim', THIM_URI . 'assets/css/v4-shims.min.css', array(), THIM_THEME_VERSION );
-
-		wp_register_style( 'ionicons', THIM_URI . 'assets/css/ionicons.min.css' );
-		wp_register_style( 'font-pe-icon-7', THIM_URI . 'assets/css/font-pe-icon-7.css' );
-		wp_register_style( 'flaticon', THIM_URI . 'assets/css/flaticon.css' );
-		wp_register_style( 'thim-linearicons-font', THIM_URI . 'assets/css/linearicons.css' );
-
- 		wp_enqueue_style( 'thim-ekit-font-icon', THIM_URI . 'assets/css/thim-ekits-icons.min.css', array(), THIM_THEME_VERSION );
+		wp_enqueue_style( 'font-awesome', THIM_URI . 'assets/css/all.min.css', array(), THIM_THEME_VERSION );
+		wp_enqueue_style( 'font-v4-shims', THIM_URI . 'assets/css/v4-shims.min.css', array(), THIM_THEME_VERSION );
+		wp_enqueue_style( 'ionicons', THIM_URI . 'assets/css/ionicons.min.css' );
+		wp_enqueue_style( 'font-pe-icon-7', THIM_URI . 'assets/css/font-pe-icon-7.css' );
+		wp_enqueue_style( 'flaticon', THIM_URI . 'assets/css/flaticon.css' );
+		wp_enqueue_style( 'thim-linearicons-font', THIM_URI . 'assets/css/linearicons.css' );
+		wp_enqueue_style( 'line-awesome', THIM_URI . 'assets/css/line-awesome.min.css', array(), THIM_THEME_VERSION );
 
 		//Load style for page builder Visual Composer
 		$page_builder = get_theme_mod( 'thim_page_builder_chosen', '' );
 		if ( $page_builder === 'visual_composer' ) {
 			wp_enqueue_style( 'thim-custom-vc', THIM_URI . 'assets/css/custom-vc.css', array(), THIM_THEME_VERSION );
 		}
-
- 		wp_enqueue_style( 'thim-style', get_stylesheet_uri(), array(), $v_asset );
-
-		// if ( is_rtl() ) {
-		// 	wp_enqueue_style( '', THIM_URI . 'rtl-min.css', array(), THIM_THEME_VERSION );
-		// }
-
-		// css inline
-		$css_line = ':root{' .  preg_replace(
-				array( '/\s*(\w)\s*{\s*/', '/\s*(\S*:)(\s*)([^;]*)(\s|\n)*;(\n|\s)*/', '/\n/', '/\s*}\s*/' ),
-				array( '$1{ ', '$1$3;', "", '} ' ), thim_get_option_var_css() ). '}';
-		// get custom css
-		$css_line .= trim( get_theme_mod('thim_custom_css'));
-		wp_add_inline_style(
-			'thim-style', $css_line
-		);
-
-		// fix font icon for child theme
-		if (apply_filters( 'learn_press_child_in_parrent_template_path', '' ) ) {
-			wp_enqueue_style('ionicons');
+		if ( defined( 'THIM_DEBUG' ) ) {
+			wp_enqueue_style( 'thim-style', get_stylesheet_uri(), array(), $v_rand );
+		} else {
+			wp_enqueue_style( 'thim-style', get_stylesheet_uri(), array(), THIM_THEME_VERSION );
 		}
+
+		if ( is_rtl() ) {
+			wp_enqueue_style( 'thim-rtl', THIM_URI . 'rtl.css', array(), THIM_THEME_VERSION );
+		}
+		//thim_footer_font_title
+		$thim_footer_font_title_value          = get_theme_mod( 'thim_footer_font_title', [] );
+		$thim_footer_font_title_font_size      = isset( $thim_footer_font_title_value['font-size'] ) ? $thim_footer_font_title_value['font-size'] : '14px';
+		$thim_footer_font_title_line_height    = isset( $thim_footer_font_title_value['line-height'] ) ? $thim_footer_font_title_value['line-height'] : '40px';
+		$thim_footer_font_title_text_transform = isset( $thim_footer_font_title_value['text-transform'] ) ? $thim_footer_font_title_value['text-transform'] : 'uppercase';
+
+		$var_css = '
+			:root {
+				--thim-body-primary-color: ' . get_theme_mod( 'thim_body_primary_color', '#ffb606' ) . ';
+				--thim-body-secondary-color: ' . get_theme_mod( 'thim_body_secondary_color', '#4caf50' ) . ';
+				--thim-button-text-color: ' . get_theme_mod( 'thim_button_text_color', '#333' ) . ';
+				--thim-button-hover-color: ' . get_theme_mod( 'thim_button_hover_color', '#e6a303' ) . ';
+				--thim-footer-font-title-font-size: ' . $thim_footer_font_title_font_size . ';
+				--thim-footer-font-title-line-height: ' . $thim_footer_font_title_line_height . ';
+				--thim-footer-font-title-text-transform: ' . $thim_footer_font_title_text_transform . ';
+				--thim-footer-font-title-font-weight: ' . get_theme_mod( 'thim_footer_font_title_font_weight', '700' ) . ';
+				--thim-footer-font-size: ' . get_theme_mod( 'thim_footer_font_size', '14px' ) . ';
+				--thim-main-menu-font-weight: ' . get_theme_mod( 'thim_main_menu_font_weight', '600' ) . ';
+  			}
+		';
+
+		wp_add_inline_style(
+			'thim-style', preg_replace(
+				array( '/\s*(\w)\s*{\s*/', '/\s*(\S*:)(\s*)([^;]*)(\s|\n)*;(\n|\s)*/', '/\n/', '/\s*}\s*/' ),
+				array( '$1{ ', '$1$3;', "", '} ' ),
+				$var_css
+			)
+		);
 	}
 }
 add_action( 'wp_enqueue_scripts', 'thim_styles', 1001 );
-// fix for thim-core ver < 2.1.0
-if ( defined( 'THIM_CORE_VERSION' ) && version_compare( THIM_CORE_VERSION, '2.1.0', '<' ) ) {
 
-	if ( ! function_exists( 'thim_deregister_styles_customizer' ) ) {
-		function thim_deregister_styles_customizer() {
-			wp_deregister_style('thim-style-options');
-		}
-	}
-	add_action( 'wp_enqueue_scripts', 'thim_deregister_styles_customizer', 2001 );
-}
 /**
  * Enqueue scripts.
  */
 if ( ! function_exists( 'thim_scripts' ) ) {
 	function thim_scripts() {
- 		$v_asset = THIM_THEME_VERSION;
-		$min     = '.min';
-		if ( class_exists( 'LP_Debug' ) && LP_Debug::is_debug() ) {
- 			$v_asset = uniqid();
-			$min     = '';
- 		}
+		$v_rand = uniqid();
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
 		}
@@ -660,40 +445,39 @@ if ( ! function_exists( 'thim_scripts' ) ) {
 		// New script update
 		wp_register_script( 'thim-content-slider', THIM_URI . 'assets/js/thim-content-slider.js', array( 'jquery' ), THIM_THEME_VERSION, true );
 		wp_register_script( 'flexslider', THIM_URI . 'assets/js/jquery.flexslider-min.js', array( 'jquery' ), THIM_THEME_VERSION, true );
+
 		wp_register_script( 'magnific-popup', THIM_URI . 'assets/js/jquery.magnific-popup.min.js', array( 'jquery' ), THIM_THEME_VERSION, true );
+		wp_register_script( 'variations', THIM_URI . 'assets/js/variations-form.js', array( 'jquery' ), THIM_THEME_VERSION, true );
 		wp_register_script( 'mb-commingsoon', THIM_URI . 'assets/js/mb-commingsoon.min.js', array( 'jquery' ), THIM_THEME_VERSION, true );
 		wp_register_script( 'isotope', THIM_URI . 'assets/js/isotope.pkgd.min.js', array( 'jquery' ), THIM_THEME_VERSION, true );
 		wp_register_script( 'thim_simple_slider', THIM_URI . 'assets/js/thim_simple_slider.min.js', array( 'jquery' ), THIM_THEME_VERSION, true );
+
 		wp_register_script( 'thim-portfolio-appear', THIM_URI . 'assets/js/jquery.appear.min.js', array( 'jquery' ), THIM_THEME_VERSION, true );
 		wp_register_script( 'thim-portfolio-widget', THIM_URI . 'assets/js/portfolio.min.js', array( 'jquery', 'isotope', ), THIM_THEME_VERSION, true );
+
+		// show dashicons when not login
+		//		wp_enqueue_style( 'dashicons' );
+
+		wp_enqueue_script( 'thim-main', THIM_URI . 'assets/js/main.min.js', array( 'jquery' ), THIM_THEME_VERSION, true );
+
 		wp_register_script( 'waypoints', THIM_URI . 'assets/js/jquery.waypoints.min.js', array( 'jquery' ), THIM_THEME_VERSION, true );
 		wp_register_script( 'thim-CountTo', THIM_URI . 'assets/js/jquery.countTo.min.js', array( 'jquery' ), THIM_THEME_VERSION, true );
-
-		wp_enqueue_script( 'thim-main', THIM_URI . 'assets/js/main.min.js', array( 'jquery','imagesloaded' ), THIM_THEME_VERSION, true );
-
-
 
 		if ( get_theme_mod( 'thim_smooth_scroll', true ) ) {
 			wp_enqueue_script( 'thim-smooth-scroll', THIM_URI . 'assets/js/smooth_scroll.min.js', array( 'jquery' ), THIM_THEME_VERSION, true );
 		}
 
-		wp_enqueue_script( 'thim-custom-script', THIM_URI . 'assets/js/custom-script-v2' . $min . '.js', array( 'jquery' ), $v_asset, true );
-
-
-		// thim archive api v2
-		if ( thim_is_new_learnpress( '4.1.6' ) ) {
-			wp_enqueue_script( 'thim-scripts-course-filter-v2', THIM_URI . 'assets/js/thim-course-filter-v2' . $min . '.js', array( 'jquery', 'wp-api-fetch', 'lp-courses', 'wp-hooks' ), $v_asset, true );
+		if ( defined( 'THIM_DEBUG' ) ) {
+			wp_enqueue_script( 'thim-custom-script', THIM_URI . 'assets/js/custom-script-v2.js', array( 'jquery' ), $v_rand, true );
+			wp_enqueue_script( 'thim-scripts', THIM_URI . 'assets/js/thim-scripts.js', array( 'jquery' ), $v_rand, true );
 		} else {
-			wp_enqueue_script( 'thim-scripts-course-filter', THIM_URI . 'assets/js/thim-course-filter' . $min . '.js', array( 'jquery' ), $v_asset, true );
+			wp_enqueue_script( 'thim-custom-script', THIM_URI . 'assets/js/custom-script-v2.js', array( 'jquery' ), THIM_THEME_VERSION, true );
+			wp_enqueue_script( 'thim-scripts', THIM_URI . 'assets/js/thim-scripts.min.js', array( 'jquery' ), THIM_THEME_VERSION, true );
 		}
 
-		wp_enqueue_script( 'thim-scripts', THIM_URI . 'assets/js/thim-scripts' . $min . '.js', array( 'jquery' ), $v_asset, true );
-		// end api v2
 		// Localize the script with new data
 		wp_localize_script(
-			'thim-custom-script',
-			'thim_js_translate',
-			array(
+			'thim-custom-script', 'thim_js_translate', array(
 				'login'    => esc_attr__( 'Username', 'eduma' ),
 				'password' => esc_attr__( 'Password', 'eduma' ),
 				'close'    => esc_html__( 'Close', 'eduma' ),
@@ -707,6 +491,7 @@ if ( ! function_exists( 'thim_scripts' ) ) {
 
 		wp_dequeue_script( 'framework-bootstrap' );
 		wp_dequeue_script( 'bootstrap' );
+		//		wp_dequeue_script( 'thim-flexslider' );
 
 		// Remove some scripts LearnPress
 		wp_dequeue_style( 'lpr-print-rate-css' );
@@ -776,12 +561,8 @@ if ( ! function_exists( 'thim_scripts' ) ) {
 		wp_dequeue_style( 'owl_carousel_css' );
 		wp_dequeue_style( 'learn-press-coming-soon-course' );
 		wp_dequeue_script( 'learn-press-jquery-mb-coming-soon' );
-		//library css event
-		$dequeue_style_event = true;
-		if ( get_post_type() == 'tp_event' && is_single()  ) {
-			$dequeue_style_event = false;
-  		}
-		if($dequeue_style_event){
+
+		if ( get_post_type() != 'tp_event' && ! is_single() ) {
 			wp_dequeue_style( 'wpems-countdown-css' );
 			wp_dequeue_style( 'wpems-owl-carousel-css' );
 			wp_dequeue_style( 'wpems-fronted-css' );
@@ -792,10 +573,9 @@ if ( ! function_exists( 'thim_scripts' ) ) {
 			wp_dequeue_script( 'wpems-owl-carousel-js' );
 			wp_dequeue_script( 'wpems-frontend-js' );
 		}
-
 		if ( class_exists( 'WooCommerce' ) && ! is_woocommerce() && ! is_shop() && ! is_product_category() && ! is_product() && ! is_cart() && ! is_checkout() ) {
-			wp_dequeue_style( 'wc-blocks-vendors-style' );
-			wp_dequeue_style( 'wc-blocks-style' );
+			wp_dequeue_style( 'wc-block-vendors-style' );
+			wp_dequeue_style( 'wc-block-style' );
 			wp_dequeue_style( 'woocommerce-layout' );
 			wp_dequeue_style( 'woocommerce-general' );
 			wp_dequeue_script( 'wc-add-to-cart' );
@@ -818,12 +598,14 @@ function thim_custom_admin_scripts() {
 
 	$thim_mod                 = get_theme_mods();
 	$thim_page_builder_chosen = ! empty( $thim_mod['thim_page_builder_chosen'] ) ? $thim_mod['thim_page_builder_chosen'] : '';
-	wp_localize_script( 'thim-admin-custom-script', 'thim_theme_mods', array(
+	wp_localize_script(
+		'thim-admin-custom-script', 'thim_theme_mods', array(
 			'thim_page_builder_chosen' => $thim_page_builder_chosen,
 		)
 	);
 }
- add_action( 'admin_enqueue_scripts', 'thim_custom_admin_scripts' );
+
+add_action( 'admin_enqueue_scripts', 'thim_custom_admin_scripts' );
 
 // Require library
 
@@ -873,18 +655,4 @@ if ( ! function_exists( 'thim_register_multiple_variants' ) ) {
 			return;
 		}
 	}
-}
-
-add_filter( 'thim_ekit/mega_menu/menu_container/class', function() {
-	return 'header .thim-nav-wrapper .tm-table';
-} );
-
-if ( ! function_exists( 'thim_enable_upload_svg' ) ) {
-	function thim_enable_upload_svg( $mimes ) {
-		$mimes['svg'] = 'image/svg+xml';
-
-		return $mimes;
-	}
-
-	add_filter( 'upload_mimes', 'thim_enable_upload_svg' );
 }

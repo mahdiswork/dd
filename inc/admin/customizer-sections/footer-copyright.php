@@ -13,22 +13,7 @@ thim_customizer()->add_section(
 		'priority' => 50,
 	)
 );
-// Enable or disable top bar
-thim_customizer()->add_field(
-	array(
-		'id'       => 'thim_copyright_show',
-		'type'     => 'switch',
-		'label'    => esc_html__( 'Show Copyright', 'eduma' ),
-		'tooltip'  => esc_html__( 'Allows you to enable or disable Copyright.', 'eduma' ),
-		'section'  => 'copyright',
-		'default'  => true,
-		'priority' => 10,
-		'choices'  => array(
-			true  => esc_html__( 'On', 'eduma' ),
-			false => esc_html__( 'Off', 'eduma' ),
-		),
-	)
-);
+
 // Copyright Background Color
 thim_customizer()->add_field(
 	array(
@@ -41,13 +26,6 @@ thim_customizer()->add_field(
 		'priority'  => 15,
 		'choices'   => array( 'alpha' => true ),
 		'transport' => 'postMessage',
-		'active_callback' => array(
-			array(
-				'setting'  => 'thim_copyright_show',
-				'operator' => '===',
-				'value'    => true,
-			),
-		),
 		'js_vars'   => array(
 			array(
 				'function' => 'css',
@@ -69,13 +47,6 @@ thim_customizer()->add_field(
 		'priority'  => 20,
 		'choices'   => array( 'alpha' => true ),
 		'transport' => 'postMessage',
-		'active_callback' => array(
-			array(
-				'setting'  => 'thim_copyright_show',
-				'operator' => '===',
-				'value'    => true,
-			),
-		),
 		'js_vars'   => array(
 			array(
 				'function' => 'css',
@@ -97,13 +68,6 @@ thim_customizer()->add_field(
 		'priority'  => 20,
 		'choices'   => array( 'alpha' => true ),
 		'transport' => 'postMessage',
-		'active_callback' => array(
-			array(
-				'setting'  => 'thim_copyright_show',
-				'operator' => '===',
-				'value'    => true,
-			),
-		),
 		'js_vars'   => array(
 			array(
 				'function' => 'css',
@@ -122,16 +86,9 @@ thim_customizer()->add_field(
 		'label'     => esc_html__( 'Copyright Text', 'eduma' ),
 		'tooltip'   => esc_html__( 'Enter the text that displays in the copyright bar. HTML markup can be used.', 'eduma' ),
 		'section'   => 'copyright',
-		'default'   => '<a href="' . esc_url( 'https://1.envato.market/G5Ook' ) . '" target="_blank">Education WordPress Theme</a> by <a href="' . esc_url( 'thimpress.com' ) . '" target="_blank">ThimPress.</a> Powered by WordPress.',
+		'default'   => '<a href="' . esc_url( 'https://themeforest.net/item/education-wordpress-theme-education-wp/14058034' ) . '" target="_blank">Education WordPress Theme</a> by <a href="' . esc_url( 'http://www.thimpress.com' ) . '" target="_blank">ThimPress.</a> Powered by WordPress.',
 		'priority'  => 100,
 		'transport' => 'postMessage',
-		'active_callback' => array(
-			array(
-				'setting'  => 'thim_copyright_show',
-				'operator' => '===',
-				'value'    => true,
-			),
-		),
 		'js_vars'   => array(
 			array(
 				'element'  => 'footer#colophon .text-copyright',
@@ -149,13 +106,6 @@ thim_customizer()->add_field(
 		'label'    => esc_html__( 'Width Column Copyright Text', 'eduma' ),
 		'default'  => '6',
 		'priority' => 101,
-		'active_callback' => array(
-			array(
-				'setting'  => 'thim_copyright_show',
-				'operator' => '===',
-				'value'    => true,
-			),
-		),
 		'section'  => 'copyright',
 		'choices'  => array(
 			'5' => '20%',

@@ -64,10 +64,7 @@ if ( ! function_exists( 'thim_wrapper_layout' ) ) :
 			if ( $using_custom_layout ) {
 				$wrapper_layout = get_post_meta( $postid, 'thim_mtb_layout', true );
 			}
-			// no sidebar single course in style 1 & 3
- 			if ( (thim_lp_style_single_course() =='new-1' || thim_lp_style_single_course() =='layout_style_3') && $prefix =='thim_learnpress') {
-				$wrapper_layout = 'full-content';
-			}
+
 		} else {
 			if ( isset( $theme_options_data[$prefix . '_cate_layout'] ) ) {
 				$wrapper_layout = $theme_options_data[$prefix . '_cate_layout'];
@@ -115,8 +112,6 @@ if ( ! function_exists( 'thim_wrapper_loop_start' ) ) :
 				$class_no_padding = ' no-padding-top';
 			}
 		}
-		//thim_no_padding_content
- 	
 		$class_col     = thim_wrapper_layout();
 		$sidebar_class = '';
 		if ( is_404() ) {
@@ -131,8 +126,13 @@ if ( ! function_exists( 'thim_wrapper_loop_start' ) ) :
 		if ( $class_col == "content-wide" ) {
 			$sidebar_class = '-fluid';
 		}
-	 
-  		do_action( 'thim_before_site_content' );
+		// add new style for top heading
+
+		if ( ! empty( $theme_options_data['thim_layout_content_page'] ) ) {
+			$layout_style_2 = $theme_options_data['thim_layout_content_page'];
+			$sidebar_class  .= ( $layout_style_2 == 'layout_style_2' ) ? ' top-heading-style-3' : '';
+		}
+		do_action( 'thim_before_site_content' );
 
 		echo '<div class="container' . $sidebar_class . $class_no_padding . ' site-content">';
 

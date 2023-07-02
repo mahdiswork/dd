@@ -28,9 +28,9 @@ global $post;
 						$user_data   = get_userdata( $post->post_author );
 						$author_name = '';
 						if ( $user_data ) {
-							if ( ! empty( $user_data->display_name ) ) {
+							if( !empty( $user_data->display_name ) ) {
 								$author_name = $user_data->display_name;
-							} else {
+							}else{
 								$author_name = $user_data->user_login;
 							}
 						}
@@ -47,7 +47,7 @@ global $post;
 		<?php do_action( 'learn_press_after_enrolled_course_title' ); ?>
 		<div class="course-meta">
 			<?php
-			$course        = learn_press_get_course( $post->ID );
+			$course = learn_press_get_course( $post->ID );
 			$count_student = $course->count_students( 'append' ) ? $course->count_students( 'append' ) : 0;
 			?>
 			<div class="course-students">
@@ -66,10 +66,7 @@ global $post;
 					<div class="value free-course" itemprop="price" content="<?php esc_attr_e( 'Free', 'eduma' ); ?>">
 						<?php esc_html_e( 'Free', 'eduma' ); ?>
 					</div>
-					<?php
-				else :
-					$price = learn_press_format_price( $course->get_price(), true );
-					?>
+				<?php else: $price = learn_press_format_price( $course->get_price(), true ); ?>
 					<div class="value " itemprop="price" content="<?php echo esc_attr( $price ); ?>">
 						<?php echo esc_html( $price ); ?>
 					</div>

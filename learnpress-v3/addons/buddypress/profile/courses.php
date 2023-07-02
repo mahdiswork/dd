@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit();
 ?>
 
 <?php
-$limit     = apply_filters( 'learn_press_profile_tab_courses_all_limit',LP_Settings::instance()->get( 'profile_courses_limit', 10 ) );
+$limit     = apply_filters( 'learn_press_profile_tab_courses_all_limit', LP()->settings->get( 'profile_courses_limit', 10 ) );
 $profile = learn_press_get_profile();
 $query   = isset( $_REQUEST['filter'] ) ? $_REQUEST['filter'] : 'own';
 $filters = array(

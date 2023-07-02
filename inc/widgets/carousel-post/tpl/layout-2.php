@@ -41,6 +41,7 @@ switch ( $instance['orderby'] ) {
 }
 
 $posts_display = new WP_Query( $query_args );
+$id            = uniqid();
 
 if ( $posts_display->have_posts() ) {
 	if ( $instance['title'] ) {
@@ -77,6 +78,60 @@ if ( $posts_display->have_posts() ) {
 		endwhile;
 		?>
 	</div>
+
+	<script type="text/javascript">
+		jQuery(document).ready(function(){
+			"use strict";
+
+			jQuery('.thim-carousel-wrapper').each(function() {
+				var item_visible = jQuery(this).data('visible') ? parseInt(
+					jQuery(this).data('visible')) : 4,
+					item_desktopsmall = jQuery(this).data('desktopsmall') ? parseInt(
+						jQuery(this).data('desktopsmall')) : item_visible,
+					itemsTablet = jQuery(this).data('itemtablet') ? parseInt(
+						jQuery(this).data('itemtablet')) : 2,
+					itemsMobile = jQuery(this).data('itemmobile') ? parseInt(
+						jQuery(this).data('itemmobile')) : 1,
+					pagination = !!jQuery(this).data('pagination'),
+					navigation = !!jQuery(this).data('navigation'),
+					autoplay = jQuery(this).data('autoplay') ? parseInt(
+						jQuery(this).data('autoplay')) : false,
+					navigation_text = (jQuery(this).data('navigation-text') &&
+						jQuery(this).data('navigation-text') === '2') ? [
+						'<i class=\'fa fa-long-arrow-left \'></i>',
+						'<i class=\'fa fa-long-arrow-right \'></i>',
+					] : [
+						'<i class=\'fa fa-chevron-left \'></i>',
+						'<i class=\'fa fa-chevron-right \'></i>',
+					];
+
+				jQuery(this).owlCarousel({
+					items            : item_visible,
+					itemsDesktop     : [1200, item_visible],
+					itemsDesktopSmall: [1024, item_desktopsmall],
+					itemsTablet      : [768, itemsTablet],
+					itemsMobile      : [480, itemsMobile],
+					navigation       : navigation,
+					pagination       : pagination,
+					lazyLoad         : true,
+					autoPlay         : autoplay,
+					navigationText   : navigation_text,
+					afterAction    : function () {
+						var width_screen = jQuery(window).width();
+						var width_container = jQuery('#main-home-content').width();
+						var elementInstructorCourses = jQuery('.thim-instructor-courses');
+
+						if(elementInstructorCourses.length){
+							if( width_screen > width_container ){
+								var margin_left_value = ( width_screen - width_container ) / 2 ;
+								jQuery('.thim-instructor-courses .thim-course-slider-instructor .owl-controls .owl-buttons').css('left',margin_left_value+'px');
+							}
+						}
+					}
+				});
+			});
+		});
+	</script>
 
 	<?php
 }

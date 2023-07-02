@@ -9,11 +9,13 @@ if ( ! $total ) {
 }
 
 $theme_options_data = get_theme_mods();
-$autoplay           = isset( $instance['auto_play'] ) ? $instance['auto_play'] : 0;
+$course_id          = 0;
+$autoplay     = isset( $instance['auto_play'] ) ? $instance['auto_play'] : 0;
 
-$course_id_old = ( isset( $theme_options_data['thim_learnpress_one_course_id'] ) && ! empty( $theme_options_data['thim_learnpress_one_course_id'] ) ) ? $theme_options_data['thim_learnpress_one_course_id'] : 0;
+if ( ! empty( $theme_options_data['thim_learnpress_one_course_id'] ) ) {
+	$course_id = $theme_options_data['thim_learnpress_one_course_id'];
+}
 
-$course_id = ( isset( $instance['courses_id'] ) && $instance['courses_id'] ) ? $instance['courses_id'] : $course_id_old;
 if ( $course_id ) {
 	// validate type course
 	if ( get_post_type( $course_id ) != 'lp_course' ) {
@@ -53,23 +55,23 @@ if ( $instance['visible_item'] && $instance['visible_item'] != '' ) {
 	$visible_item = (int) $instance['visible_item'];
 }
 
-if ( count( $co_instructors ) < $visible_item ) {
-	$visible_item = count( $co_instructors );
+if( count($co_instructors) < $visible_item ) {
+	$visible_item = count($co_instructors);
 }
 
-$pagination = ( ! empty( $instance['show_pagination'] ) && $instance['show_pagination'] !== 'no' ) ? 1 : 0;
+$pagination = ( !empty($instance['show_pagination']) && $instance['show_pagination'] !== 'no' ) ? 1 : 0;
 
 // Using $co_instructors
 if ( ! empty( $co_instructors ) ) {
-	$html = '<div class="thim-carousel-wrapper thim-carousel-instructors" data-visible="' . $visible_item . '" data-pagination="' . $pagination . '" data-autoplay="' . esc_attr( $autoplay ) . '">';
+	$html = '<div class="thim-carousel-wrapper thim-carousel-instructors" data-visible="'.$visible_item.'" data-pagination="'.$pagination.'" data-autoplay="' . esc_attr( $autoplay ) . '">';
 	foreach ( $co_instructors as $key => $instructor ) {
 		$lp_info = get_the_author_meta( 'lp_info', $instructor );
 		$link    = learn_press_user_profile_link( $instructor );
-		$html    .= '<div class="instructor-item">';
-		$html    .= '<div class="avatar">' . get_avatar( $instructor, 65 ) . '</div>';
-		$html    .= '<div class="instructor-info">';
-		$html    .= '<h4 class="name" >' . get_the_author_meta( 'display_name', $instructor ) . '</h4>';
-		if ( isset( $lp_info['major'] ) ) {
+		$html .= '<div class="instructor-item">';
+		$html .= '<div class="avatar">' . get_avatar( $instructor, 65 ) . '</div>';
+		$html .= '<div class="instructor-info">';
+		$html .= '<h4 class="name" >' . get_the_author_meta( 'display_name', $instructor ) . '</h4>';
+		if( isset($lp_info['major']) ){
 			$html .= '<p class="job">' . $lp_info['major'] . '</p>';
 		}
 		$html .= '</div>';
@@ -80,6 +82,6 @@ if ( ! empty( $co_instructors ) ) {
 	$html .= '</div>';
 }
 
-echo ent2ncr( $html );
+echo  ent2ncr($html);
 
 ?>

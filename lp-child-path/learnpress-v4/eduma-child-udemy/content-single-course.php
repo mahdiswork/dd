@@ -20,9 +20,9 @@ if ( post_password_required() ) {
 	return;
 }
 
-/*$course = LearnPress::instance()->global['course'];
+$course = LP()->global['course'];
 $user   = learn_press_get_current_user();
-$is_enrolled = $user->has_enrolled_course($course->get_id());*/
+$is_enrolled = $user->has_enrolled_course($course->get_id());
 
 /**
  * @deprecated
@@ -39,7 +39,7 @@ do_action( 'learn-press/before-main-content' );
 do_action( 'learn-press/before-single-course' );
 ?>
 
-<?php if( thim_lp_style_single_course() == 'new-1' ) {?>
+<?php if( get_theme_mod( 'thim_layout_content_page', 'normal' ) == 'new-1' ) {?>
 
     <div class="content_course_2">
 
@@ -64,13 +64,13 @@ do_action( 'learn-press/before-single-course' );
 
                 <div class="course_right">
 
-                    <?php LearnPress::instance()->template( 'course' )->user_progress(); ?>
+                    <?php LP()->template( 'course' )->user_progress(); ?>
 
                     <div class="course-payment">
 
                         <?php
-							LearnPress::instance()->template( 'course' )->course_pricing();
-							LearnPress::instance()->template( 'course' )->course_buttons();
+							LP()->template( 'course' )->course_pricing();
+							LP()->template( 'course' )->course_buttons();
                         ?>
 
                     </div>

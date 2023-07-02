@@ -6,19 +6,16 @@
  *
  * @author  ThimPress
  * @package  Learnpress/Templates
- * @version  3.0.1
+ * @version  3.0.0
  */
 
 /**
  * Prevent loading this file directly
  */
 defined( 'ABSPATH' ) || exit();
-
-$course = learn_press_get_course();
-if ( ! $course ) {
-	return;
-}
 ?>
+
+<?php global $course; ?>
 
 <div class="course-description" id="learn-press-course-description">
 
@@ -35,11 +32,11 @@ if ( ! $course ) {
 
 	?>
 
-	<div class="thim-course-content">
-		<?php the_content(); ?>
-	</div>
+    <div class="thim-course-content">
+        <?php the_content(); ?>
+    </div>
 
-	<?php
+    <?php
 	/**
 	 * @since 3.0.0
 	 */

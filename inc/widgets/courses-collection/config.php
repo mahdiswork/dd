@@ -39,7 +39,13 @@ if ( ! class_exists( 'Thim_Builder_Config_Courses_Collection' ) ) {
 
 			// options
 			return array(
-
+				array(
+					'type'        => 'textfield',
+					'admin_label' => true,
+					'heading'     => esc_html__( 'Title', 'eduma' ),
+					'param_name'  => 'title',
+					'allow_html_formatting' => true,
+				),
 
 				array(
 					'type'        => 'dropdown',

@@ -24,7 +24,7 @@ if ( $the_query->have_posts() ) :
         <div class="item">
             <div class="thumbnail">
                 <?php
-                echo '<a href="' . esc_url( get_the_permalink() ) . '" class="feature-image">';
+                echo '<a href="' . esc_url( get_the_permalink() ) . '" >';
                 echo thim_get_feature_image( get_post_thumbnail_id( $post->ID ), 'full', 300, 210, get_the_title() );
                 echo '</a>';
                 ?>
@@ -44,6 +44,9 @@ endif;
 
 wp_reset_postdata();
 
+if ( $instance['title'] ) {
+    echo ent2ncr( $args['before_title'] . $instance['title'] . $args['after_title'] );
+}
 ?>
 <div class="thim-courses-collection">
     <div class="thim-carousel-wrapper thim-collection-carousel" data-visible="<?php echo esc_attr( $columns ); ?>"
